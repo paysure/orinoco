@@ -14,7 +14,6 @@ Features
 * typed data container with powerful lookup capabilities
 * easy to extend by user defined actions
 
-
 Consider pipeline like this:
 
 ```
@@ -75,6 +74,16 @@ Switch()
     )
 >> GetClaimChangedNotificationMessage()
 >> NotifyUser()
+```
+
+See the [docs](https://orinoco.rtfd.io) for more info.
+
+## Installation
+
+Use pypi to install the package:
+
+```
+pip install orinoco
 ```
 
 ## Motivation

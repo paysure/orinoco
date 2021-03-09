@@ -4,3 +4,6 @@
 *.pyc
 poetry.lock
 dist
+make.bat
+Makefile
+build
