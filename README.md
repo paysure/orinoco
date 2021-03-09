@@ -1,6 +1,6 @@
 # lena
 
-Functional composable pipelines which allows clean separation business logic from its implementation.
+Functional composable pipelines allowing clean separation of the business logic and its implementation.
 
 Features
 
