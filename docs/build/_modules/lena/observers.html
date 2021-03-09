@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2D2D2D" />
+  
+  <title>lena :: lena.observers</title>
+  
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../_static/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../_static/img/favicon-16x16.png">
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+
+  <link rel="stylesheet" href="../../_static/css/insegel.css"/>
+
+  <script type="text/javascript">
+    var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:'',
+        VERSION:'0.3.2',
+        LANGUAGE:'None',
+        COLLAPSE_INDEX:false,
+        FILE_SUFFIX:'.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+    };
+  </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  <script src="https://email.tl.fortawesome.com/c/eJxNjUEOgyAQAF8jR7Kw6wIHDh7sP1Cw2mgxgmn6-3JsMqc5zEQfE8dkxOY1KKMUOI3ACFKRJpSW2AAp7ontYIaxI6i7XPJVwyeVfCQ550Os3jLrGSNOLgbdAy6s0PBk2TFNjEbsfq31LB0OnX407pJa5v2faRadwSW63mn5KuLyR9j2tgx3zecanl-55R_-jjPs"></script>
+
+</head>
+
+<body>
+  <div id="insegel-container">
+    <header>
+      <div id="logo-container">
+          
+          <a href="../../index.html"><img src="../../_static/img/logo.svg"></a>
+          
+
+      </div>
+      <div id="project-container">
+        <h1>lena Documentation</h1>
+      </div>
+    </header>
+
+    <div id="content-container">
+
+      <div id="main-content-container">
+        <div id="main-content-header">
+          <h1>lena.observers</h1>
+        </div>
+        <div id="main-content">
+          
+  <h1>Source code for lena.observers</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Dict</span>
+
+<span class="kn">from</span> <span class="nn">lena.tags</span> <span class="kn">import</span> <span class="n">SystemActionTag</span>
+<span class="kn">from</span> <span class="nn">lena.types</span> <span class="kn">import</span> <span class="n">ObserverT</span><span class="p">,</span> <span class="n">ActionT</span>
+
+
+<div class="viewcode-block" id="Observer"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.Observer">[docs]</a><span class="k">class</span> <span class="nc">Observer</span><span class="p">(</span><span class="n">ObserverT</span><span class="p">,</span> <span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="Observer.should_record_action"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.Observer.should_record_action">[docs]</a>    <span class="k">def</span> <span class="nf">should_record_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Controls whether the observer will log given action</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Observer.record_start"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.Observer.record_start">[docs]</a>    <span class="k">def</span> <span class="nf">record_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is executed before the ``action`` is executed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="Observer.record_end"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.Observer.record_end">[docs]</a>    <span class="k">def</span> <span class="nf">record_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This method is executed after the ``action`` is executed</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div></div>
+
+
+<div class="viewcode-block" id="ExecutionTimeObserver"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ExecutionTimeObserver">[docs]</a><span class="k">class</span> <span class="nc">ExecutionTimeObserver</span><span class="p">(</span><span class="n">Observer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Observer which measures execution times of the actions in the pipeline</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">measurements</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">measurements</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_measuring</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">ActionT</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;ExecutionTimeObserver(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">measurements</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ExecutionTimeObserver.should_record_action"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ExecutionTimeObserver.should_record_action">[docs]</a>    <span class="k">def</span> <span class="nf">should_record_action</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">SystemActionTag</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__bases__</span></div>
+
+<div class="viewcode-block" id="ExecutionTimeObserver.record_start"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ExecutionTimeObserver.record_start">[docs]</a>    <span class="k">def</span> <span class="nf">record_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_measuring</span><span class="p">[</span><span class="n">action</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ExecutionTimeObserver.record_end"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ExecutionTimeObserver.record_end">[docs]</a>    <span class="k">def</span> <span class="nf">record_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">measurements</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="s2">&quot;action.</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">),</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measuring</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">action</span><span class="p">)))</span></div></div>
+
+
+<div class="viewcode-block" id="ActionsLog"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ActionsLog">[docs]</a><span class="k">class</span> <span class="nc">ActionsLog</span><span class="p">(</span><span class="n">Observer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Observer which logs which actions were executed</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">actions_log</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions_log</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;ActionsLog(</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">actions_log</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ActionsLog.record_start"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ActionsLog.record_start">[docs]</a>    <span class="k">def</span> <span class="nf">record_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">action</span><span class="o">.</span><span class="n">action_name</span> <span class="o">+</span> <span class="s2">&quot;_start&quot;</span>
+                <span class="k">if</span> <span class="s2">&quot;AND&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="n">action_name</span>
+                <span class="k">else</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)_start&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ActionsLog.record_end"><a class="viewcode-back" href="../../reference/observers.html#lena.observers.ActionsLog.record_end">[docs]</a>    <span class="k">def</span> <span class="nf">record_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions_log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">action</span><span class="o">.</span><span class="n">action_name</span> <span class="o">+</span> <span class="s2">&quot;_end&quot;</span> <span class="k">if</span> <span class="s2">&quot;AND&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="n">action_name</span> <span class="k">else</span> <span class="s2">&quot;(</span><span class="si">{}</span><span class="s2">)_end&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">)</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+        </div>
+      </div>
+
+      <div id="side-menu-container">
+
+        <div id="search" role="search">
+        <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+            <input type="text" name="q" placeholder="Search..." />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+        </form>
+</div>
+
+        <div id="side-menu" role="navigation">
+
+          
+  
+    
+  
+  
+    <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../reference/index.html">API Reference</a></li>
+</ul>
+
+  
+
+
+        </div>
+
+        
+
+      </div>
+
+    </div>
+
+<footer>
+    <div id="footer-info">
+        <ul id="build-details">
+            
+
+            
+
+            
+        </ul>
+        <div id="credit">
+            created with <a href="http://sphinx-doc.org/">Sphinx</a> and <a href="https://github.com/Autophagy/insegel">Insegel</a>
+
+        </div>
+    </div>
+
+    <a id="menu-toggle" class="fa fa-bars" aria-hidden="true"></a>
+
+    <script type="text/javascript">
+      $("#menu-toggle").click(function() {
+        $("#menu-toggle").toggleClass("toggled");
+        $("#side-menu-container").slideToggle(300);
+      });
+    </script>
+
+</footer> 
+
+</div>
+
+</body>
+</html>

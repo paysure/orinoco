@@ -1,0 +1,691 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
+        <title>lena.action - lena 1.0.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
+    <link rel="stylesheet" href="../../_static/pygments.css">
+    <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
+    
+
+
+<style>
+  :root {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+
+  /* For allowing end-user-specific overrides */
+  .override-light {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  .override-dark {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+</style><link rel="stylesheet" href="../../_static/styles/furo-extensions.css?digest=d391b54134226e4196576da3bdb6dddb7e05ba2b"></head>
+  <body dir="">
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke-width="1.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z"/>
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+      class="feather feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html">
+  <input class="sidebar-search" placeholder=Search name="q">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/action.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/condition.html">Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/typed_action.html">Typed Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/data_source.html">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/event.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/transformation.html">Transformations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/loop.html">Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/entities.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/observers.html">Observers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/tags.html">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../reference/helpers.html">Helpers</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <main class="main">
+    <div class="content">
+      <article role="main">
+        <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        </label>
+        <h1>Source code for lena.action</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Iterable</span><span class="p">,</span>
+    <span class="n">Callable</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">Type</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Any</span><span class="p">,</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">ContextManager</span><span class="p">,</span>
+    <span class="n">AsyncContextManager</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">NoReturn</span><span class="p">,</span>
+    <span class="n">Coroutine</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">lena</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">lena.entities</span> <span class="kn">import</span> <span class="n">ActionData</span>
+<span class="kn">from</span> <span class="nn">lena.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">,</span> <span class="n">BaseActionException</span>
+<span class="kn">from</span> <span class="nn">lena.observers</span> <span class="kn">import</span> <span class="n">ActionsLog</span>
+<span class="kn">from</span> <span class="nn">lena.tags</span> <span class="kn">import</span> <span class="n">SystemActionTag</span>
+<span class="kn">from</span> <span class="nn">lena.types</span> <span class="kn">import</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">,</span> <span class="n">NamespacedActionT</span><span class="p">,</span> <span class="n">ActionVar</span>
+
+
+<span class="k">class</span> <span class="nc">_NamespacedAction</span><span class="p">(</span><span class="n">NamespacedActionT</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Wrapper class named actions. See `Action.namespaced`</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_to_return</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ActionT</span><span class="p">]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_to_return</span> <span class="o">=</span> <span class="n">class_to_return</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ActionT</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_to_return</span>
+
+
+<div class="viewcode-block" id="SyncActionMixin"><a class="viewcode-back" href="../../reference/action.html#lena.action.SyncActionMixin">[docs]</a><span class="k">class</span> <span class="nc">SyncActionMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="SyncActionMixin.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.SyncActionMixin.run">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Method which is executed when running the action pipeline</span>
+
+<span class="sd">        Note that each override of this function have to implement "skipping logic" to support :class:`~Return`</span>
+<span class="sd">        functionality.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            def run(self, action_data: ActionDataT) -&gt; ActionDataT:</span>
+<span class="sd">                if action_data.skip_processing:</span>
+<span class="sd">                    return action_data</span>
+
+<span class="sd">                # normal implementation of the action</span>
+<span class="sd">                ...</span>
+
+<span class="sd">        :param action_data: Data container passed by actions</span>
+<span class="sd">        :return: Last version of :class:`:class:~lena.entities.ActionData` after execution</span>
+<span class="sd">        """</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="SyncActionMixin.run_with_data"><a class="viewcode-back" href="../../reference/action.html#lena.action.SyncActionMixin.run_with_data">[docs]</a>    <span class="k">def</span> <span class="nf">run_with_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Shortcut for running actions without creating :class:`~lena.entities.ActionData` object directly</span>
+
+<span class="sd">        :param params: Parameters which are propagated into :class:`~lena.entities.ActionData`</span>
+<span class="sd">        :return: Processed data with results</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ActionData</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="AsyncActionMixin"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncActionMixin">[docs]</a><span class="k">class</span> <span class="nc">AsyncActionMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="AsyncActionMixin.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncActionMixin.async_run">[docs]</a>    <span class="nd">@abstractmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Method which is executed when running the action pipeline</span>
+
+<span class="sd">        Note that each override of this function have to implement "skipping logic" to support :class:`~Return`</span>
+<span class="sd">        functionality.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            def run(self, action_data: ActionDataT) -&gt; ActionDataT:</span>
+<span class="sd">                if action_data.skip_processing:</span>
+<span class="sd">                    return action_data</span>
+
+<span class="sd">                # normal implementation of the action</span>
+<span class="sd">                ...</span>
+
+<span class="sd">        :param action_data: Data container passed by actions</span>
+<span class="sd">        :return: Last version of `~lena.entities.ActionData` after execution</span>
+<span class="sd">        """</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="AsyncActionMixin.async_run_with_data"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncActionMixin.async_run_with_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run_with_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Shortcut for running actions asynchronously without creating :class:`~lena.entities.ActionData` object directly</span>
+
+<span class="sd">        :param params: Parameters which are propagated into :class:`~lena.entities.ActionData`</span>
+<span class="sd">        :return: Processed data with results</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_run</span><span class="p">(</span><span class="n">ActionData</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="Action"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action">[docs]</a><span class="k">class</span> <span class="nc">Action</span><span class="p">(</span><span class="n">SyncActionMixin</span><span class="p">,</span> <span class="n">AsyncActionMixin</span><span class="p">,</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Fundamental entity which is designed to be chained with other actions so one action process</span>
+<span class="sd">    the :class:`~lena.entities.ActionData` and send it to the next action.</span>
+<span class="sd">    """</span>
+
+    <span class="n">DESCRIPTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+    <span class="n">NAME</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :param description: Description of the task. Is used when an exception is raised, for debugging and</span>
+<span class="sd">        increase of readability. It has no effect for runtime. Can be also set as class attribute if it's</span>
+<span class="sd">        not provided to constructor</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME</span>
+
+<div class="viewcode-block" id="Action.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Action.then"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.then">[docs]</a>    <span class="k">def</span> <span class="nf">then</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">another_action</span><span class="p">:</span> <span class="s2">"ActionT"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionT"</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        One of the chaining functions. More convenient way for chaining is to use `&gt;&gt;` operator like</span>
+<span class="sd">        this:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            Action1() &gt;&gt; Action2()</span>
+
+<span class="sd">        :param another_action: Another action which will be executed after</span>
+<span class="sd">        :return: Set of this action and ``another_action`` represented by :class:`ActionSet`</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">ActionSet</span><span class="p">([</span><span class="bp">self</span><span class="p">,</span> <span class="n">another_action</span><span class="p">])</span></div>
+
+    <span class="k">def</span> <span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionT"</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Action</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Action.on_subfield"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.on_subfield">[docs]</a>    <span class="k">def</span> <span class="nf">on_subfield</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"OnActionDataSubField"</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Run action on a subfield. See :class:`OnActionDataSubField` class for more information.</span>
+
+<span class="sd">        :param field_key: Key to the item in :class:`~lena.entities.ActionData` on which the action will be executed</span>
+<span class="sd">        :return: Wrapped action which will be executed on the subfield</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">OnActionDataSubField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_key</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">action_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        :return: Name of the action</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+<div class="viewcode-block" id="Action.namespaced"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.namespaced">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">namespaced</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NamespacedActionT</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Return 'named' instance of itself. It has no effect, just make a 'title' for the action/s by wrapping them</span>
+<span class="sd">        into a named group of actions.</span>
+
+
+<span class="sd">        Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            EventSet.namespaced().MarkPaymentAttemptAsProcessed(</span>
+<span class="sd">                    [SetPaymentAuthorizationAttemptProcessed(), SaveModel("authorization_attempt")]</span>
+<span class="sd">                )</span>
+
+<span class="sd">        `MarkPaymentAttemptAsProcessed` is just a "made up" key of the following actions.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">_NamespacedAction</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"Return"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Return</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="record_action"><a class="viewcode-back" href="../../reference/action.html#lena.action.record_action">[docs]</a><span class="k">def</span> <span class="nf">record_action</span><span class="p">(</span>
+    <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Decorator for :func:`~SyncActionMixin.run` which records decorated action signature to</span>
+<span class="sd">    the :class:`~lena.entities.ActionData`</span>
+
+<span class="sd">    :param fu: :func:`~SyncActionMixin.run` method (or any with the same signature)</span>
+<span class="sd">    :return: Decorated function</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fu</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">ActionVar</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action_data</span><span class="p">,</span> <span class="n">ActionData</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">(</span>
+                <span class="s2">"Input argument of </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2"> must of type ActionData, but got </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">,</span> <span class="n">fu</span><span class="p">,</span> <span class="n">action_data</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">fu</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">action_data</span><span class="o">.</span><span class="n">record_start</span><span class="p">(</span><span class="n">action</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">ActionData</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">(</span>
+                <span class="s2">"Output of </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2"> must of type ActionData, but got </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">,</span> <span class="n">fu</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">record_end</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="async_record_action"><a class="viewcode-back" href="../../reference/action.html#lena.action.async_record_action">[docs]</a><span class="k">def</span> <span class="nf">async_record_action</span><span class="p">(</span>
+    <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Decorator for :func:`~AsyncActionMixin.async_run` which records decorated action signature to</span>
+<span class="sd">    the :class:`~lena.entities.ActionData`</span>
+
+<span class="sd">    :param fu: :func:`~AsyncActionMixin.async_run` method (or any with the same signature)</span>
+<span class="sd">    :return: Decorated function</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fu</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">ActionVar</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">action_data</span><span class="p">,</span> <span class="n">ActionData</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">(</span>
+                <span class="s2">"Input argument of </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2"> must of type ActionData, but got </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">,</span> <span class="n">fu</span><span class="p">,</span> <span class="n">action_data</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="n">fu</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">action_data</span><span class="o">.</span><span class="n">record_start</span><span class="p">(</span><span class="n">action</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">ActionData</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">(</span>
+                <span class="s2">"Output of </span><span class="si">{}</span><span class="s2"> - </span><span class="si">{}</span><span class="s2"> must of type ActionData, but got </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">,</span> <span class="n">fu</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">record_end</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="verbose_action_exception"><a class="viewcode-back" href="../../reference/action.html#lena.action.verbose_action_exception">[docs]</a><span class="k">def</span> <span class="nf">verbose_action_exception</span><span class="p">(</span>
+    <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]:</span>
+    <span class="sd">"""</span>
+<span class="sd">    Decorator which adds some more context information to errors raised during action execution.</span>
+
+<span class="sd">    :param fu: :func:`~SyncActionMixin.run` method (or any with the same signature)</span>
+<span class="sd">    :return: Decorated function</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fu</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">ActionVar</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">fu</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">action_data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">_raise_new_error</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">,</span> <span class="n">action_data</span><span class="o">=</span><span class="n">action_data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<div class="viewcode-block" id="async_verbose_action_exception"><a class="viewcode-back" href="../../reference/action.html#lena.action.async_verbose_action_exception">[docs]</a><span class="k">def</span> <span class="nf">async_verbose_action_exception</span><span class="p">(</span>
+    <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]:</span>
+    <span class="sd">"""</span>
+<span class="sd">     Decorator which adds some more context information to errors raised during action execution.</span>
+
+<span class="sd">    :param fu: :func:`~AsyncActionMixin.async_run` method (or any with the same signature)</span>
+<span class="sd">    :return: Decorated function</span>
+<span class="sd">    """</span>
+
+    <span class="nd">@wraps</span><span class="p">(</span><span class="n">fu</span><span class="p">)</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">ActionVar</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="n">fu</span><span class="p">(</span><span class="n">action</span><span class="p">,</span> <span class="n">action_data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">_raise_new_error</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span> <span class="n">err</span><span class="o">=</span><span class="n">err</span><span class="p">,</span> <span class="n">action_data</span><span class="o">=</span><span class="n">action_data</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">wrapper</span></div>
+
+
+<span class="k">def</span> <span class="nf">_raise_new_error</span><span class="p">(</span><span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NoReturn</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="s2">"Action context"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">err</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="s2">"Actions history"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">get_observer</span><span class="p">(</span><span class="n">ActionsLog</span><span class="p">)</span><span class="o">.</span><span class="n">actions_log</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)),</span>
+            <span class="p">(</span><span class="s2">"Actions data"</span><span class="p">,</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">action_data</span><span class="o">.</span><span class="n">data</span><span class="p">},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)),</span>
+            <span class="p">(</span>
+                <span class="s2">"</span><span class="si">{}</span><span class="s2"> params"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">),</span>
+                <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="n">k</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">action</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()},</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">),</span>
+            <span class="p">),</span>
+        <span class="p">]</span>
+
+        <span class="n">context_message</span> <span class="o">=</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">"</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">field</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">fields</span><span class="p">)</span>
+
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">"</span><span class="si">{0}</span><span class="se">\n</span><span class="si">{1}</span><span class="s2"> Action context </span><span class="si">{1}</span><span class="se">\n</span><span class="si">{2}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s2">"-"</span> <span class="o">*</span> <span class="mi">20</span><span class="p">,</span> <span class="n">context_message</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">err</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span> <span class="kn">from</span> <span class="nn">err</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">BaseActionException</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span>
+
+
+<div class="viewcode-block" id="ActionSet"><a class="viewcode-back" href="../../reference/action.html#lena.action.ActionSet">[docs]</a><span class="k">class</span> <span class="nc">ActionSet</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Set of actions which are executed consequently</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">actions</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ActionT</span><span class="p">],</span> <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="n">actions</span>
+
+<div class="viewcode-block" id="ActionSet.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.ActionSet.run">[docs]</a>    <span class="nd">@record_action</span>
+    <span class="nd">@verbose_action_exception</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">action_data</span>
+
+            <span class="n">action_data</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">action_data</span></div>
+
+<div class="viewcode-block" id="ActionSet.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.ActionSet.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
+    <span class="nd">@async_verbose_action_exception</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">action_data</span>
+
+            <span class="n">action_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">action</span><span class="o">.</span><span class="n">async_run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">action_data</span></div></div>
+
+
+<div class="viewcode-block" id="AtomicActionSet"><a class="viewcode-back" href="../../reference/action.html#lena.action.AtomicActionSet">[docs]</a><span class="k">class</span> <span class="nc">AtomicActionSet</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Set of actions which are executed in a context manager</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">actions</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ActionT</span><span class="p">],</span>
+        <span class="n">atomic_context_manager</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">ContextManager</span><span class="p">[</span><span class="kc">None</span><span class="p">]],</span>
+        <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="o">=</span><span class="n">actions</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span> <span class="o">=</span> <span class="n">atomic_context_manager</span>
+
+<div class="viewcode-block" id="AtomicActionSet.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.AtomicActionSet.run">[docs]</a>    <span class="nd">@record_action</span>
+    <span class="nd">@verbose_action_exception</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">action_data</span>
+
+                <span class="n">action_data</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">action_data</span></div></div>
+
+
+<div class="viewcode-block" id="AsyncAtomicActionSet"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncAtomicActionSet">[docs]</a><span class="k">class</span> <span class="nc">AsyncAtomicActionSet</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Async version of :class:`AtomicActionSet`.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">actions</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ActionT</span><span class="p">],</span>
+        <span class="n">atomic_context_manager</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">AsyncContextManager</span><span class="p">[</span><span class="kc">None</span><span class="p">]],</span>
+        <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="o">=</span><span class="n">actions</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span> <span class="o">=</span> <span class="n">atomic_context_manager</span>
+
+<div class="viewcode-block" id="AsyncAtomicActionSet.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncAtomicActionSet.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
+    <span class="nd">@async_verbose_action_exception</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">action_data</span>
+
+                <span class="n">action_data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">action</span><span class="o">.</span><span class="n">async_run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">action_data</span></div></div>
+
+
+<div class="viewcode-block" id="Then"><a class="viewcode-back" href="../../reference/action.html#lena.action.Then">[docs]</a><span class="k">class</span> <span class="nc">Then</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Syntactics sugar for :class:`ActionSet`. See :class:`~lena.condition.Switch` docs for usage</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">actions</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="HandledExceptions"><a class="viewcode-back" href="../../reference/action.html#lena.action.HandledExceptions">[docs]</a><span class="k">class</span> <span class="nc">HandledExceptions</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Try-except wrapper for actions</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">actions</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">,</span>
+        <span class="n">catch_exceptions</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span> <span class="o">...</span><span class="p">],</span> <span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
+        <span class="n">handle_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="ne">BaseException</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span> <span class="ne">BaseException</span><span class="p">]]],</span>
+        <span class="n">fail_on_error</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="sd">"""</span>
+<span class="sd">        :param actions: Actions to execute</span>
+<span class="sd">        :param catch_exceptions: Errors to except</span>
+<span class="sd">        :param handle_method: Method to execute when the actions fail</span>
+<span class="sd">        :param fail_on_error: If true fail on error, otherwise the execution will continue</span>
+<span class="sd">        :param name: Name of the action</span>
+<span class="sd">        """</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="o">=</span><span class="n">actions</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">catch_exceptions</span> <span class="o">=</span> <span class="n">catch_exceptions</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handle_method</span> <span class="o">=</span> <span class="n">handle_method</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fail_on_error</span> <span class="o">=</span> <span class="n">fail_on_error</span>
+
+<div class="viewcode-block" id="HandledExceptions.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.HandledExceptions.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">action_data</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">catch_exceptions</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">new_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_method</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">action_data</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fail_on_error</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">action_data</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_err</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">new_err</span>
+            <span class="k">raise</span> <span class="n">err</span></div>
+
+<div class="viewcode-block" id="HandledExceptions.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.HandledExceptions.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">action_data</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="nb">super</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">async_run</span><span class="p">(</span><span class="n">action_data</span><span class="o">=</span><span class="n">action_data</span><span class="p">)</span>
+        <span class="k">except</span> <span class="bp">self</span><span class="o">.</span><span class="n">catch_exceptions</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="n">new_err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handle_method</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">action_data</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">fail_on_error</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">action_data</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">new_err</span><span class="p">,</span> <span class="ne">BaseException</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">new_err</span>
+            <span class="k">raise</span> <span class="n">err</span></div></div>
+
+
+<div class="viewcode-block" id="OnActionDataSubField"><a class="viewcode-back" href="../../reference/action.html#lena.action.OnActionDataSubField">[docs]</a><span class="k">class</span> <span class="nc">OnActionDataSubField</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Utility action to execute an action on values of a nested item.</span>
+
+<span class="sd">    For example if an action accepts parameter `user`, but action data contains only `request_data` dictionary with</span>
+<span class="sd">    the desired `user`.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        action = OnActionDataSubField(DoSomethingWithUser(), field_key="request_data")</span>
+
+<span class="sd">        # Same as</span>
+<span class="sd">        action = DoSomethingWithUser().on_subfield("request_data")</span>
+
+<span class="sd">    As shown above :func:`~Action.on_subfield` can be used as a shortcut.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">field_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="ow">or</span> <span class="s2">"</span><span class="si">{}</span><span class="s2">[</span><span class="si">{}</span><span class="s2">(</span><span class="si">{}</span><span class="s2">)]"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">action</span><span class="o">.</span><span class="n">action_name</span><span class="p">,</span> <span class="n">field_key</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">field_key</span> <span class="o">=</span> <span class="n">field_key</span>
+
+<div class="viewcode-block" id="OnActionDataSubField.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.OnActionDataSubField.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">action_data</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_with_subfield_data</span><span class="p">(</span>
+            <span class="n">action_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">with_new_data</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field_key</span><span class="p">)))</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="OnActionDataSubField.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.OnActionDataSubField.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">action_data</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_with_subfield_data</span><span class="p">(</span>
+            <span class="n">action_data</span><span class="p">,</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">async_run</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">with_new_data</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field_key</span><span class="p">)))</span>
+        <span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_with_subfield_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">,</span> <span class="n">new_action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">action_data</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_unwrap_nested_key</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field_key</span><span class="p">,</span> <span class="n">new_action_data</span><span class="o">.</span><span class="n">as_keyed_dict</span><span class="p">()))</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_unwrap_nested_key</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="n">last_dot_index</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">rfind</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">last_dot_index</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_unwrap_nested_key</span><span class="p">(</span><span class="n">key</span><span class="p">[:</span><span class="n">last_dot_index</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="n">key</span><span class="p">[</span><span class="n">last_dot_index</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">:]:</span> <span class="n">value</span><span class="p">})</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="Return"><a class="viewcode-back" href="../../reference/action.html#lena.action.Return">[docs]</a><span class="k">class</span> <span class="nc">Return</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
+    <span class="sd">"""</span>
+<span class="sd">    Mark action data as "should not be processed", imitating return statement in functions</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ActionT</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
+
+<div class="viewcode-block" id="Return.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.Return.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="k">else</span> <span class="n">action_data</span><span class="p">)</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">skip_processing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
+</pre></div>
+      </article>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; Paysure Solutions Ltd.
+            |
+            Built with <a href="https://www.sphinx-doc.org/">Sphinx</a>
+              and
+              <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+              <a href="https://github.com/pradyunsg/furo">Furo theme</a>.
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </main>
+</div>
+    <script id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/main.js?digest=e931d09b2a40c1bb82b542effe772014573baf67"></script></body>
+</html>

@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Actions &#8212; lena 0.3.2 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="API Reference" href="index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-lena.action">
+<span id="actions"></span><h1>Actions<a class="headerlink" href="#module-lena.action" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="lena.action.Action">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">Action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.Action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fundamental entity which is designed to be chained with other actions so one action process the <cite>ActionDataT</cite>
+and send it to the next action.</p>
+<dl class="py method">
+<dt id="lena.action.Action.action_name">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">action_name</span></code><a class="headerlink" href="#lena.action.Action.action_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Name of the action</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.Action.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.Action.async_run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.Action.namespaced">
+<em class="property"><span class="pre">classmethod</span> </em><code class="sig-name descname"><span class="pre">namespaced</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.NamespacedActionT</span><a class="headerlink" href="#lena.action.Action.namespaced" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return ‘named’ instance of itself. It has no effect, just make a ‘title’ for the action/s by wrapping them
+into a named group of actions.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">EventSet</span><span class="o">.</span><span class="n">namespaced</span><span class="p">()</span><span class="o">.</span><span class="n">MarkPaymentAttemptAsProcessed</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">SetPaymentAuthorizationAttemptProcessed</span><span class="p">(),</span> <span class="n">SaveModel</span><span class="p">(</span><span class="s2">&quot;authorization_attempt&quot;</span><span class="p">)]</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+<p><cite>MarkPaymentAttemptAsProcessed</cite> is just a “made up” name of the following actions.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.Action.on_subfield">
+<code class="sig-name descname"><span class="pre">on_subfield</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#lena.action.OnActionDataSubField" title="lena.action.OnActionDataSubField"><span class="pre">lena.action.OnActionDataSubField</span></a><a class="headerlink" href="#lena.action.Action.on_subfield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run action on a subfield. See <a class="reference internal" href="#lena.action.OnActionDataSubField" title="lena.action.OnActionDataSubField"><code class="xref py py-class docutils literal notranslate"><span class="pre">OnActionDataSubField</span></code></a> class for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>field_key</strong> – Key to the item in <a class="reference internal" href="../index.html#lena.entities.ActionData" title="lena.entities.ActionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionData</span></code></a> on which the action will be executed</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Wrapped action which will be executed on the subfield</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.Action.then">
+<code class="sig-name descname"><span class="pre">then</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">another_action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a><a class="headerlink" href="#lena.action.Action.then" title="Permalink to this definition">¶</a></dt>
+<dd><p>One of the chaining functions. More convenient way for chaining is to use <cite>&gt;&gt;</cite> operator like
+this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Action1</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">Action2</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>another_action</strong> – Another action which will be executed after</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Set of this action and <code class="docutils literal notranslate"><span class="pre">another_action</span></code> represented by <a class="reference internal" href="#lena.action.ActionSet" title="lena.action.ActionSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionSet</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.ActionSet">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">ActionSet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.ActionSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set of actions which are executed consequently</p>
+<dl class="py method">
+<dt id="lena.action.ActionSet.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.ActionSet.async_run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.ActionSet.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.ActionSet.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.AsyncActionMixin">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">AsyncActionMixin</span></code><a class="headerlink" href="#lena.action.AsyncActionMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="lena.action.AsyncActionMixin.async_run">
+<em class="property"><span class="pre">abstract</span> <span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.AsyncActionMixin.async_run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.AsyncActionMixin.async_run_with_data">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run_with_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.AsyncActionMixin.async_run_with_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut for running actions asynchronously without creating <cite>ActionDataT</cite> object directly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> – Parameters which are propagated into <cite>ActionDataT</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed data with results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.AsyncAtomicActionSet">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">AsyncAtomicActionSet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomic_context_manager</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">AbstractAsyncContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.AsyncAtomicActionSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Async version of <a class="reference internal" href="#lena.action.AtomicActionSet" title="lena.action.AtomicActionSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">AtomicActionSet</span></code></a>.</p>
+<dl class="py method">
+<dt id="lena.action.AsyncAtomicActionSet.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.AsyncAtomicActionSet.async_run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.AtomicActionSet">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">AtomicActionSet</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atomic_context_manager</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">AbstractContextManager</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.AtomicActionSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set of actions which are executed in a context manager</p>
+<dl class="py method">
+<dt id="lena.action.AtomicActionSet.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.AtomicActionSet.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.HandledExceptions">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">HandledExceptions</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">catch_exceptions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="p"><span class="pre">…</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fail_on_error</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.HandledExceptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try-except wrapper for actions</p>
+<dl class="py method">
+<dt id="lena.action.HandledExceptions.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.HandledExceptions.async_run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.HandledExceptions.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.HandledExceptions.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.OnActionDataSubField">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">OnActionDataSubField</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.OnActionDataSubField" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility action to execute an action on values of a nested item.</p>
+<p>For example if an action accepts parameter <cite>user</cite>, but action data contains only <cite>request_data</cite> dictionary with
+the desired <cite>user</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">action</span> <span class="o">=</span> <span class="n">OnActionDataSubField</span><span class="p">(</span><span class="n">DoSomethingWithUser</span><span class="p">(),</span> <span class="n">field_key</span><span class="o">=</span><span class="s2">&quot;request_data&quot;</span><span class="p">)</span>
+
+<span class="c1"># Same as</span>
+<span class="n">action</span> <span class="o">=</span> <span class="n">DoSomethingWithUser</span><span class="p">()</span><span class="o">.</span><span class="n">on_subfield</span><span class="p">(</span><span class="s2">&quot;request_data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As shown above <a class="reference internal" href="#lena.action.Action.on_subfield" title="lena.action.Action.on_subfield"><code class="xref py py-func docutils literal notranslate"><span class="pre">on_subfield()</span></code></a> can be used as a shortcut.</p>
+<dl class="py method">
+<dt id="lena.action.OnActionDataSubField.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.OnActionDataSubField.async_run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.OnActionDataSubField.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.OnActionDataSubField.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.SyncActionMixin">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">SyncActionMixin</span></code><a class="headerlink" href="#lena.action.SyncActionMixin" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="lena.action.SyncActionMixin.run">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.SyncActionMixin.run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Last version of <cite>ActionDataT</cite> after execution</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="lena.action.SyncActionMixin.run_with_data">
+<code class="sig-name descname"><span class="pre">run_with_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">lena.types.ActionDataT</span><a class="headerlink" href="#lena.action.SyncActionMixin.run_with_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut for running actions without creating <cite>ActionDataT</cite> object directly</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>params</strong> – Parameters which are propagated into <cite>ActionDataT</cite></p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Processed data with results</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="lena.action.Then">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">Then</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">actions</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="../index.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#lena.action.Then" title="Permalink to this definition">¶</a></dt>
+<dd><p>Syntactics sugar for <a class="reference internal" href="#lena.action.ActionSet" title="lena.action.ActionSet"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionSet</span></code></a>. See <code class="xref py py-class docutils literal notranslate"><span class="pre">Switch</span></code> docs for usage</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="lena.action.async_record_action">
+<code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">async_record_action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Coroutine</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Coroutine</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#lena.action.async_record_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for <a class="reference internal" href="#lena.action.AsyncActionMixin.async_run" title="lena.action.AsyncActionMixin.async_run"><code class="xref py py-func docutils literal notranslate"><span class="pre">async_run()</span></code></a> which records decorated action signature to
+the <a class="reference internal" href="../index.html#lena.entities.ActionData" title="lena.entities.ActionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionData</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fu</strong> – <a class="reference internal" href="#lena.action.AsyncActionMixin.async_run" title="lena.action.AsyncActionMixin.async_run"><code class="xref py py-func docutils literal notranslate"><span class="pre">async_run()</span></code></a> method (or any with the same signature)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decorated function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="lena.action.async_verbose_action_exception">
+<code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">async_verbose_action_exception</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Coroutine</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Coroutine</span><span class="p"><span class="pre">[</span></span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">None</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#lena.action.async_verbose_action_exception" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Decorator which adds some more context information to errors raised during action execution.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fu</strong> – <a class="reference internal" href="#lena.action.AsyncActionMixin.async_run" title="lena.action.AsyncActionMixin.async_run"><code class="xref py py-func docutils literal notranslate"><span class="pre">async_run()</span></code></a> method (or any with the same signature)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decorated function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="lena.action.record_action">
+<code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">record_action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#lena.action.record_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for <a class="reference internal" href="#lena.action.SyncActionMixin.run" title="lena.action.SyncActionMixin.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> which records decorated action signature to
+the <a class="reference internal" href="../index.html#lena.entities.ActionData" title="lena.entities.ActionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionData</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fu</strong> – <a class="reference internal" href="#lena.action.SyncActionMixin.run" title="lena.action.SyncActionMixin.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method (or any with the same signature)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decorated function</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="lena.action.verbose_action_exception">
+<code class="sig-prename descclassname"><span class="pre">lena.action.</span></code><code class="sig-name descname"><span class="pre">verbose_action_exception</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">ActionVar</span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#lena.action.verbose_action_exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator which adds some more context information to errors raised during action execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fu</strong> – <a class="reference internal" href="#lena.action.SyncActionMixin.run" title="lena.action.SyncActionMixin.run"><code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code></a> method (or any with the same signature)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decorated function</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">lena</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#actions">Actions</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#app">App</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#agents">Agents</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="index.html">API Reference</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">API Reference</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Martin Vo.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.5.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/reference/actions.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
