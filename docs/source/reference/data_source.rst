@@ -1,4 +1,4 @@
 Data Sources
 =====================
-.. automodule:: lena.data_source
+.. automodule:: orinoco.data_source
    :members:

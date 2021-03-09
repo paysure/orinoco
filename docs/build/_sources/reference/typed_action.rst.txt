@@ -1,4 +1,4 @@
 Typed Action
 =====================
-.. automodule:: lena.typed_action
+.. automodule:: orinoco.typed_action
    :members:

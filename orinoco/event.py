@@ -2,7 +2,7 @@ import asyncio
 from abc import ABC
 from typing import Iterable, Callable, Optional
 
-from lena.action import (
+from orinoco.action import (
     Action,
     record_action,
     verbose_action_exception,
@@ -10,9 +10,9 @@ from lena.action import (
     async_record_action,
     async_verbose_action_exception,
 )
-from lena.exceptions import ActionNotProperlyInherited
-from lena.tags import SystemActionTag
-from lena.types import ActionDataT
+from orinoco.exceptions import ActionNotProperlyInherited
+from orinoco.tags import SystemActionTag
+from orinoco.types import ActionDataT
 
 
 class Event(Action, ABC):

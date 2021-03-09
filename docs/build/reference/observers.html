@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Tags" href="tags.html" /><link rel="prev" title="Entities" href="entities.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>Observers - lena 1.0.0 documentation</title>
+        <title>Observers - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,59 +137,59 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="module-lena.observers">
-<span id="observers"></span><h1>Observers<a class="headerlink" href="#module-lena.observers" title="Permalink to this headline">¶</a></h1>
+        <div class="section" id="module-orinoco.observers">
+<span id="observers"></span><h1>Observers<a class="headerlink" href="#module-orinoco.observers" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="lena.observers.ActionsLog">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.observers.</span></code><code class="sig-name descname"><span class="pre">ActionsLog</span></code><a class="reference internal" href="../_modules/lena/observers.html#ActionsLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ActionsLog" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ActionsLog">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.observers.</span></code><code class="sig-name descname"><span class="pre">ActionsLog</span></code><a class="reference internal" href="../_modules/orinoco/observers.html#ActionsLog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ActionsLog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Observer which logs which actions were executed</p>
 <dl class="py method">
-<dt id="lena.observers.ActionsLog.record_end">
-<code class="sig-name descname"><span class="pre">record_end</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/lena/observers.html#ActionsLog.record_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ActionsLog.record_end" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ActionsLog.record_end">
+<code class="sig-name descname"><span class="pre">record_end</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/orinoco/observers.html#ActionsLog.record_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ActionsLog.record_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is executed after the <code class="docutils literal notranslate"><span class="pre">action</span></code> is executed</p>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.observers.ActionsLog.record_start">
-<code class="sig-name descname"><span class="pre">record_start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/lena/observers.html#ActionsLog.record_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ActionsLog.record_start" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ActionsLog.record_start">
+<code class="sig-name descname"><span class="pre">record_start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/orinoco/observers.html#ActionsLog.record_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ActionsLog.record_start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is executed before the <code class="docutils literal notranslate"><span class="pre">action</span></code> is executed</p>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.observers.ExecutionTimeObserver">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.observers.</span></code><code class="sig-name descname"><span class="pre">ExecutionTimeObserver</span></code><a class="reference internal" href="../_modules/lena/observers.html#ExecutionTimeObserver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ExecutionTimeObserver" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ExecutionTimeObserver">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.observers.</span></code><code class="sig-name descname"><span class="pre">ExecutionTimeObserver</span></code><a class="reference internal" href="../_modules/orinoco/observers.html#ExecutionTimeObserver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ExecutionTimeObserver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Observer which measures execution times of the actions in the pipeline</p>
 <dl class="py method">
-<dt id="lena.observers.ExecutionTimeObserver.record_end">
-<code class="sig-name descname"><span class="pre">record_end</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/lena/observers.html#ExecutionTimeObserver.record_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ExecutionTimeObserver.record_end" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ExecutionTimeObserver.record_end">
+<code class="sig-name descname"><span class="pre">record_end</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/orinoco/observers.html#ExecutionTimeObserver.record_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ExecutionTimeObserver.record_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is executed after the <code class="docutils literal notranslate"><span class="pre">action</span></code> is executed</p>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.observers.ExecutionTimeObserver.record_start">
-<code class="sig-name descname"><span class="pre">record_start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/lena/observers.html#ExecutionTimeObserver.record_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ExecutionTimeObserver.record_start" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ExecutionTimeObserver.record_start">
+<code class="sig-name descname"><span class="pre">record_start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/orinoco/observers.html#ExecutionTimeObserver.record_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ExecutionTimeObserver.record_start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is executed before the <code class="docutils literal notranslate"><span class="pre">action</span></code> is executed</p>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.observers.ExecutionTimeObserver.should_record_action">
-<code class="sig-name descname"><span class="pre">should_record_action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="reference internal" href="../_modules/lena/observers.html#ExecutionTimeObserver.should_record_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.ExecutionTimeObserver.should_record_action" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.ExecutionTimeObserver.should_record_action">
+<code class="sig-name descname"><span class="pre">should_record_action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="reference internal" href="../_modules/orinoco/observers.html#ExecutionTimeObserver.should_record_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.ExecutionTimeObserver.should_record_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls whether the observer will log given action</p>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.observers.Observer">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.observers.</span></code><code class="sig-name descname"><span class="pre">Observer</span></code><a class="reference internal" href="../_modules/lena/observers.html#Observer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.Observer" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.Observer">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.observers.</span></code><code class="sig-name descname"><span class="pre">Observer</span></code><a class="reference internal" href="../_modules/orinoco/observers.html#Observer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.Observer" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="py method">
-<dt id="lena.observers.Observer.record_end">
-<code class="sig-name descname"><span class="pre">record_end</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/lena/observers.html#Observer.record_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.Observer.record_end" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.Observer.record_end">
+<code class="sig-name descname"><span class="pre">record_end</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/orinoco/observers.html#Observer.record_end"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.Observer.record_end" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is executed after the <code class="docutils literal notranslate"><span class="pre">action</span></code> is executed</p>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.observers.Observer.record_start">
-<code class="sig-name descname"><span class="pre">record_start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/lena/observers.html#Observer.record_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.Observer.record_start" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.Observer.record_start">
+<code class="sig-name descname"><span class="pre">record_start</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">None</span><a class="reference internal" href="../_modules/orinoco/observers.html#Observer.record_start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.Observer.record_start" title="Permalink to this definition">¶</a></dt>
 <dd><p>This method is executed before the <code class="docutils literal notranslate"><span class="pre">action</span></code> is executed</p>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.observers.Observer.should_record_action">
-<code class="sig-name descname"><span class="pre">should_record_action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#lena.types.ActionT" title="lena.types.ActionT"><span class="pre">lena.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="reference internal" href="../_modules/lena/observers.html#Observer.should_record_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.observers.Observer.should_record_action" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.observers.Observer.should_record_action">
+<code class="sig-name descname"><span class="pre">should_record_action</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="types.html#orinoco.types.ActionT" title="orinoco.types.ActionT"><span class="pre">orinoco.types.ActionT</span></a></span></em><span class="sig-paren">)</span> → <span class="pre">bool</span><a class="reference internal" href="../_modules/orinoco/observers.html#Observer.should_record_action"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.observers.Observer.should_record_action" title="Permalink to this definition">¶</a></dt>
 <dd><p>Controls whether the observer will log given action</p>
 </dd></dl>
 </dd></dl>

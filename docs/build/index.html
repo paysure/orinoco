@@ -1,10 +1,10 @@
 <!doctype html>
 <html class="no-js">
   <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="API Reference" href="reference/index.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>Home - lena 1.0.0 documentation</title>
+        <title>Home - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="#"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon" for="__toc">
@@ -99,14 +99,32 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html">
   <input class="sidebar-search" placeholder=Search name="q">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form><div class="sidebar-scroll"><div class="sidebar-tree">
-  
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="reference/index.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label for="toctree-checkbox-1"><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/action.html">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/condition.html">Conditions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/typed_action.html">Typed Action</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/data_source.html">Data Sources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/event.html">Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/transformation.html">Transformations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/loop.html">Loop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/exceptions.html">Exceptions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/entities.html">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/observers.html">Observers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/tags.html">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/types.html">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/helpers.html">Helpers</a></li>
+</ul>
+</li>
+</ul>
+
 </div>
 </div>
       </div>
@@ -119,9 +137,9 @@
         <label class="toc-overlay-icon toc-content-icon" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="lena">
-<h1>lena<a class="headerlink" href="#lena" title="Permalink to this headline">¶</a></h1>
-<p>Functional composable pipelines which allows clean separation business logic from its implementation.</p>
+        <div class="section" id="orinoco">
+<h1>orinoco<a class="headerlink" href="#orinoco" title="Permalink to this headline">¶</a></h1>
+<p>Functional composable pipelines allowing clean separation of the business logic and its implementation.</p>
 <p>Features</p>
 <ul class="simple">
 <li><p>powerful chaining capabilities</p></li>
@@ -138,11 +156,11 @@
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ParseUserName</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">GetUserDataFromDb</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">GetEmailTemplate</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">SendEmail</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Even without knowing how the implementation looks like or even what this library does, it’s not quite obvious what will
+<p>Even without knowing how the implementation looks like or even what this library does, it’s quite obvious what will
 happen when the pipeline is executed. Main idea of this library is to operate with simple composable blocks
 (“actions”) to build more complex pipelines.</p>
-<p><code class="docutils literal notranslate"><span class="pre">lena</span></code> provides many action bases to simply define new actions. For example an implementation of the first action from
-the example above can look like this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">orinoco</span></code> provides many action bases to simply define new actions. An example implementation of the first action from
+the above example could look like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ParseUserName</span><span class="p">(</span><span class="n">TypedAction</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">payload</span><span class="p">)[</span><span class="s2">"user_name"</span><span class="p">]</span>
@@ -158,80 +176,92 @@ explicit:</p>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">payload</span><span class="p">)[</span><span class="s2">"user_name"</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>Besides, simple “straight” pipelines as the one above, execution flow can be controlled or modified via several
-predefined actions which bring features such as conditional execution, branching, loops, context managers,
-error handling etc.</p>
+<p>We don’t have to limit ourselves to simple “straightforward” pipelines as the one above. The execution flow can be
+controlled or modified via several predefined actions. These actions allow to perform conditional execution, branching,
+loops, context managers, error handling etc.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="p">()</span>
-   <span class="o">.</span><span class="n">case</span><span class="p">(</span>
-       <span class="n">If</span><span class="p">(</span><span class="n">ClaimInValidState</span><span class="p">(</span><span class="s2">"PAID"</span><span class="p">)),</span>
-       <span class="n">Then</span><span class="p">(</span>
-           <span class="o">~</span><span class="n">ClaimHasPaymentAuthorizationAssigned</span><span class="p">(</span>
-               <span class="n">fail_message</span><span class="o">=</span><span class="s2">"You cannot reset a claim that has payment authorizations assigned!"</span>
-           <span class="p">),</span>
-           <span class="n">StateToAuthorize</span><span class="p">(),</span>
-           <span class="n">ResetEligibleAmount</span><span class="p">(),</span>
-       <span class="p">),</span>
-   <span class="p">)</span>
-   <span class="o">.</span><span class="n">case</span><span class="p">(</span>
-       <span class="n">If</span><span class="p">(</span>
-           <span class="n">ClaimInValidState</span><span class="p">(</span><span class="s2">"DECLINED"</span><span class="p">,</span> <span class="s2">"CANCELLED"</span><span class="p">),</span>
-           <span class="n">ClaimHasPreAuth</span><span class="p">(),</span>
-           <span class="o">~</span><span class="n">ClaimHasValidNotification</span><span class="p">(),</span>
-           <span class="o">~</span><span class="n">ClaimIsRetroactive</span><span class="p">(),</span>
-       <span class="p">),</span>
-       <span class="n">Then</span><span class="p">(</span><span class="n">UserCanResetClaim</span><span class="p">(),</span> <span class="n">StateToPendingAuthorization</span><span class="p">()),</span>
-   <span class="p">)</span>
+    <span class="o">.</span><span class="n">case</span><span class="p">(</span>
+        <span class="n">If</span><span class="p">(</span><span class="n">ClaimInValidState</span><span class="p">(</span><span class="s2">"PAID"</span><span class="p">)),</span>
+        <span class="n">Then</span><span class="p">(</span>
+            <span class="o">~</span><span class="n">ClaimHasPaymentAuthorizationAssigned</span><span class="p">(</span>
+                <span class="n">fail_message</span><span class="o">=</span><span class="s2">"You cannot reset a claim that has payment authorizations assigned!"</span>
+            <span class="p">),</span>
+            <span class="n">StateToAuthorize</span><span class="p">(),</span>
+            <span class="n">ResetEligibleAmount</span><span class="p">(),</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">case</span><span class="p">(</span>
+        <span class="n">If</span><span class="p">(</span>
+            <span class="n">ClaimInValidState</span><span class="p">(</span><span class="s2">"DECLINED"</span><span class="p">,</span> <span class="s2">"CANCELLED"</span><span class="p">),</span>
+            <span class="n">ClaimHasPreAuth</span><span class="p">(),</span>
+            <span class="o">~</span><span class="n">ClaimHasValidNotification</span><span class="p">(),</span>
+            <span class="o">~</span><span class="n">ClaimIsRetroactive</span><span class="p">(),</span>
+        <span class="p">),</span>
+        <span class="n">Then</span><span class="p">(</span><span class="n">UserCanResetClaim</span><span class="p">(),</span> <span class="n">StateToPendingAuthorization</span><span class="p">()),</span>
+    <span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="n">GetClaimChangedNotificationMessage</span><span class="p">()</span>
+<span class="o">&gt;&gt;</span> <span class="n">NotifyUser</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="section" id="motivation">
 <h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
-<p>Python is very powerful programming language which allows developers to quickly transform their ideas into a code.
-However, all these things which makes it easy to use bring complications with developing/maintaining big projects.
-This is not that big issue in a team of disciplined experienced developers who knows how leverage certain design
-patterns to their needs.</p>
-<p>Things can get even more complicated when the project contains lots of business rules and even senior developers can
-struggle with verification whether the code does what it should. There are some best practices which will help with
-a such project  is to use instructive names (especially methods and classes), separate code properly into modules,
-classes, write short “one purpose” methods etc. However, even this can get very messy with complex business rules.</p>
-<p>Let’s imagine an application which authorize payments (for example the ones send by payment terminal in a shop) based
-on some complex rules. Let’s say we have the card users linked to their travel insurance policies, and we want to allow
-them to use them just in hospitals according their insurance (in certain country, in certain hospitals, with certain
-amount per payment, with certain total amount per policy etc.). The code for such process could look like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">payment_auth_endpoint</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">payment_data</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<p>Python is a very powerful programming language allowing developers to quickly transform their ideas into the code.
+As you can imagine, this could be a double-edged sword. On one hand, it renders Python easy to use, on the other hand,
+larger projects can get messy if the team is not well-disciplined. Moreover, if the problem domain is complex enough,
+even seasoned developers can struggle with producing maintainable and easily readable code.</p>
+<p><code class="docutils literal notranslate"><span class="pre">orinoco</span></code> aims to help developers to express complex business rules in a more readable, understandable
+and maintainable fashion. Usual approach of implementing routines as a sequence of commands (e.g. querying a database,
+communicating with an external API) is replaced with pipelines composed from individual actions.</p>
+<div class="section" id="example-scenario">
+<h3>Example scenario<a class="headerlink" href="#example-scenario" title="Permalink to this headline">¶</a></h3>
+<p>Let’s imagine an application authorizing payments, for instance the ones send by a payment terminal in a shop. The
+authorisation logic is, understandably, based on various business rules.</p>
+<p>Suppose the card holder is also an insurance policy holder. Their card could be then used to cover
+their insurance claims. Ideally, we would like to authorise payments based not only on the details of the current
+transaction, but also based on their insurance policy. An example implementation could look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Api</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parser</span><span class="p">,</span> <span class="n">fraud_service</span><span class="p">,</span> <span class="n">db_service</span><span class="p">,</span> <span class="n">policies_matcher</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fraud_service</span> <span class="o">=</span> <span class="n">fraud_service</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span> <span class="o">=</span> <span class="n">db_service</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">policies_matcher</span> <span class="o">=</span> <span class="n">policies_matcher</span>
 
-    <span class="n">db_service</span><span class="o">.</span><span class="n">store_payment</span><span class="p">(</span><span class="n">payment_data</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">payment_auth_endpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">):</span>
+        <span class="n">payment_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parser</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">fraud_service</span><span class="o">.</span><span class="n">is_it_fraud</span><span class="p">(</span><span class="n">payment_data</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Fraud payment"</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">store_payment</span><span class="p">(</span><span class="n">payment_data</span><span class="p">)</span>
 
-    <span class="n">card_data</span> <span class="o">=</span> <span class="n">db_service</span><span class="o">.</span><span class="n">get_card_data</span><span class="p">(</span><span class="n">payment_data</span><span class="p">[</span><span class="s2">"card_identifier"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fraud_service</span><span class="o">.</span><span class="n">is_it_fraud</span><span class="p">(</span><span class="n">payment_data</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Fraud payment"</span><span class="p">})</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">card_data</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Card doesn't exist"</span><span class="p">})</span>
+        <span class="n">card_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">get_card_data</span><span class="p">(</span><span class="n">payment_data</span><span class="p">[</span><span class="s2">"card_identifier"</span><span class="p">])</span>
 
-    <span class="n">policie</span> <span class="o">=</span> <span class="n">db_service</span><span class="o">.</span><span class="n">get_user_active_policies</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">card_data</span><span class="p">[</span><span class="s2">"user"</span><span class="p">])</span>
-    <span class="n">policy_for_this_payment</span> <span class="o">=</span> <span class="n">policies_matcher</span><span class="o">.</span><span class="n">get_policy_for_payment</span><span class="p">(</span><span class="n">card_data</span><span class="p">,</span> <span class="n">policies</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">card_data</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Card doesn't exist"</span><span class="p">})</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">policy_for_this_payment</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Not matching policy"</span><span class="p">})</span>
+        <span class="n">policie</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">get_user_active_policies</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">card_data</span><span class="p">[</span><span class="s2">"user"</span><span class="p">])</span>
+        <span class="n">policy_for_this_payment</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">policies_matcher</span><span class="o">.</span><span class="n">get_policy_for_payment</span><span class="p">(</span><span class="n">card_data</span><span class="p">,</span> <span class="n">policies</span><span class="p">)</span>
 
-    <span class="n">funding_account</span> <span class="o">=</span> <span class="n">db_service</span><span class="o">.</span><span class="n">get_funding_account</span><span class="p">(</span><span class="n">card_data</span><span class="p">[</span><span class="s2">"card"</span><span class="p">])</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">policy_for_this_payment</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Not matching policy"</span><span class="p">})</span>
 
-    <span class="k">if</span> <span class="n">funding_account</span><span class="o">.</span><span class="n">amount</span> <span class="o">&lt;</span> <span class="n">payment_data</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Not enough money"</span><span class="p">})</span>
+        <span class="n">funding_account</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">get_funding_account</span><span class="p">(</span><span class="n">card_data</span><span class="p">[</span><span class="s2">"card"</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">funding_account</span><span class="o">.</span><span class="n">amount</span> <span class="o">&lt;</span> <span class="n">payment_data</span><span class="p">[</span><span class="s2">"amount"</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"reason"</span><span class="p">:</span> <span class="s2">"Not enough money"</span><span class="p">})</span>
 
 
-    <span class="n">db_service</span><span class="o">.</span><span class="n">update_policy</span><span class="p">(</span><span class="n">policy_for_this_payment</span><span class="p">,</span> <span class="n">payment_data</span><span class="p">)</span>
-    <span class="n">db_service</span><span class="o">.</span><span class="n">update_funding_account</span><span class="p">(</span><span class="n">funding_account</span><span class="p">,</span> <span class="n">payment_data</span><span class="p">)</span>
-    <span class="n">db_service</span><span class="o">.</span><span class="n">link_policy_to_payment</span><span class="p">(</span><span class="n">policy_for_this_payment</span><span class="p">,</span> <span class="n">payment_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">update_policy</span><span class="p">(</span><span class="n">policy_for_this_payment</span><span class="p">,</span> <span class="n">payment_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">update_funding_account</span><span class="p">(</span><span class="n">funding_account</span><span class="p">,</span> <span class="n">payment_data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">db_service</span><span class="o">.</span><span class="n">link_policy_to_payment</span><span class="p">(</span><span class="n">policy_for_this_payment</span><span class="p">,</span> <span class="n">payment_data</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="p">(</span><span class="n">json</span><span class="o">=</span><span class="p">{</span><span class="s2">"authorization_decision"</span><span class="p">:</span> <span class="kc">True</span><span class="p">})</span>
 </pre></div>
 </div>
-<p>In this example we abstracted all we could into services and simple methods, but still it feels that lots of things
-going on in this function and in order to understand what, it’s necessary to go through the code line by line.
-Let’s look at an alternative version with <code class="docutils literal notranslate"><span class="pre">lena</span></code>:</p>
+<p>In this example we abstracted all we could into services and simple methods, we leveraged design patterns (such as
+explicit dependency injection), but it still feels there is a lot going on in this method. In order to
+understand the ins and outs of the method, it’s rather necessary to go through the code line by line.</p>
+<p>Let’s look at an alternative version implemented using <code class="docutils literal notranslate"><span class="pre">orinoco</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Api</span><span class="p">:</span>
     <span class="n">AUTH_ACTION</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">ParseData</span><span class="p">()</span>
@@ -253,32 +283,34 @@ Let’s look at an alternative version with <code class="docutils literal notran
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">AUTH_ACTION</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">(</span><span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_type</span><span class="p">(</span><span class="n">Response</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We got from implementation of the process into a description of the process. This make it readable even for people
-without any programming knowledge. We can go even further and separate the pipeline into another file where we can
-store all of our business processes. This allows us to split the business logic from particular implementations
-which makes our codebase cleaner and easier to maintain.</p>
+<p>We moved from the actual implementation of the process as a series of commands into an actual description of the
+business process. This makes it readable even for people without any programming knowledge.
+We can go even further and separate the pipeline into another file which will serve
+as a source of truth for our business processes.</p>
+</div>
 </div>
 <div class="section" id="building-blocks">
 <h2>Building blocks<a class="headerlink" href="#building-blocks" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="actions">
 <h3>Actions<a class="headerlink" href="#actions" title="Permalink to this headline">¶</a></h3>
-<p>Actions are main building blocks which carry the business logic and can be chained together. There are many predefined
-actions which can be used to build more complex pipelines such as actions for boolean logic and loops.</p>
-<p>Actions can be created directly by inheriting <code class="docutils literal notranslate"><span class="pre">lena.action.Action</span></code> and implementing
-the <code class="docutils literal notranslate"><span class="pre">run(action_data:</span> <span class="pre">ActionData)</span> <span class="pre">-&gt;</span> <span class="pre">ActionData</span></code> method or by using specialized bases (see subsections below).</p>
+<p>Actions are main building blocks carrying the business logic and can be chained together. There are many predefined
+actions that can be used to build more complex pipelines such as actions for boolean logic and loops.</p>
+<p>Actions can be created directly by inheriting from specialized bases (see subsections below). If there is no
+suitable base for your use case, you can inherit from <code class="docutils literal notranslate"><span class="pre">orinoco.action.Action</span></code> too, but it’s generally discouraged. In
+the latter can you would proceed by overriding <code class="docutils literal notranslate"><span class="pre">run(action_data:</span> <span class="pre">ActionData)</span> <span class="pre">-&gt;</span> <span class="pre">ActionData</span></code> method.</p>
 <p>Pipelines can be then executed by providing <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container directly to <code class="docutils literal notranslate"><span class="pre">run</span></code> method or
 by <code class="docutils literal notranslate"><span class="pre">run_with_data(**kwargs:</span> <span class="pre">Any)</span></code> method which will basically create the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> and pass it to the <code class="docutils literal notranslate"><span class="pre">run</span></code> method.
 Find more info about <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> below.</p>
 <div class="section" id="typedaction">
 <h4>TypedAction<a class="headerlink" href="#typedaction" title="Permalink to this headline">¶</a></h4>
-<p>Enhanced <code class="docutils literal notranslate"><span class="pre">Action</span></code> which use <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> as configuration of the input and the output.</p>
+<p>This is an enhanced <code class="docutils literal notranslate"><span class="pre">Action</span></code> that uses <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> as the way to configure the input and the output.</p>
 <p>Business logic is defined in the call method with “normal” parameters as the input, this means that no raw
 <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> is required. The propagation of the data from the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> to the method is done automatically
-based on the <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> which can be passed directly to the constructor (see <code class="docutils literal notranslate"><span class="pre">config</span></code>) or as the class variable
-(see <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code>) or implicitly from annotations of the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method.</p>
-<p>The result of the method is propagated to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> with the corresponding signature. Note that implicit
-config uses only annotated return type for the signature. For more control define the <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> manually.</p>
-<p>Implicit</p>
+based on the <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> which can be either passed directly to the initializer (see <code class="docutils literal notranslate"><span class="pre">config</span></code>) or as a class variable
+(see <code class="docutils literal notranslate"><span class="pre">CONFIG</span></code>) or it could be implicitly derived from annotations of the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method.</p>
+<p>The result of the method is propagated to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> with a matching signature. Note that implicit
+config uses only annotated return type for the signature. For more control, please define the <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> manually.</p>
+<p>This is the implicit approach:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SumValuesAndRound</span><span class="p">(</span><span class="n">TypedAction</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
@@ -286,7 +318,7 @@ config uses only annotated return type for the signature. For more control defin
 <span class="k">assert</span> <span class="mi">3</span> <span class="o">==</span> <span class="n">SumValuesAndRound</span><span class="p">()</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.8</span><span class="p">)</span><span class="o">.</span><span class="n">get_by_type</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Explicit</p>
+<p>This is more explicit:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SumValuesAndRound</span><span class="p">(</span><span class="n">TypedAction</span><span class="p">):</span>
     <span class="n">CONFIG</span> <span class="o">=</span> <span class="n">ActionConfig</span><span class="p">(</span>
           <span class="n">INPUT</span><span class="o">=</span><span class="p">({</span><span class="s2">"x"</span><span class="p">:</span> <span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"x"</span><span class="p">),</span> <span class="s2">"y"</span><span class="p">:</span> <span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"y"</span><span class="p">)}),</span> <span class="n">OUTPUT</span><span class="o">=</span><span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"sum_result"</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -297,8 +329,8 @@ config uses only annotated return type for the signature. For more control defin
 <span class="k">assert</span> <span class="mi">3</span> <span class="o">==</span> <span class="n">result</span><span class="o">.</span><span class="n">get_by_type</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span> <span class="o">==</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"sum_result"</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Notice that there are more possibilities how to retrieve the values from the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> since it’s explicitly
-annotated. See the next section for more information about <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container. Also note that the action can be
+<p>Notice there are more possibilities how to retrieve the values from the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> since it’s explicitly
+annotated. See the next section for more information about <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container. Also note the action can be
 executed directly without <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="mi">5</span> <span class="o">==</span> <span class="n">SumValuesAndRound</span><span class="p">()(</span><span class="n">x</span><span class="o">=</span><span class="mf">1.9</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">3.1</span><span class="p">)</span>
 </pre></div>
@@ -306,20 +338,20 @@ executed directly without <code class="docutils literal notranslate"><span class
 </div>
 <div class="section" id="onactiondatasubfield">
 <h4>OnActionDataSubField<a class="headerlink" href="#onactiondatasubfield" title="Permalink to this headline">¶</a></h4>
-<p>Utility action which executes an action on values of a nested item. Consider this example – we got his nested data:</p>
+<p>Utility action that executes an action on values of a nested item. Consider this example – we got his nested data:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">action_data</span> <span class="o">=</span> <span class="n">ActionData</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user_info</span><span class="o">=</span><span class="p">{</span><span class="s2">"address"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"city"</span><span class="p">:</span> <span class="s2">"London"</span><span class="p">}})</span>
 </pre></div>
 </div>
-<p>Action executed on “city” field:</p>
+<p>Action executed on the “city” field:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GetPopulation</span><span class="p">(</span><span class="n">TypedAction</span><span class="p">):</span>
     <span class="o">...</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">city</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="o">...</span>
 </pre></div>
 </div>
-<p>Question is, how can we run this action with the data above, since we expect <code class="docutils literal notranslate"><span class="pre">city</span></code> to be present in the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>
-(not hidden in the <code class="docutils literal notranslate"><span class="pre">user_info.address</span></code>). We can either define new action which would retrieve the data manually, or we
-can use <code class="docutils literal notranslate"><span class="pre">OnActionDataSubField</span></code> to do the trick for us:</p>
+<p>You might be wondering - how can we run this action with the data above, since we expect <code class="docutils literal notranslate"><span class="pre">city</span></code> to be present in the
+<code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container (not hidden in the <code class="docutils literal notranslate"><span class="pre">user_info.address</span></code>)? We can either define a new action that would retrieve
+data manually, or we can use <code class="docutils literal notranslate"><span class="pre">OnActionDataSubField</span></code> to do the trick for us:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OnActionDataSubField</span><span class="p">(</span><span class="n">GetPopulation</span><span class="p">(),</span> <span class="s2">"user_info.address"</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"user_info.address.population"</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -330,8 +362,8 @@ can use <code class="docutils literal notranslate"><span class="pre">OnActionDat
 </div>
 <div class="section" id="return">
 <h4>Return<a class="headerlink" href="#return" title="Permalink to this headline">¶</a></h4>
-<p>Action which marks the action data as “to be skipped” when processing by other actions. In other words if the execution
-hits this action none of the following actions will be executed.</p>
+<p>Action that flags the end of the execution path. In other words if the execution
+path reaches this action, none of the following actions will be executed.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Condition1</span><span class="p">()</span><span class="o">.</span><span class="n">if_then</span><span class="p">(</span><span class="n">Return</span><span class="p">(</span><span class="n">Action1</span><span class="p">()))</span> <span class="o">&gt;&gt;</span> <span class="n">Action2</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -345,10 +377,9 @@ hits this action none of the following actions will be executed.</p>
 </div>
 <div class="section" id="handledexceptions">
 <h4>HandledExceptions<a class="headerlink" href="#handledexceptions" title="Permalink to this headline">¶</a></h4>
-<dl class="simple">
-<dt>It’s common that failures on execution happen from various reasons at various places. <code class="docutils literal notranslate"><span class="pre">HandledExceptions</span></code> action brings</dt><dd><p>control of actions which can fail and how the failure can be handled.</p>
-</dd>
-</dl>
+<p>It’s not uncommon that during the execution various actions at various places might cause failures.
+<code class="docutils literal notranslate"><span class="pre">HandledExceptions</span></code> action brings control of these actions (that can fail) and allow us to specify how the failure
+would be handled.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">FailingForNonAdmin</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">run_side_effect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"user"</span><span class="p">)</span> <span class="o">!=</span> <span class="s2">"admin"</span><span class="p">:</span>
@@ -365,7 +396,7 @@ hits this action none of the following actions will be executed.</p>
 </div>
 <div class="section" id="addactionvalue">
 <h4>AddActionValue<a class="headerlink" href="#addactionvalue" title="Permalink to this headline">¶</a></h4>
-<p>Action which add a static data into the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container.</p>
+<p>Action that adds static data into the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="mi">1</span> <span class="o">==</span> <span class="n">AddActionValue</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"my_number"</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"my_number"</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -373,9 +404,10 @@ hits this action none of the following actions will be executed.</p>
 </div>
 <div class="section" id="addvirtualkeyshortcut">
 <h4>AddVirtualKeyShortcut<a class="headerlink" href="#addvirtualkeyshortcut" title="Permalink to this headline">¶</a></h4>
-<p>Sometimes it can be hard to plug more pipelines together, because they use different keys for inputs. The recommended
-way how to handle this situation is to use <code class="docutils literal notranslate"><span class="pre">AddVirtualKeyShortcut</span></code> to make “link” between a key and a data already
-registered in <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>, but with different key.</p>
+<p>Sometimes it can be hard to plug more pipelines together, because they use different keys for same inputs. The
+recommended way how to handle this situation is to use <code class="docutils literal notranslate"><span class="pre">AddVirtualKeyShortcut</span></code> to basically create a “symbolic link”
+between a key and a data already registered in <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>. This way you can access the same original data
+with both old and new keys.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">action_data</span> <span class="o">=</span> <span class="n">AddVirtualKeyShortcut</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"color"</span><span class="p">,</span> <span class="n">source_key</span><span class="o">=</span><span class="s2">"my_favorite_color"</span><span class="p">)</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">(</span><span class="n">my_favorite_color</span><span class="o">=</span><span class="s2">"pink"</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"my_favorite_color"</span><span class="p">)</span> <span class="o">==</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"color"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"pink</span>
 </pre></div>
@@ -383,7 +415,7 @@ registered in <code class="docutils literal notranslate"><span class="pre">Actio
 </div>
 <div class="section" id="renameactionfield">
 <h4>RenameActionField<a class="headerlink" href="#renameactionfield" title="Permalink to this headline">¶</a></h4>
-<p>Change key of an item in the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
+<p>This changes the key of an item in the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">action_data</span> <span class="o">=</span> <span class="n">RenameActionField</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"old"</span><span class="p">,</span> <span class="n">new_key</span><span class="o">=</span><span class="s2">"new"</span><span class="p">)</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">(</span><span class="n">old</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">action_data</span><span class="o">.</span><span class="n">is_in</span><span class="p">(</span><span class="s2">"new"</span><span class="p">)</span>
 <span class="k">assert</span> <span class="ow">not</span> <span class="n">action_data</span><span class="o">.</span><span class="n">is_in</span><span class="p">(</span><span class="s2">"old"</span><span class="p">)</span>
@@ -392,7 +424,7 @@ registered in <code class="docutils literal notranslate"><span class="pre">Actio
 </div>
 <div class="section" id="withoutfields">
 <h4>WithoutFields<a class="headerlink" href="#withoutfields" title="Permalink to this headline">¶</a></h4>
-<p>Delete items for given keys.</p>
+<p>This deletes items with matching keys.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">action_data</span> <span class="o">==</span> <span class="n">WithoutFields</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">)</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="k">assert</span> <span class="ow">not</span> <span class="n">action_data</span><span class="o">.</span><span class="n">is_in</span><span class="p">(</span><span class="s2">"a"</span><span class="p">)</span>
 <span class="k">assert</span> <span class="ow">not</span> <span class="n">action_data</span><span class="o">.</span><span class="n">is_in</span><span class="p">(</span><span class="s2">"b"</span><span class="p">)</span>
@@ -425,66 +457,68 @@ The motivation of this class was adopting more functional approach to the parts 
 <div class="section" id="atomicactionset-and-asyncatomicactionset">
 <h4>AtomicActionSet and AsyncAtomicActionSet<a class="headerlink" href="#atomicactionset-and-asyncatomicactionset" title="Permalink to this headline">¶</a></h4>
 <p>Action set which run its actions in a context manager.</p>
+<p>We could, for instance, wrap <code class="docutils literal notranslate"><span class="pre">ActionSet</span></code> within a DB transaction:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">AtomicActionSet</span><span class="p">(</span><span class="n">actions</span><span class="o">=</span><span class="p">[</span><span class="n">GetModelData</span><span class="p">(),</span> <span class="n">CreateModel</span><span class="p">()],</span> <span class="n">atomic_context_manager</span><span class="o">=</span><span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>transaction.atomic</p>
 </div>
 <div class="section" id="generic-actions">
 <h4>Generic actions<a class="headerlink" href="#generic-actions" title="Permalink to this headline">¶</a></h4>
-<p>Generic actions are used to dynamically define actions, usually via lambda functions. There 4 kinds of them.</p>
+<p>Generic actions are used to dynamically define actions, usually via lambda functions. There 4 types of them:</p>
 <div class="section" id="genericdatasource">
 <h5>GenericDataSource<a class="headerlink" href="#genericdatasource" title="Permalink to this headline">¶</a></h5>
-<p>It adds a value (<code class="docutils literal notranslate"><span class="pre">provides</span></code>) resolved by <code class="docutils literal notranslate"><span class="pre">method</span></code>.</p>
+<p>This adds a value (<code class="docutils literal notranslate"><span class="pre">provides</span></code>) resolved by <code class="docutils literal notranslate"><span class="pre">method</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GenericDataSource</span><span class="p">(</span><span class="n">provides</span><span class="o">=</span><span class="s2">"next_week"</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="k">lambda</span> <span class="n">ad</span><span class="p">:</span> <span class="mi">7</span> <span class="o">+</span> <span class="n">ad</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"today"</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="generictransformation">
 <h5>GenericTransformation<a class="headerlink" href="#generictransformation" title="Permalink to this headline">¶</a></h5>
-<p>It creates a new version of <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
+<p>This creates a new version of <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GenericTransformation</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ad</span><span class="p">:</span> <span class="n">ad</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">counter</span><span class="o">=</span><span class="n">ad</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"counter"</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="genericevent">
 <h5>GenericEvent<a class="headerlink" href="#genericevent" title="Permalink to this headline">¶</a></h5>
-<p>Action which runs a side effect with nothing returned to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
+<p>This action runs a side effect while nothing is returned to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GenericEvent</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ad</span><span class="p">:</span> <span class="n">event_handler</span><span class="o">.</span><span class="n">report</span><span class="p">(</span><span class="n">ad</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"alert"</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="genericcondition">
 <h5>GenericCondition<a class="headerlink" href="#genericcondition" title="Permalink to this headline">¶</a></h5>
-<p>Condition (see <code class="docutils literal notranslate"><span class="pre">Condition</span></code> section below) which returns boolean value.</p>
+<p>This is a condition (see <code class="docutils literal notranslate"><span class="pre">Condition</span></code> section below) that returns a boolean value.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">GenericCondition</span><span class="p">(</span><span class="k">lambda</span> <span class="n">ad</span><span class="p">:</span> <span class="n">ad</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"user_name"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"Alfred"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="section" id="condition">
-<h3>Condition<a class="headerlink" href="#condition" title="Permalink to this headline">¶</a></h3>
-<p>Usually pipelines will need to check some pre-conditions before invoking the pipeline or to provide branching mechanism.
-This can be achieved by using <code class="docutils literal notranslate"><span class="pre">Condition</span></code> class.</p>
-<p>A special kind of action which result is not propagated into the data container, but it’s used for validation. If the
-condition returns <code class="docutils literal notranslate"><span class="pre">True</span></code> nothing will happen, but if the returned valued is <code class="docutils literal notranslate"><span class="pre">False</span></code> it will raise an exception. For
-example this condition will raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> when the value <code class="docutils literal notranslate"><span class="pre">x</span></code> is negative:</p>
+<div class="section" id="conditions">
+<h3>Conditions<a class="headerlink" href="#conditions" title="Permalink to this headline">¶</a></h3>
+<p>This class allows us to check pre-conditions during the pipeline execution. Also, it can be used to support branching
+logic.</p>
+<p>The result of the <code class="docutils literal notranslate"><span class="pre">Condition</span></code> action is not propagated further into the data container, hence it’s used only for the
+validation purposes. Essentially, you should provide a validation routine (via <code class="docutils literal notranslate"><span class="pre">_is_valid()</span></code>) that returns a boolean
+value - if the value returned is <code class="docutils literal notranslate"><span class="pre">True</span></code>, the pipeline continues uninterrupted, whereas when the value is <code class="docutils literal notranslate"><span class="pre">False</span></code>
+an exception is raised.</p>
+<p>This is how we would check an <code class="docutils literal notranslate"><span class="pre">x</span></code> in the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container is non-negative:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IsPositive</span><span class="p">(</span><span class="n">Condition</span><span class="p">):</span>
     <span class="n">ERROR_CLS</span> <span class="o">=</span> <span class="ne">ValueError</span>
     <span class="k">def</span> <span class="nf">_is_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"x"</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">Condition</span></code> sub-class should provide method <code class="docutils literal notranslate"><span class="pre">_is_valid()</span></code> to specify the condition to be checked.</p>
-<p>Second use case of the conditions is in conditional actions such <code class="docutils literal notranslate"><span class="pre">Switch</span></code>, <code class="docutils literal notranslate"><span class="pre">If</span></code> or <code class="docutils literal notranslate"><span class="pre">ConditionalAction</span></code> (more info
-about them below).</p>
+<p>If the condition holds, nothing happens. If the condition is not fulfilled, an exception <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> is raised.</p>
+<p>As mentioned above, <code class="docutils literal notranslate"><span class="pre">Condition</span></code> can be used for branching logic too -
+see conditional actions such <code class="docutils literal notranslate"><span class="pre">Switch</span></code>, <code class="docutils literal notranslate"><span class="pre">If</span></code> or <code class="docutils literal notranslate"><span class="pre">ConditionalAction</span></code> below.</p>
 <div class="section" id="operators">
 <h4>Operators<a class="headerlink" href="#operators" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>You can use <code class="docutils literal notranslate"><span class="pre">|</span></code> as <code class="docutils literal notranslate"><span class="pre">OR</span></code> operator between two condition instances.</p></li>
+<li><p>You can use <code class="docutils literal notranslate"><span class="pre">|</span></code> as <code class="docutils literal notranslate"><span class="pre">OR</span></code> operator between two <code class="docutils literal notranslate"><span class="pre">Condition</span></code> instances.</p></li>
 <li><p>Analogically you can use <code class="docutils literal notranslate"><span class="pre">&amp;</span></code> as <code class="docutils literal notranslate"><span class="pre">AND</span></code> operator.</p></li>
-<li><p>Negation could be achieved with <code class="docutils literal notranslate"><span class="pre">~</span></code>.</p></li>
+<li><p>Negation could be achieved with the use of tilde (<code class="docutils literal notranslate"><span class="pre">~</span></code>).</p></li>
 </ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">~</span><span class="p">((</span><span class="n">always_true</span> <span class="o">&amp;</span> <span class="n">always_true</span><span class="p">)</span> <span class="o">|</span> <span class="n">always_true</span><span class="p">)</span>
 </pre></div>
@@ -492,11 +526,11 @@ about them below).</p>
 </div>
 <div class="section" id="branching">
 <h4>Branching<a class="headerlink" href="#branching" title="Permalink to this headline">¶</a></h4>
-<p>Class <code class="docutils literal notranslate"><span class="pre">Switch</span></code> provides branching support. It can be used in three ways:</p>
+<p>Class <code class="docutils literal notranslate"><span class="pre">Switch</span></code> provides a branching support. It can be used in three ways:</p>
 <ol class="arabic simple">
-<li><p>Create at once via constructor by pairs of condition-action</p></li>
-<li><p>By <code class="docutils literal notranslate"><span class="pre">if_then</span></code> chaining: Switch().if_then(cond1, action1).if_then(cond2, action2).otherwise(action3)</p></li>
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">Switch.case</span></code> with <code class="docutils literal notranslate"><span class="pre">If</span></code> and <code class="docutils literal notranslate"><span class="pre">Then</span></code>:</p></li>
+<li><p>Provide all <code class="docutils literal notranslate"><span class="pre">Condition</span></code> classes via the initializer (i.e. <code class="docutils literal notranslate"><span class="pre">__init__</span></code> method)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">if_then</span></code> convenience method: <code class="docutils literal notranslate"><span class="pre">Switch().if_then(cond1,</span> <span class="pre">action1).if_then(cond2,</span> <span class="pre">action2).otherwise(action3)</span></code></p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">Switch.case</span></code> with <code class="docutils literal notranslate"><span class="pre">If</span></code> and <code class="docutils literal notranslate"><span class="pre">Then</span></code> actions:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switch</span><span class="p">()</span>
    <span class="o">.</span><span class="n">case</span><span class="p">(</span>
@@ -523,8 +557,8 @@ about them below).</p>
 </div>
 <div class="section" id="conditional-actions">
 <h4>Conditional actions<a class="headerlink" href="#conditional-actions" title="Permalink to this headline">¶</a></h4>
-<p>Short conditional actions (“execute action if the condition is met”) can be implemented via <code class="docutils literal notranslate"><span class="pre">if_then</span></code> method which
-is available on all conditions.</p>
+<p>A convenience method <code class="docutils literal notranslate"><span class="pre">if_then</span></code> is also present on all <code class="docutils literal notranslate"><span class="pre">Condition</span></code> instances, therefore you can use it to chain
+conditions:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">is_positive</span><span class="o">.</span><span class="n">if_then</span><span class="p">(</span><span class="n">DoSomething</span><span class="p">())</span> <span class="o">&gt;&gt;</span> <span class="n">DoThisAlways</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -532,7 +566,8 @@ is available on all conditions.</p>
 <div class="section" id="typedcondition">
 <h4>TypedCondition<a class="headerlink" href="#typedcondition" title="Permalink to this headline">¶</a></h4>
 <p>Typed conditions are defined in the same fashion as the <code class="docutils literal notranslate"><span class="pre">TypedAction</span></code>, but they should return <code class="docutils literal notranslate"><span class="pre">bool</span></code> value which is
-used for validation</p>
+used for validation. Please note that you should implement <code class="docutils literal notranslate"><span class="pre">__call__</span></code> instead of <code class="docutils literal notranslate"><span class="pre">_is_valid</span></code>
+(as is case with <code class="docutils literal notranslate"><span class="pre">Condition</span></code>).</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IsPositive</span><span class="p">(</span><span class="n">TypedCondition</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">value</span> <span class="o">&gt;=</span> <span class="mi">0</span>
@@ -543,17 +578,14 @@ used for validation</p>
 <div class="section" id="convenience-classes">
 <h4>Convenience classes<a class="headerlink" href="#convenience-classes" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><p>Use <code class="docutils literal notranslate"><span class="pre">NonNoneDataValues</span></code> to check for existence/non-null values within <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">NonNoneDataValues</span></code> to check for the existence/non-null values within <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">PropertyCondition</span></code> to check properties of objects.</p></li>
 </ul>
 </div>
 </div>
 <div class="section" id="actiondata">
 <h3>ActionData<a class="headerlink" href="#actiondata" title="Permalink to this headline">¶</a></h3>
-<dl class="simple">
-<dt>Main data container which is passed between actions. Besides, the data itself it also carries a record of all operations</dt><dd><p>which were executed on the container.</p>
-</dd>
-</dl>
+<p>This is the main data container passed between actions. It also holds metadata about the pipeline execution.</p>
 <div class="section" id="pattern-matching">
 <h4>Pattern matching<a class="headerlink" href="#pattern-matching" title="Permalink to this headline">¶</a></h4>
 <p><code class="docutils literal notranslate"><span class="pre">ActionData</span></code> can be pattern-matched by various ways to retrieve data.</p>
@@ -601,7 +633,7 @@ used for validation</p>
 </div>
 <div class="section" id="get-by-signature">
 <h4>Get by signature<a class="headerlink" href="#get-by-signature" title="Permalink to this headline">¶</a></h4>
-<p>Get data with the exact signature:</p>
+<p>Get data with an exact signature:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get_by_signature</span><span class="p">(</span><span class="n">Signature</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="n">Card</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -627,8 +659,8 @@ but rather subsets:</p>
 <span class="p">)</span><span class="o">.</span><span class="n">get_by_signature</span><span class="p">(</span><span class="n">Signature</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"tag1"</span><span class="p">}))</span>
 </pre></div>
 </div>
-<p>Expresion above would raise <code class="docutils literal notranslate"><span class="pre">SearchError</span></code>, because the tag is not exactly same. In order to find this particular entry
-the search signature would have to be <code class="docutils literal notranslate"><span class="pre">Signature(type_=str,</span> <span class="pre">tags={"tag1",</span> <span class="pre">"tag2"})</span></code>.</p>
+<p>Expression above would raise <code class="docutils literal notranslate"><span class="pre">SearchError</span></code>, because the tag is not exactly the same. In order to find this particular
+entry the search signature would have to be <code class="docutils literal notranslate"><span class="pre">Signature(type_=str,</span> <span class="pre">tags={"tag1",</span> <span class="pre">"tag2"})</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ActionData</span><span class="p">(</span>
         <span class="p">[</span>
             <span class="p">(</span><span class="n">Signature</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"tag1"</span><span class="p">,</span> <span class="s2">"tag2"</span><span class="p">}),</span> <span class="s2">"a"</span><span class="p">),</span>
@@ -636,21 +668,22 @@ the search signature would have to be <code class="docutils literal notranslate"
     <span class="p">)</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span><span class="n">Signature</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"tag1"</span><span class="p">}))</span>
 </pre></div>
 </div>
-<p>This expresion would find the data as expected.</p>
+<p>This expression would find the data as expected.</p>
 </div>
 <div class="section" id="observers">
 <h4>Observers<a class="headerlink" href="#observers" title="Permalink to this headline">¶</a></h4>
-<p>Main purpose of the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> is to be passed between actions during the execution, in order to allow other entities
-to interact with this process observers were introduced as the entities which are notified about start and end
-of an execution of an action.</p>
+<p>There is a mechanism that allows developers to run a code every time an individual action is started and to run
+a (possibly different) code when each action is finished. This follow the <em>Observer</em> design pattern.</p>
+<p>In order to implement such observers, inherit from <code class="docutils literal notranslate"><span class="pre">Observer</span></code> class. Such classes should be then passed to
+the initializer of <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> container. The container is then responsible for passing data to your observer
+during the execution.</p>
+<p>Note: If you don’t provide any custom observers, two default observers are used instead.</p>
 <p>Observers can be accessed directly by looking them up in <code class="docutils literal notranslate"><span class="pre">ActionData.observers</span></code> list or via
 <code class="docutils literal notranslate"><span class="pre">ActionData.get_observer(observer_cls:</span> <span class="pre">Type[ObserverT])</span> <span class="pre">-&gt;</span> <span class="pre">ObserverT</span></code>. Note that if more observers of on type exists
 this method will raise an <code class="docutils literal notranslate"><span class="pre">FoundMoreThanOne</span></code> exception.</p>
-<p>Observers can be passed to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> constructor as <code class="docutils literal notranslate"><span class="pre">Sequence[Observer]</span></code>. By default, 2 observers are created
-automatically when no observers are provided.</p>
-<div class="section" id="actionslog">
-<h5>ActionsLog<a class="headerlink" href="#actionslog" title="Permalink to this headline">¶</a></h5>
-<p>It records starts and ends of actions into a log.</p>
+<div class="section" id="actionslog-observer">
+<h5>ActionsLog observer<a class="headerlink" href="#actionslog-observer" title="Permalink to this headline">¶</a></h5>
+<p>It records starts and ends of all actions into the log.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get_observer</span><span class="p">(</span><span class="n">ActionsLog</span><span class="p">)</span><span class="o">.</span><span class="n">actions_log</span> <span class="o">==</span> <span class="p">[</span>
         <span class="s2">"ActionSet_start"</span><span class="p">,</span>
         <span class="s2">"DoSomething_start"</span><span class="p">,</span>
@@ -662,9 +695,9 @@ automatically when no observers are provided.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="executiontimeobserver">
-<h5>ExecutionTimeObserver<a class="headerlink" href="#executiontimeobserver" title="Permalink to this headline">¶</a></h5>
-<p>It records execution times.</p>
+<div class="section" id="executiontimeobserver-observer">
+<h5>ExecutionTimeObserver observer<a class="headerlink" href="#executiontimeobserver-observer" title="Permalink to this headline">¶</a></h5>
+<p>It records the execution times.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get_observer</span><span class="p">(</span><span class="n">ExecutionTimeObserver</span><span class="p">)</span><span class="o">.</span><span class="n">measurements</span> <span class="o">==</span> <span class="p">[</span>
     <span class="p">(</span><span class="s2">"DoSomething"</span><span class="p">,</span> <span class="mf">0.012</span><span class="p">)</span>
     <span class="p">(</span><span class="s2">"DoSomethingElse"</span><span class="p">,</span> <span class="mf">0.028</span><span class="p">)</span>
@@ -672,9 +705,9 @@ automatically when no observers are provided.</p>
 </pre></div>
 </div>
 </div>
-<div class="section" id="custom-observer">
-<h5>Custom observer<a class="headerlink" href="#custom-observer" title="Permalink to this headline">¶</a></h5>
-<p>New observers can be implemented by inheriting <code class="docutils literal notranslate"><span class="pre">lena.observers.Observer</span></code>. Simple logger for condition actions can look
+<div class="section" id="custom-observers">
+<h5>Custom observers<a class="headerlink" href="#custom-observers" title="Permalink to this headline">¶</a></h5>
+<p>New observers can be implemented by inheriting <code class="docutils literal notranslate"><span class="pre">orinoco.observers.Observer</span></code>. Simple logger for condition actions can look
 like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ConditionsLogger</span><span class="p">(</span><span class="n">Observer</span><span class="p">):</span>
 
@@ -696,19 +729,33 @@ like this:</p>
 </div>
 </div>
 </div>
-<div class="section" id="exporting-to-dict">
-<h4>Exporting to dict<a class="headerlink" href="#exporting-to-dict" title="Permalink to this headline">¶</a></h4>
-<p><code class="docutils literal notranslate"><span class="pre">ActionData</span></code> can be exported to dictionary <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code> via <code class="docutils literal notranslate"><span class="pre">action_data.as_keyed_dict()</span></code>. Note that’s done only
+<div class="section" id="exporting-to-a-dict">
+<h4>Exporting to a dict<a class="headerlink" href="#exporting-to-a-dict" title="Permalink to this headline">¶</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">ActionData</span></code> can be exported to a dictionary <code class="docutils literal notranslate"><span class="pre">Dict[str,</span> <span class="pre">Any]</span></code> via <code class="docutils literal notranslate"><span class="pre">action_data.as_keyed_dict()</span></code>. Note that’s done only
 for signatures which have <code class="docutils literal notranslate"><span class="pre">key</span></code> set, since they are used as dictionary keys.</p>
+</div>
+<div class="section" id="reusing-action-data">
+<h4>Reusing action data<a class="headerlink" href="#reusing-action-data" title="Permalink to this headline">¶</a></h4>
+<p>Result <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> returned by the actions pipeline after the execution can be used again as an input to a pipeline.
+The only issues is that it also carries information about the execution from the previous run, so the new records
+would be appended to the old ones. However, this doesn’t have to be desirable in all cases. In this case, use
+<code class="docutils literal notranslate"><span class="pre">ActionData.with_new_execution_meta</span></code> method to create a new version of action data without the history of previous
+executions.</p>
+</div>
+<div class="section" id="immutability">
+<h4>Immutability<a class="headerlink" href="#immutability" title="Permalink to this headline">¶</a></h4>
+<p>All methods that change action data always return the copy of such data instead of just modifying it. This is,
+for example, done after the execution of each action. One of the many implications of this fact is that the input of the
+action won’t be changed in any way.</p>
 </div>
 </div>
 <div class="section" id="chaining-actions">
 <h3>Chaining actions<a class="headerlink" href="#chaining-actions" title="Permalink to this headline">¶</a></h3>
-<p>All actions implement <code class="docutils literal notranslate"><span class="pre">then</span></code> method for chaining with rshift operator shortcut:</p>
+<p>All actions implement <code class="docutils literal notranslate"><span class="pre">then</span></code> method for chaining. You can also use <code class="docutils literal notranslate"><span class="pre">rshift</span></code> operator shortcut:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ParsePayload</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">ExtractUserEmail</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="n">SendEmail</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>Other way how build pipelines is to use <code class="docutils literal notranslate"><span class="pre">lena.action.ActionSet</span></code>:</p>
+<p>The other way to build pipelines is to use <code class="docutils literal notranslate"><span class="pre">orinoco.action.ActionSet</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ActionSet</span><span class="p">([</span><span class="n">ParsePayload</span><span class="p">(),</span> <span class="n">ExtractUserEmail</span><span class="p">(),</span> <span class="n">SendEmail</span><span class="p">()])</span>
 </pre></div>
 </div>
@@ -717,8 +764,8 @@ for signatures which have <code class="docutils literal notranslate"><span class
 <h3>Loops<a class="headerlink" href="#loops" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="forsideeffects">
 <h4>ForSideEffects<a class="headerlink" href="#forsideeffects" title="Permalink to this headline">¶</a></h4>
-<p>If you need to loop over any <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> within <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> and want to apply any <code class="docutils literal notranslate"><span class="pre">Actions</span></code> to every single element of
-that iterable, use <code class="docutils literal notranslate"><span class="pre">ForSideEffects</span></code> class.</p>
+<p>If you need to loop over any <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> within <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> and you want to apply any <code class="docutils literal notranslate"><span class="pre">Actions</span></code> to every single element
+of such iterable, use <code class="docutils literal notranslate"><span class="pre">ForSideEffects</span></code> class.</p>
 <p>Please be aware of the fact that Actions we loop over should return nothing.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GetNotification</span><span class="p">(</span><span class="n">TypedAction</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -727,7 +774,7 @@ that iterable, use <code class="docutils literal notranslate"><span class="pre">
 <span class="n">For</span><span class="p">(</span><span class="s2">"event"</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get_or_default</span><span class="p">(</span><span class="s2">"event_log"</span><span class="p">,</span> <span class="p">[]))</span><span class="o">.</span><span class="n">do</span><span class="p">(</span><span class="n">GetNotification</span><span class="p">())</span>
 </pre></div>
 </div>
-<p>Note that items of <code class="docutils literal notranslate"><span class="pre">event_log</span></code> will be propagated into <code class="docutils literal notranslate"><span class="pre">GetNotification</span></code> as a value with key <code class="docutils literal notranslate"><span class="pre">event</span></code>.</p>
+<p>Note items of <code class="docutils literal notranslate"><span class="pre">event_log</span></code> will be propagated into <code class="docutils literal notranslate"><span class="pre">GetNotification</span></code> as a value with a key <code class="docutils literal notranslate"><span class="pre">event</span></code>.</p>
 </div>
 <div class="section" id="loopcondition">
 <h4>LoopCondition<a class="headerlink" href="#loopcondition" title="Permalink to this headline">¶</a></h4>
@@ -742,7 +789,7 @@ that iterable, use <code class="docutils literal notranslate"><span class="pre">
 </div>
 <div class="section" id="async-support">
 <h3>Async support<a class="headerlink" href="#async-support" title="Permalink to this headline">¶</a></h3>
-<p>All <code class="docutils literal notranslate"><span class="pre">Action</span></code> pipelines can be executed synchronously or asynchronously by invoking different methods. Main async
+<p>All <code class="docutils literal notranslate"><span class="pre">Action</span></code> pipelines can be executed synchronously or asynchronously by invoking dedicatted methods. Main async
 execution methods are <code class="docutils literal notranslate"><span class="pre">async_run(action_data:</span> <span class="pre">ActionData)</span></code> and <code class="docutils literal notranslate"><span class="pre">async_run_with_data(**kwargs:</span> <span class="pre">Any)</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SendEmail</span><span class="p">(</span><span class="n">Action</span><span class="p">)</span>
     <span class="n">sending_service</span> <span class="o">=</span> <span class="o">...</span>
@@ -759,7 +806,7 @@ execution methods are <code class="docutils literal notranslate"><span class="pr
 </div>
 <div class="section" id="asynctypedaction">
 <h4>AsyncTypedAction<a class="headerlink" href="#asynctypedaction" title="Permalink to this headline">¶</a></h4>
-<p>Specialized variation of <code class="docutils literal notranslate"><span class="pre">TypedAction</span></code> which uses <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> for managing data in <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
+<p>This is a specialized variation of <code class="docutils literal notranslate"><span class="pre">TypedAction</span></code> that uses <code class="docutils literal notranslate"><span class="pre">ActionConfig</span></code> for managing data in <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">AsyncIntSum</span><span class="p">(</span><span class="n">AsyncTypedAction</span><span class="p">):</span>
     <span class="k">async</span> <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">)</span>
@@ -768,8 +815,8 @@ execution methods are <code class="docutils literal notranslate"><span class="pr
 </div>
 <div class="section" id="combining-sync-and-async-actions">
 <h4>Combining sync and async actions<a class="headerlink" href="#combining-sync-and-async-actions" title="Permalink to this headline">¶</a></h4>
-<p>All sync actions can be executed along with async actions asynchronously, but just async actions which also implement
-sync <code class="docutils literal notranslate"><span class="pre">run</span></code> method can be executed synchronously. Example action below can be run in both execution mods:</p>
+<p>Executing sync actions asynchronously is supported by default. On the other hand, execution of async actions
+synchronously has to be implemented explicitly by implementing both <code class="docutils literal notranslate"><span class="pre">async_run</span></code> and <code class="docutils literal notranslate"><span class="pre">run</span></code> methods:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SleepOneSecondAction</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionData</span><span class="p">:</span>
         <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -790,21 +837,125 @@ sync <code class="docutils literal notranslate"><span class="pre">run</span></co
 </div>
 </div>
 </div>
+<div class="section" id="other-action-bases">
+<h3>Other action bases<a class="headerlink" href="#other-action-bases" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">TypedAction</span></code> and <code class="docutils literal notranslate"><span class="pre">AsyncTypedAction</span></code> are recommended action bases which should do just fine for most cases.
+However, sometimes it’s necessary to do more low-level operations and work at <code class="docutils literal notranslate"><span class="pre">ActionData</span> <span class="pre">-&gt;</span> <span class="pre">ActionData</span></code> level.
+It’s not generally recommended to inherit from <code class="docutils literal notranslate"><span class="pre">Action</span></code> directly (see the section below for more details), use one of
+the following bases instead.</p>
+<div class="section" id="transformation">
+<h4>Transformation<a class="headerlink" href="#transformation" title="Permalink to this headline">¶</a></h4>
+<p>This is an <code class="docutils literal notranslate"><span class="pre">Action</span></code> subtype. Interestingly, its functionality does not differ from its parent class, but it
+serves the purpose of clearly describing the nature of the action (i.e. transforming data), thus the only difference
+is that the method to implement is called <code class="docutils literal notranslate"><span class="pre">transform</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RunTwoActions</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action1</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">action2</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action1</span> <span class="o">=</span> <span class="n">action1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">action2</span> <span class="o">=</span> <span class="n">action2</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="n">resutl1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
+        <span class="c1"># do something meaningful</span>
+        <span class="o">...</span>
+
+        <span class="n">result2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">action1</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">resutl1</span><span class="p">)</span>
+
+        <span class="c1"># do something meaningful</span>
+        <span class="o">...</span>
+
+        <span class="k">return</span> <span class="n">result2</span>
+</pre></div>
 </div>
+<p>Values in <code class="docutils literal notranslate"><span class="pre">ActionData</span></code> should be “modified” (well it’s an immutable container, so it returns a copy of itself with
+the new values) via <code class="docutils literal notranslate"><span class="pre">ActionData.evolve</span></code> to add a value without a full signature (using a key only) or
+<code class="docutils literal notranslate"><span class="pre">ActionData.register</span></code> to add a value with a full signature.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IncrementByRandomNumbers</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+        <span class="n">my_number</span> <span class="o">=</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"my_number"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">action_data</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="n">random_number1</span><span class="o">=</span><span class="n">my_number</span> <span class="o">+</span> <span class="n">random</span><span class="p">())</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+            <span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"random_number2"</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"random"</span><span class="p">,</span> <span class="s2">"zero-to-one"</span><span class="p">}),</span>
+            <span class="n">my_number</span> <span class="o">+</span> <span class="n">random</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+<span class="n">result_action_data</span> <span class="o">=</span> <span class="n">AddRandomNumbers</span><span class="p">()</span><span class="o">.</span><span class="n">run_with_data</span><span class="p">()</span>
+<span class="n">result_action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"random_number1)</span>
+<span class="n">result_action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"random_number2)</span>
+<span class="n">result_action_data</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span><span class="n">Signature</span><span class="p">(</span><span class="n">tags</span><span class="o">=</span><span class="p">{</span><span class="s2">"random"</span><span class="p">}))</span>
+</pre></div>
 </div>
-<div class="section" id="changelog">
-<h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="v0-3">
-<h2>v0.3<a class="headerlink" href="#v0-3" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>No <code class="docutils literal notranslate"><span class="pre">ActionData.virtual_keys</span></code></p></li>
-<li><p>No support for evolution of dotted keys in <code class="docutils literal notranslate"><span class="pre">ActionData</span></code></p></li>
-<li><p>No <code class="docutils literal notranslate"><span class="pre">ActionData.select</span></code></p></li>
-<li><p>No <code class="docutils literal notranslate"><span class="pre">RevealDictValues</span></code></p></li>
-<li><p>No <code class="docutils literal notranslate"><span class="pre">AddVirtualKey</span></code>, use <code class="docutils literal notranslate"><span class="pre">GenericDataSource</span></code> instead</p></li>
-<li><p>No <code class="docutils literal notranslate"><span class="pre">ActionData.measurements</span></code> and <code class="docutils literal notranslate"><span class="pre">ActionData.actions_done</span></code> – use <code class="docutils literal notranslate"><span class="pre">ActionData.get_observer(ExecutionTimeObserver)</span></code>
-and <code class="docutils literal notranslate"><span class="pre">ActionData.get_observer(ActionsLog)</span></code>  instead</p></li>
+<p>In order to create an async version, just implement <code class="docutils literal notranslate"><span class="pre">async_transform</span></code> method.</p>
+</div>
+<div class="section" id="datasource">
+<h4>DataSource<a class="headerlink" href="#datasource" title="Permalink to this headline">¶</a></h4>
+<p>This is an action that adds a value to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>. You should just return the plain value (no fiddling around
+with the container). The action will then add the return value to the container automatically. Nevertheless,
+we need to specify what should be the <em>key</em> used when adding the value to the container. That’s why this class
+has to specify <code class="docutils literal notranslate"><span class="pre">PROVIDES:</span> <span class="pre">str</span></code> class attribute.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">IncrementByRandomNumber</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+    <span class="n">PROVIDES</span> <span class="o">=</span> <span class="s2">"random_number"</span>
+
+    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+        <span class="n">my_number</span> <span class="o">=</span> <span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"my_number"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">my_number</span> <span class="o">+</span> <span class="n">random</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In order to create an async version, just implement <code class="docutils literal notranslate"><span class="pre">async_get_data</span></code> method.</p>
+</div>
+<div class="section" id="event">
+<h4>Event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h4>
+<p>This is an action that does not return anything (nothing from this action is propagated to the action data). It’s usually
+used to isolate side effects from the rest of the pipeline. Since nothing is returned back to the <code class="docutils literal notranslate"><span class="pre">ActionData</span></code>, events
+can be executed in parallel in a separate thread when running the async version of the pipeline (see “Async support”
+section above). This is done by default and can be turned off via <code class="docutils literal notranslate"><span class="pre">async_blocking</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">Event</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SendEmail</span><span class="p">(</span><span class="n">Event</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">email_service</span><span class="p">:</span> <span class="n">EmailService</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">email_service</span> <span class="o">=</span> <span class="n">email_service</span>
+
+    <span class="k">def</span> <span class="nf">run_side_effect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">email_service</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">recepient</span><span class="o">=</span><span class="n">action_data</span><span class="o">.</span><span class="n">get_by_type</span><span class="p">(</span><span class="n">User</span><span class="p">),</span> <span class="n">message</span><span class="o">=</span><span class="n">action_data</span><span class="o">.</span><span class="n">get_by_type</span><span class="p">(</span><span class="n">EmailMessage</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In order to create an async version, just implement <code class="docutils literal notranslate"><span class="pre">async_run_side_effect</span></code> method.</p>
+</div>
+<div class="section" id="inheriting-action-directly">
+<h4>Inheriting Action directly<a class="headerlink" href="#inheriting-action-directly" title="Permalink to this headline">¶</a></h4>
+<p>This is not recommended and using other action bases should be just fine – basically the same capabilities has
+<code class="docutils literal notranslate"><span class="pre">Transformation</span></code> class since it’s also operating on <code class="docutils literal notranslate"><span class="pre">ActionData</span> <span class="pre">-&gt;</span> <span class="pre">ActionData</span></code> level. However, if for some reason it’s
+necessary to do that, there are a few things needed to keep in mind.</p>
+<p>The most important one is to implement “skipping logic”. Current implementation is using <code class="docutils literal notranslate"><span class="pre">ActionData.skip_processing</span></code>
+flag to determine whether the action data should be processed (see <code class="docutils literal notranslate"><span class="pre">Return</span></code> action). So don’t forget to add
+something like this in your code (especially when using <code class="docutils literal notranslate"><span class="pre">Return</span></code> action in the pipeline):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@record_action</span>
+<span class="nd">@verbose_action_exception</span>
+<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">action_data</span>
+
+    <span class="c1"># normal implementation of the action</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Second thing is to add <code class="docutils literal notranslate"><span class="pre">record_action</span></code> (for <code class="docutils literal notranslate"><span class="pre">run</span></code>) or <code class="docutils literal notranslate"><span class="pre">async_record_action</span></code> (for <code class="docutils literal notranslate"><span class="pre">async_run</span></code>) decorators for the run
+method. These decorators are important for recording the executed actions to observers.</p>
+<p>Lastly, <code class="docutils literal notranslate"><span class="pre">verbose_action_exception</span></code> (for <code class="docutils literal notranslate"><span class="pre">run</span></code>) or <code class="docutils literal notranslate"><span class="pre">async_verbose_action_exception</span></code> (for <code class="docutils literal notranslate"><span class="pre">async_run</span></code>) should be added
+as well to prettify errors.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="reference/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#actions">Actions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#entities">Entities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="reference/index.html#utils">Utils</a></li>
 </ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="indices-and-tables">
@@ -820,7 +971,15 @@ and <code class="docutils literal notranslate"><span class="pre">ActionData.get_
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="reference/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API Reference</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
           
         </div>
 
@@ -852,8 +1011,11 @@ and <code class="docutils literal notranslate"><span class="pre">ActionData.get_
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">lena</a><ul>
-<li><a class="reference internal" href="#motivation">Motivation</a></li>
+<li><a class="reference internal" href="#">orinoco</a><ul>
+<li><a class="reference internal" href="#motivation">Motivation</a><ul>
+<li><a class="reference internal" href="#example-scenario">Example scenario</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#building-blocks">Building blocks</a><ul>
 <li><a class="reference internal" href="#actions">Actions</a><ul>
 <li><a class="reference internal" href="#typedaction">TypedAction</a></li>
@@ -878,7 +1040,7 @@ and <code class="docutils literal notranslate"><span class="pre">ActionData.get_
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#condition">Condition</a><ul>
+<li><a class="reference internal" href="#conditions">Conditions</a><ul>
 <li><a class="reference internal" href="#operators">Operators</a></li>
 <li><a class="reference internal" href="#branching">Branching</a></li>
 <li><a class="reference internal" href="#conditional-actions">Conditional actions</a></li>
@@ -896,12 +1058,14 @@ and <code class="docutils literal notranslate"><span class="pre">ActionData.get_
 <li><a class="reference internal" href="#get-by-signature">Get by signature</a></li>
 <li><a class="reference internal" href="#find-by-signature">Find by signature</a></li>
 <li><a class="reference internal" href="#observers">Observers</a><ul>
-<li><a class="reference internal" href="#actionslog">ActionsLog</a></li>
-<li><a class="reference internal" href="#executiontimeobserver">ExecutionTimeObserver</a></li>
-<li><a class="reference internal" href="#custom-observer">Custom observer</a></li>
+<li><a class="reference internal" href="#actionslog-observer">ActionsLog observer</a></li>
+<li><a class="reference internal" href="#executiontimeobserver-observer">ExecutionTimeObserver observer</a></li>
+<li><a class="reference internal" href="#custom-observers">Custom observers</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#exporting-to-dict">Exporting to dict</a></li>
+<li><a class="reference internal" href="#exporting-to-a-dict">Exporting to a dict</a></li>
+<li><a class="reference internal" href="#reusing-action-data">Reusing action data</a></li>
+<li><a class="reference internal" href="#immutability">Immutability</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#chaining-actions">Chaining actions</a></li>
@@ -915,12 +1079,15 @@ and <code class="docutils literal notranslate"><span class="pre">ActionData.get_
 <li><a class="reference internal" href="#combining-sync-and-async-actions">Combining sync and async actions</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#other-action-bases">Other action bases</a><ul>
+<li><a class="reference internal" href="#transformation">Transformation</a></li>
+<li><a class="reference internal" href="#datasource">DataSource</a></li>
+<li><a class="reference internal" href="#event">Event</a></li>
+<li><a class="reference internal" href="#inheriting-action-directly">Inheriting Action directly</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#changelog">Changelog</a><ul>
-<li><a class="reference internal" href="#v0-3">v0.3</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>

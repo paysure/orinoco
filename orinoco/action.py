@@ -17,12 +17,12 @@ from typing import (
     Coroutine,
 )
 
-from lena import settings
-from lena.entities import ActionData
-from lena.exceptions import ActionNotProperlyConfigured, BaseActionException
-from lena.observers import ActionsLog
-from lena.tags import SystemActionTag
-from lena.types import ActionT, ActionDataT, NamespacedActionT, ActionVar
+from orinoco import settings
+from orinoco.entities import ActionData
+from orinoco.exceptions import ActionNotProperlyConfigured, BaseActionException
+from orinoco.observers import ActionsLog
+from orinoco.tags import SystemActionTag
+from orinoco.types import ActionT, ActionDataT, NamespacedActionT, ActionVar
 
 
 class _NamespacedAction(NamespacedActionT):
@@ -57,15 +57,15 @@ class SyncActionMixin(ABC):
                 ...
 
         :param action_data: Data container passed by actions
-        :return: Last version of :class:`:class:~lena.entities.ActionData` after execution
+        :return: Last version of :class:`:class:~orinoco.entities.ActionData` after execution
         """
         pass
 
     def run_with_data(self, **params: Any) -> ActionDataT:
         """
-        Shortcut for running actions without creating :class:`~lena.entities.ActionData` object directly
+        Shortcut for running actions without creating :class:`~orinoco.entities.ActionData` object directly
 
-        :param params: Parameters which are propagated into :class:`~lena.entities.ActionData`
+        :param params: Parameters which are propagated into :class:`~orinoco.entities.ActionData`
         :return: Processed data with results
         """
         return self.run(ActionData.create(**params))
@@ -90,15 +90,15 @@ class AsyncActionMixin(ABC):
                 ...
 
         :param action_data: Data container passed by actions
-        :return: Last version of `~lena.entities.ActionData` after execution
+        :return: Last version of `~orinoco.entities.ActionData` after execution
         """
         pass
 
     async def async_run_with_data(self, **params: Any) -> ActionDataT:
         """
-        Shortcut for running actions asynchronously without creating :class:`~lena.entities.ActionData` object directly
+        Shortcut for running actions asynchronously without creating :class:`~orinoco.entities.ActionData` object directly
 
-        :param params: Parameters which are propagated into :class:`~lena.entities.ActionData`
+        :param params: Parameters which are propagated into :class:`~orinoco.entities.ActionData`
         :return: Processed data with results
         """
         return await self.async_run(ActionData.create(**params))
@@ -107,7 +107,7 @@ class AsyncActionMixin(ABC):
 class Action(SyncActionMixin, AsyncActionMixin, ActionT, ABC):
     """
     Fundamental entity which is designed to be chained with other actions so one action process
-    the :class:`~lena.entities.ActionData` and send it to the next action.
+    the :class:`~orinoco.entities.ActionData` and send it to the next action.
     """
 
     DESCRIPTION: str = ""
@@ -147,7 +147,7 @@ class Action(SyncActionMixin, AsyncActionMixin, ActionT, ABC):
         """
         Run action on a subfield. See :class:`OnActionDataSubField` class for more information.
 
-        :param field_key: Key to the item in :class:`~lena.entities.ActionData` on which the action will be executed
+        :param field_key: Key to the item in :class:`~orinoco.entities.ActionData` on which the action will be executed
         :return: Wrapped action which will be executed on the subfield
         """
         return OnActionDataSubField(self, field_key)
@@ -187,7 +187,7 @@ def record_action(
 ) -> Callable[[ActionVar, ActionDataT], ActionDataT]:
     """
     Decorator for :func:`~SyncActionMixin.run` which records decorated action signature to
-    the :class:`~lena.entities.ActionData`
+    the :class:`~orinoco.entities.ActionData`
 
     :param fu: :func:`~SyncActionMixin.run` method (or any with the same signature)
     :return: Decorated function
@@ -219,7 +219,7 @@ def async_record_action(
 ) -> Callable[[ActionVar, ActionDataT], Coroutine[None, None, ActionDataT]]:
     """
     Decorator for :func:`~AsyncActionMixin.async_run` which records decorated action signature to
-    the :class:`~lena.entities.ActionData`
+    the :class:`~orinoco.entities.ActionData`
 
     :param fu: :func:`~AsyncActionMixin.async_run` method (or any with the same signature)
     :return: Decorated function
@@ -394,7 +394,7 @@ class AsyncAtomicActionSet(ActionSet, SystemActionTag):
 
 class Then(ActionSet, SystemActionTag):
     """
-    Syntactics sugar for :class:`ActionSet`. See :class:`~lena.condition.Switch` docs for usage
+    Syntactics sugar for :class:`ActionSet`. See :class:`~orinoco.condition.Switch` docs for usage
     """
 
     def __init__(self, *actions: ActionT):

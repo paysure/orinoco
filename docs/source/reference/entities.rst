@@ -1,4 +1,4 @@
 Entities
 =====================
-.. automodule:: lena.entities
+.. automodule:: orinoco.entities
    :members:

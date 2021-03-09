@@ -1,4 +1,4 @@
 Loop
 =====================
-.. automodule:: lena.loop
+.. automodule:: orinoco.loop
    :members:

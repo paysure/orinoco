@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>lena.data_source - lena 1.0.0 documentation</title>
+        <title>orinoco.data_source - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,11 +137,11 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <h1>Source code for lena.data_source</h1><div class="highlight"><pre>
+        <h1>Source code for orinoco.data_source</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">lena.action</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">orinoco.action</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Action</span><span class="p">,</span>
     <span class="n">record_action</span><span class="p">,</span>
     <span class="n">verbose_action_exception</span><span class="p">,</span>
@@ -149,13 +149,13 @@
     <span class="n">async_record_action</span><span class="p">,</span>
     <span class="n">async_verbose_action_exception</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">lena.entities</span> <span class="kn">import</span> <span class="n">ActionData</span>
-<span class="kn">from</span> <span class="nn">lena.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotProperlyInherited</span>
-<span class="kn">from</span> <span class="nn">lena.helpers</span> <span class="kn">import</span> <span class="n">raise_not_provided_field</span>
-<span class="kn">from</span> <span class="nn">lena.types</span> <span class="kn">import</span> <span class="n">ActionDataT</span>
+<span class="kn">from</span> <span class="nn">orinoco.entities</span> <span class="kn">import</span> <span class="n">ActionData</span>
+<span class="kn">from</span> <span class="nn">orinoco.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotProperlyInherited</span>
+<span class="kn">from</span> <span class="nn">orinoco.helpers</span> <span class="kn">import</span> <span class="n">raise_not_provided_field</span>
+<span class="kn">from</span> <span class="nn">orinoco.types</span> <span class="kn">import</span> <span class="n">ActionDataT</span>
 
 
-<div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="DataSource"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.DataSource">[docs]</a><span class="k">class</span> <span class="nc">DataSource</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Base action which provides new data</span>
 <span class="sd">    """</span>
@@ -170,10 +170,10 @@
         <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :param provides: Key in :class:`~lena.entities.ActionData` under the data it will be stored.</span>
-<span class="sd">        If it's not provided :attrs:`lena.data_source.DataSource.PROVIDES` is used as default value.</span>
+<span class="sd">        :param provides: Key in :class:`~orinoco.entities.ActionData` under the data it will be stored.</span>
+<span class="sd">        If it's not provided :attrs:`orinoco.data_source.DataSource.PROVIDES` is used as default value.</span>
 <span class="sd">        :param dont_get_if_is_in: If it's True and a value with ``provides`` key is already</span>
-<span class="sd">        in `:class:`~lena.entities.ActionData` the :func:`~lena.data_source.DataSource.get_data` is not executed.</span>
+<span class="sd">        in `:class:`~orinoco.entities.ActionData` the :func:`~orinoco.data_source.DataSource.get_data` is not executed.</span>
 <span class="sd">        :param description: Description of the action</span>
 <span class="sd">        :param name: Name of the action</span>
 <span class="sd">        """</span>
@@ -181,7 +181,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">provides</span> <span class="o">=</span> <span class="n">provides</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">PROVIDES</span> <span class="ow">or</span> <span class="n">raise_not_provided_field</span><span class="p">(</span><span class="s2">"provides"</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">dont_get_if_is_in</span> <span class="o">=</span> <span class="n">dont_get_if_is_in</span>
 
-<div class="viewcode-block" id="DataSource.run"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.DataSource.run">[docs]</a>    <span class="nd">@record_action</span>
+<div class="viewcode-block" id="DataSource.run"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.DataSource.run">[docs]</a>    <span class="nd">@record_action</span>
     <span class="nd">@verbose_action_exception</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
@@ -191,7 +191,7 @@
             <span class="k">return</span> <span class="n">action_data</span>
         <span class="k">return</span> <span class="n">action_data</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provides</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">action_data</span><span class="p">)})</span></div>
 
-<div class="viewcode-block" id="DataSource.async_run"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.DataSource.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
+<div class="viewcode-block" id="DataSource.async_run"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.DataSource.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
     <span class="nd">@async_verbose_action_exception</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
@@ -201,7 +201,7 @@
             <span class="k">return</span> <span class="n">action_data</span>
         <span class="k">return</span> <span class="n">action_data</span><span class="o">.</span><span class="n">evolve</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="bp">self</span><span class="o">.</span><span class="n">provides</span><span class="p">:</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_get_data</span><span class="p">(</span><span class="n">action_data</span><span class="p">)})</span></div>
 
-<div class="viewcode-block" id="DataSource.get_data"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.DataSource.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="DataSource.get_data"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.DataSource.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        :param action_data:</span>
 <span class="sd">        :return: Value which is appended to `ActionData`</span>
@@ -210,26 +210,26 @@
             <span class="s2">"`get_data` method needs to implemented for sync execution or `async_get_data` for async execution"</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="DataSource.async_get_data"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.DataSource.async_get_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="DataSource.async_get_data"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.DataSource.async_get_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        :param action_data: Data container passed by actions</span>
-<span class="sd">        :return: Value which is appended to `~lena.entities.ActionData`</span>
+<span class="sd">        :return: Value which is appended to `~orinoco.entities.ActionData`</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DataSource.get_source_data"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.DataSource.get_source_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_source_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="DataSource.get_source_data"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.DataSource.get_source_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_source_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Shortcut to call the :class:`~lena.data_source.DataSource` instance directly and get the result</span>
+<span class="sd">        Shortcut to call the :class:`~orinoco.data_source.DataSource` instance directly and get the result</span>
 
-<span class="sd">        :param kwargs: Data which are propagated into `~lena.entities.ActionData`</span>
+<span class="sd">        :param kwargs: Data which are propagated into `~orinoco.entities.ActionData`</span>
 <span class="sd">        :return: Requested data value</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">ActionData</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">))</span></div></div>
 
 
-<div class="viewcode-block" id="GenericDataSource"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.GenericDataSource">[docs]</a><span class="k">class</span> <span class="nc">GenericDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericDataSource"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.GenericDataSource">[docs]</a><span class="k">class</span> <span class="nc">GenericDataSource</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Utility data source action which allows inserting values into the `~lena.entities.ActionData` "on the fly"</span>
+<span class="sd">    Utility data source action which allows inserting values into the `~orinoco.entities.ActionData` "on the fly"</span>
 <span class="sd">    (usually by lambda functions)</span>
 <span class="sd">    """</span>
 
@@ -237,46 +237,46 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">provides</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :param method: Method which use :class:`~lena.entities.ActionData` to get the data</span>
+<span class="sd">        :param method: Method which use :class:`~orinoco.entities.ActionData` to get the data</span>
 <span class="sd">        :param provides:</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">provides</span><span class="o">=</span><span class="n">provides</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">method</span> <span class="o">=</span> <span class="n">method</span>
 
-<div class="viewcode-block" id="GenericDataSource.get_data"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.GenericDataSource.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="GenericDataSource.get_data"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.GenericDataSource.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="AddActionValue"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.AddActionValue">[docs]</a><span class="k">class</span> <span class="nc">AddActionValue</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="AddActionValue"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.AddActionValue">[docs]</a><span class="k">class</span> <span class="nc">AddActionValue</span><span class="p">(</span><span class="n">DataSource</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Utility class which adds a value into the :class:`~lena.entities.ActionData`</span>
+<span class="sd">    Utility class which adds a value into the :class:`~orinoco.entities.ActionData`</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">]]):</span>
         <span class="sd">"""</span>
-<span class="sd">        :param key: Key of the value in the :class:`~lena.entities.ActionData`</span>
+<span class="sd">        :param key: Key of the value in the :class:`~orinoco.entities.ActionData`</span>
 <span class="sd">        :param value: Value to set</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">provides</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">"</span><span class="si">{}</span><span class="s2">[</span><span class="si">{}</span><span class="s2">]"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
 
-<div class="viewcode-block" id="AddActionValue.get_data"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.AddActionValue.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="AddActionValue.get_data"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.AddActionValue.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="AddActionValues"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.AddActionValues">[docs]</a><span class="k">class</span> <span class="nc">AddActionValues</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">):</span>
+<div class="viewcode-block" id="AddActionValues"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.AddActionValues">[docs]</a><span class="k">class</span> <span class="nc">AddActionValues</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">action_values</span><span class="p">:</span> <span class="n">Any</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">([</span><span class="n">AddActionValue</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">action_values</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span></div>
 
 
-<div class="viewcode-block" id="AddVirtualKeyShortcut"><a class="viewcode-back" href="../../reference/data_source.html#lena.data_source.AddVirtualKeyShortcut">[docs]</a><span class="k">class</span> <span class="nc">AddVirtualKeyShortcut</span><span class="p">(</span><span class="n">GenericDataSource</span><span class="p">):</span>
+<div class="viewcode-block" id="AddVirtualKeyShortcut"><a class="viewcode-back" href="../../reference/data_source.html#orinoco.data_source.AddVirtualKeyShortcut">[docs]</a><span class="k">class</span> <span class="nc">AddVirtualKeyShortcut</span><span class="p">(</span><span class="n">GenericDataSource</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">source_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">"""</span>
-<span class="sd">        :param key: New key in the :class:`~lena.entities.ActionData`</span>
-<span class="sd">        :param source_key: Key for getting the value from :class:`~lena.entities.ActionData`</span>
+<span class="sd">        :param key: New key in the :class:`~orinoco.entities.ActionData`</span>
+<span class="sd">        :param source_key: Key for getting the value from :class:`~orinoco.entities.ActionData`</span>
 <span class="sd">        """</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">provides</span><span class="o">=</span><span class="n">key</span><span class="p">,</span>

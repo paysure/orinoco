@@ -2,8 +2,8 @@ import abc
 import time
 from typing import List, Tuple, Dict
 
-from lena.tags import SystemActionTag
-from lena.types import ObserverT, ActionT
+from orinoco.tags import SystemActionTag
+from orinoco.types import ObserverT, ActionT
 
 
 class Observer(ObserverT, abc.ABC):

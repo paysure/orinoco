@@ -1,4 +1,4 @@
 Conditions
 =====================
-.. automodule:: lena.condition
+.. automodule:: orinoco.condition
    :members:

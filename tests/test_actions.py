@@ -9,8 +9,8 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from lena import settings
-from lena.action import (
+from orinoco import settings
+from orinoco.action import (
     ActionSet,
     Then,
     HandledExceptions,
@@ -20,7 +20,7 @@ from lena.action import (
     verbose_action_exception,
     Return,
 )
-from lena.condition import (
+from orinoco.condition import (
     GenericCondition,
     Switch,
     PropertyCondition,
@@ -30,14 +30,14 @@ from lena.condition import (
     NonNoneDataValues,
     AlwaysTrue,
 )
-from lena.data_source import GenericDataSource, DataSource, AddActionValue, AddActionValues, AddVirtualKeyShortcut
-from lena.entities import Signature, ActionData
-from lena.event import GenericEvent, Event, EventSet
-from lena.exceptions import ConditionNotMet, NoneOfActionsCanBeExecuted, ActionNotProperlyInherited
-from lena.loop import ForSideEffects
-from lena.observers import ExecutionTimeObserver, ActionsLog
-from lena.transformation import GenericTransformation, RenameActionField, WithoutFields
-from lena.types import ActionDataT
+from orinoco.data_source import GenericDataSource, DataSource, AddActionValue, AddActionValues, AddVirtualKeyShortcut
+from orinoco.entities import Signature, ActionData
+from orinoco.event import GenericEvent, Event, EventSet
+from orinoco.exceptions import ConditionNotMet, NoneOfActionsCanBeExecuted, ActionNotProperlyInherited
+from orinoco.loop import ForSideEffects
+from orinoco.observers import ExecutionTimeObserver, ActionsLog
+from orinoco.transformation import GenericTransformation, RenameActionField, WithoutFields
+from orinoco.types import ActionDataT
 
 
 def increase_counter(action_data: ActionDataT) -> ActionDataT:
@@ -313,7 +313,7 @@ def test_loop_generic() -> None:
 
 
 def test_async() -> None:
-    tmp_file, filename = tempfile.mkstemp()
+    tmp_file, fiorinocome = tempfile.mkstemp()
 
     async def weather_api(day):
         return day * 2
@@ -344,7 +344,7 @@ def test_async() -> None:
     assert result.futures[0].done()
     assert result.futures[0].exception() is None
 
-    with open(filename) as fp:
+    with open(fiorinocome) as fp:
         assert fp.read() == "Today is 3"
 
     # Can't run sync with async tasks

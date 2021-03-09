@@ -1,4 +1,4 @@
 Helpers
 =====================
-.. automodule:: lena.helpers
+.. automodule:: orinoco.helpers
    :members:

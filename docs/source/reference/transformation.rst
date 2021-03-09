@@ -1,4 +1,4 @@
 Transformations
 =====================
-.. automodule:: lena.transformation
+.. automodule:: orinoco.transformation
    :members:

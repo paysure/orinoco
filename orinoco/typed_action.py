@@ -1,17 +1,17 @@
 from abc import ABC
 from typing import Optional, Dict, Any, Type, Callable, Generic, Awaitable
 
-from lena.action import (
+from orinoco.action import (
     Action,
     record_action,
     verbose_action_exception,
     async_record_action,
     async_verbose_action_exception,
 )
-from lena.condition import Condition
-from lena.entities import ActionConfig, Signature
-from lena.exceptions import ActionNotProperlyConfigured
-from lena.types import T, ActionDataT
+from orinoco.condition import Condition
+from orinoco.entities import ActionConfig, Signature
+from orinoco.exceptions import ActionNotProperlyConfigured
+from orinoco.types import T, ActionDataT
 
 
 class TypedBase(Generic[T], Action, ABC):

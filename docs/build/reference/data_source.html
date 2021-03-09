@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Events" href="event.html" /><link rel="prev" title="Typed Action" href="typed_action.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>Data Sources - lena 1.0.0 documentation</title>
+        <title>Data Sources - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,15 +137,15 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="module-lena.data_source">
-<span id="data-sources"></span><h1>Data Sources<a class="headerlink" href="#module-lena.data_source" title="Permalink to this headline">¶</a></h1>
+        <div class="section" id="module-orinoco.data_source">
+<span id="data-sources"></span><h1>Data Sources<a class="headerlink" href="#module-orinoco.data_source" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="lena.data_source.AddActionValue">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.data_source.</span></code><code class="sig-name descname"><span class="pre">AddActionValue</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/data_source.html#AddActionValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.AddActionValue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Utility class which adds a value into the <a class="reference internal" href="entities.html#lena.entities.ActionData" title="lena.entities.ActionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionData</span></code></a></p>
+<dt id="orinoco.data_source.AddActionValue">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.data_source.</span></code><code class="sig-name descname"><span class="pre">AddActionValue</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/data_source.html#AddActionValue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.AddActionValue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility class which adds a value into the <a class="reference internal" href="entities.html#orinoco.entities.ActionData" title="orinoco.entities.ActionData"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActionData</span></code></a></p>
 <dl class="py method">
-<dt id="lena.data_source.AddActionValue.get_data">
-<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/lena/data_source.html#AddActionValue.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.AddActionValue.get_data" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.AddActionValue.get_data">
+<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/orinoco/data_source.html#AddActionValue.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.AddActionValue.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action_data</strong> – </p>
@@ -157,32 +157,32 @@
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.data_source.AddActionValues">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.data_source.</span></code><code class="sig-name descname"><span class="pre">AddActionValues</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">action_values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/data_source.html#AddActionValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.AddActionValues" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.AddActionValues">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.data_source.</span></code><code class="sig-name descname"><span class="pre">AddActionValues</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">action_values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/data_source.html#AddActionValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.AddActionValues" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py class">
-<dt id="lena.data_source.AddVirtualKeyShortcut">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.data_source.</span></code><code class="sig-name descname"><span class="pre">AddVirtualKeyShortcut</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/data_source.html#AddVirtualKeyShortcut"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.AddVirtualKeyShortcut" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.AddVirtualKeyShortcut">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.data_source.</span></code><code class="sig-name descname"><span class="pre">AddVirtualKeyShortcut</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/data_source.html#AddVirtualKeyShortcut"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.AddVirtualKeyShortcut" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py class">
-<dt id="lena.data_source.DataSource">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.data_source.</span></code><code class="sig-name descname"><span class="pre">DataSource</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provides</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dont_get_if_is_in</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/data_source.html#DataSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.DataSource" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.DataSource">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.data_source.</span></code><code class="sig-name descname"><span class="pre">DataSource</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">provides</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dont_get_if_is_in</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/data_source.html#DataSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.DataSource" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base action which provides new data</p>
 <dl class="py method">
-<dt id="lena.data_source.DataSource.async_get_data">
-<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/lena/data_source.html#DataSource.async_get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.DataSource.async_get_data" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.DataSource.async_get_data">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/orinoco/data_source.html#DataSource.async_get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.DataSource.async_get_data" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Value which is appended to <cite>~lena.entities.ActionData</cite></p>
+<dd class="field-even"><p>Value which is appended to <cite>~orinoco.entities.ActionData</cite></p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.data_source.DataSource.async_run">
-<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">lena.types.ActionDataT</span><a class="reference internal" href="../_modules/lena/data_source.html#DataSource.async_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.DataSource.async_run" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.DataSource.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">orinoco.types.ActionDataT</span><a class="reference internal" href="../_modules/orinoco/data_source.html#DataSource.async_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.DataSource.async_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method which is executed when running the action pipeline</p>
 <p>Note that each override of this function have to implement “skipping logic” to support <code class="xref py py-class docutils literal notranslate"><span class="pre">Return</span></code>
 functionality.</p>
@@ -199,13 +199,13 @@ functionality.</p>
 <dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Last version of <cite>~lena.entities.ActionData</cite> after execution</p>
+<dd class="field-even"><p>Last version of <cite>~orinoco.entities.ActionData</cite> after execution</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.data_source.DataSource.get_data">
-<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/lena/data_source.html#DataSource.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.DataSource.get_data" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.DataSource.get_data">
+<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/orinoco/data_source.html#DataSource.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.DataSource.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action_data</strong> – </p>
@@ -216,12 +216,12 @@ functionality.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.data_source.DataSource.get_source_data">
-<code class="sig-name descname"><span class="pre">get_source_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/lena/data_source.html#DataSource.get_source_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.DataSource.get_source_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shortcut to call the <a class="reference internal" href="#lena.data_source.DataSource" title="lena.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a> instance directly and get the result</p>
+<dt id="orinoco.data_source.DataSource.get_source_data">
+<code class="sig-name descname"><span class="pre">get_source_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/orinoco/data_source.html#DataSource.get_source_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.DataSource.get_source_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shortcut to call the <a class="reference internal" href="#orinoco.data_source.DataSource" title="orinoco.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a> instance directly and get the result</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – Data which are propagated into <cite>~lena.entities.ActionData</cite></p>
+<dd class="field-odd"><p><strong>kwargs</strong> – Data which are propagated into <cite>~orinoco.entities.ActionData</cite></p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Requested data value</p>
@@ -229,8 +229,8 @@ functionality.</p>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.data_source.DataSource.run">
-<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">lena.types.ActionDataT</span><a class="reference internal" href="../_modules/lena/data_source.html#DataSource.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.DataSource.run" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.DataSource.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">orinoco.types.ActionDataT</span><a class="reference internal" href="../_modules/orinoco/data_source.html#DataSource.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.DataSource.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method which is executed when running the action pipeline</p>
 <p>Note that each override of this function have to implement “skipping logic” to support <code class="xref py py-class docutils literal notranslate"><span class="pre">Return</span></code>
 functionality.</p>
@@ -247,19 +247,19 @@ functionality.</p>
 <dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Last version of <code class="xref py py-class docutils literal notranslate"><span class="pre">:class:~lena.entities.ActionData</span></code> after execution</p>
+<dd class="field-even"><p>Last version of <code class="xref py py-class docutils literal notranslate"><span class="pre">:class:~orinoco.entities.ActionData</span></code> after execution</p>
 </dd>
 </dl>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.data_source.GenericDataSource">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.data_source.</span></code><code class="sig-name descname"><span class="pre">GenericDataSource</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provides</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/data_source.html#GenericDataSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.GenericDataSource" title="Permalink to this definition">¶</a></dt>
-<dd><p>Utility data source action which allows inserting values into the <cite>~lena.entities.ActionData</cite> “on the fly”
+<dt id="orinoco.data_source.GenericDataSource">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.data_source.</span></code><code class="sig-name descname"><span class="pre">GenericDataSource</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">orinoco.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">provides</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/data_source.html#GenericDataSource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.GenericDataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility data source action which allows inserting values into the <cite>~orinoco.entities.ActionData</cite> “on the fly”
 (usually by lambda functions)</p>
 <dl class="py method">
-<dt id="lena.data_source.GenericDataSource.get_data">
-<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/lena/data_source.html#GenericDataSource.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.data_source.GenericDataSource.get_data" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.data_source.GenericDataSource.get_data">
+<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">Any</span><a class="reference internal" href="../_modules/orinoco/data_source.html#GenericDataSource.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.data_source.GenericDataSource.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>action_data</strong> – </p>

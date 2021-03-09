@@ -1,4 +1,4 @@
 Events
 =====================
-.. automodule:: lena.event
+.. automodule:: orinoco.event
    :members:

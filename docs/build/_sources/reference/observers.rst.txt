@@ -1,4 +1,4 @@
 Observers
 =====================
-.. automodule:: lena.observers
+.. automodule:: orinoco.observers
    :members:

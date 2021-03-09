@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Any, Callable, Union, Optional
 
-from lena.action import (
+from orinoco.action import (
     Action,
     record_action,
     verbose_action_exception,
@@ -9,10 +9,10 @@ from lena.action import (
     async_record_action,
     async_verbose_action_exception,
 )
-from lena.entities import ActionData
-from lena.exceptions import ActionNotProperlyInherited
-from lena.helpers import raise_not_provided_field
-from lena.types import ActionDataT
+from orinoco.entities import ActionData
+from orinoco.exceptions import ActionNotProperlyInherited
+from orinoco.helpers import raise_not_provided_field
+from orinoco.types import ActionDataT
 
 
 class DataSource(Action, ABC):
@@ -30,10 +30,10 @@ class DataSource(Action, ABC):
         name: Optional[str] = None,
     ):
         """
-        :param provides: Key in :class:`~lena.entities.ActionData` under the data it will be stored.
-        If it's not provided :attrs:`lena.data_source.DataSource.PROVIDES` is used as default value.
+        :param provides: Key in :class:`~orinoco.entities.ActionData` under the data it will be stored.
+        If it's not provided :attrs:`orinoco.data_source.DataSource.PROVIDES` is used as default value.
         :param dont_get_if_is_in: If it's True and a value with ``provides`` key is already
-        in `:class:`~lena.entities.ActionData` the :func:`~lena.data_source.DataSource.get_data` is not executed.
+        in `:class:`~orinoco.entities.ActionData` the :func:`~orinoco.data_source.DataSource.get_data` is not executed.
         :param description: Description of the action
         :param name: Name of the action
         """
@@ -73,15 +73,15 @@ class DataSource(Action, ABC):
     async def async_get_data(self, action_data: ActionDataT) -> Any:
         """
         :param action_data: Data container passed by actions
-        :return: Value which is appended to `~lena.entities.ActionData`
+        :return: Value which is appended to `~orinoco.entities.ActionData`
         """
         return self.get_data(action_data)
 
     def get_source_data(self, **kwargs: Any) -> Any:
         """
-        Shortcut to call the :class:`~lena.data_source.DataSource` instance directly and get the result
+        Shortcut to call the :class:`~orinoco.data_source.DataSource` instance directly and get the result
 
-        :param kwargs: Data which are propagated into `~lena.entities.ActionData`
+        :param kwargs: Data which are propagated into `~orinoco.entities.ActionData`
         :return: Requested data value
         """
         return self.get_data(ActionData.create(**kwargs))
@@ -89,7 +89,7 @@ class DataSource(Action, ABC):
 
 class GenericDataSource(DataSource):
     """
-    Utility data source action which allows inserting values into the `~lena.entities.ActionData` "on the fly"
+    Utility data source action which allows inserting values into the `~orinoco.entities.ActionData` "on the fly"
     (usually by lambda functions)
     """
 
@@ -97,7 +97,7 @@ class GenericDataSource(DataSource):
         self, method: Callable[[ActionDataT], Any], provides: Optional[str] = None, name: Optional[str] = None
     ):
         """
-        :param method: Method which use :class:`~lena.entities.ActionData` to get the data
+        :param method: Method which use :class:`~orinoco.entities.ActionData` to get the data
         :param provides:
         """
         super().__init__(provides=provides, name=name)
@@ -109,12 +109,12 @@ class GenericDataSource(DataSource):
 
 class AddActionValue(DataSource):
     """
-    Utility class which adds a value into the :class:`~lena.entities.ActionData`
+    Utility class which adds a value into the :class:`~orinoco.entities.ActionData`
     """
 
     def __init__(self, key: str, value: Union[Any, Callable[[], Any]]):
         """
-        :param key: Key of the value in the :class:`~lena.entities.ActionData`
+        :param key: Key of the value in the :class:`~orinoco.entities.ActionData`
         :param value: Value to set
         """
         super().__init__(provides=key, name="{}[{}]".format(self.__class__.__name__, key))
@@ -135,8 +135,8 @@ class AddActionValues(ActionSet):
 class AddVirtualKeyShortcut(GenericDataSource):
     def __init__(self, key: str, source_key: str):
         """
-        :param key: New key in the :class:`~lena.entities.ActionData`
-        :param source_key: Key for getting the value from :class:`~lena.entities.ActionData`
+        :param key: New key in the :class:`~orinoco.entities.ActionData`
+        :param source_key: Key for getting the value from :class:`~orinoco.entities.ActionData`
         """
         super().__init__(
             provides=key,

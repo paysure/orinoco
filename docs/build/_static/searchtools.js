@@ -15,7 +15,7 @@ if (!Scorer) {
    */
   var Scorer = {
     // Implement the following function to further tweak the score for each result
-    // The function takes a result array [filename, title, anchor, descr, score]
+    // The function takes a result array [fiorinocome, title, anchor, descr, score]
     // and returns the new score.
     /*
     score: function(result) {
@@ -200,7 +200,7 @@ var Search = {
     var terms = this._index.terms;
     var titleterms = this._index.titleterms;
 
-    // array of [filename, title, anchor, descr, score]
+    // array of [fiorinocome, title, anchor, descr, score]
     var results = [];
     $('#search-progress').empty();
 
@@ -315,7 +315,7 @@ var Search = {
    * search for object names
    */
   performObjectSearch : function(object, otherterms) {
-    var filenames = this._index.filenames;
+    var fiorinocomes = this._index.fiorinocomes;
     var docnames = this._index.docnames;
     var objects = this._index.objects;
     var objnames = this._index.objnames;
@@ -371,7 +371,7 @@ var Search = {
           } else {
             score += Scorer.objPrioDefault;
           }
-          results.push([docnames[match[0]], fullname, '#'+anchor, descr, score, filenames[match[0]]]);
+          results.push([docnames[match[0]], fullname, '#'+anchor, descr, score, fiorinocomes[match[0]]]);
         }
       }
     }
@@ -391,7 +391,7 @@ var Search = {
    */
   performTermsSearch : function(searchterms, excluded, terms, titleterms) {
     var docnames = this._index.docnames;
-    var filenames = this._index.filenames;
+    var fiorinocomes = this._index.fiorinocomes;
     var titles = this._index.titles;
 
     var i, j, file;
@@ -483,7 +483,7 @@ var Search = {
         // select one (max) score for the file.
         // for better ranking, we should calculate ranking by using words statistics like basic tf-idf...
         var score = $u.max($u.map(fileMap[file], function(w){return scoreMap[file][w]}));
-        results.push([docnames[file], titles[file], '', null, score, filenames[file]]);
+        results.push([docnames[file], titles[file], '', null, score, fiorinocomes[file]]);
       }
     }
     return results;

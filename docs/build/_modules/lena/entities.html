@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>lena.entities - lena 1.0.0 documentation</title>
+        <title>orinoco.entities - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,17 +137,17 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <h1>Source code for lena.entities</h1><div class="highlight"><pre>
+        <h1>Source code for orinoco.entities</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">abc</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Awaitable</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Type</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">ClassVar</span><span class="p">,</span> <span class="n">Generic</span><span class="p">,</span> <span class="n">Awaitable</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
 
-<span class="kn">from</span> <span class="nn">lena.exceptions</span> <span class="kn">import</span> <span class="n">SearchError</span><span class="p">,</span> <span class="n">NothingFound</span><span class="p">,</span> <span class="n">FoundMoreThanOne</span><span class="p">,</span> <span class="n">AlreadyRegistered</span>
-<span class="kn">from</span> <span class="nn">lena.helpers</span> <span class="kn">import</span> <span class="n">initialize</span>
-<span class="kn">from</span> <span class="nn">lena.observers</span> <span class="kn">import</span> <span class="n">ExecutionTimeObserver</span><span class="p">,</span> <span class="n">ActionsLog</span>
-<span class="kn">from</span> <span class="nn">lena.types</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">orinoco.exceptions</span> <span class="kn">import</span> <span class="n">SearchError</span><span class="p">,</span> <span class="n">NothingFound</span><span class="p">,</span> <span class="n">FoundMoreThanOne</span><span class="p">,</span> <span class="n">AlreadyRegistered</span>
+<span class="kn">from</span> <span class="nn">orinoco.helpers</span> <span class="kn">import</span> <span class="n">initialize</span>
+<span class="kn">from</span> <span class="nn">orinoco.observers</span> <span class="kn">import</span> <span class="n">ExecutionTimeObserver</span><span class="p">,</span> <span class="n">ActionsLog</span>
+<span class="kn">from</span> <span class="nn">orinoco.types</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">SignatureT</span><span class="p">,</span>
     <span class="n">BaseModelT</span><span class="p">,</span>
     <span class="n">T</span><span class="p">,</span>
@@ -165,12 +165,12 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">update</span><span class="o">=</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Signature"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.Signature">[docs]</a><span class="k">class</span> <span class="nc">Signature</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">ImmutableEvolvableModel</span><span class="p">,</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<div class="viewcode-block" id="Signature"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.Signature">[docs]</a><span class="k">class</span> <span class="nc">Signature</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">ImmutableEvolvableModel</span><span class="p">,</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="n">type_</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">tags</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">)</span>
     <span class="n">key</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="Signature.match"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.Signature.match">[docs]</a>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_signature</span><span class="p">:</span> <span class="s2">"SignatureT[T]"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="Signature.match"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.Signature.match">[docs]</a>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_signature</span><span class="p">:</span> <span class="s2">"SignatureT[T]"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Match with another signature. Note that matching with for ``tags`` set is done as "is subset"</span>
 <span class="sd">        """</span>
@@ -189,7 +189,7 @@
         <span class="k">return</span> <span class="bp">cls</span></div>
 
 
-<div class="viewcode-block" id="ActionConfig"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionConfig">[docs]</a><span class="k">class</span> <span class="nc">ActionConfig</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">ImmutableEvolvableModel</span><span class="p">,</span> <span class="n">ActionConfigT</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
+<div class="viewcode-block" id="ActionConfig"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionConfig">[docs]</a><span class="k">class</span> <span class="nc">ActionConfig</span><span class="p">(</span><span class="n">Generic</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">ImmutableEvolvableModel</span><span class="p">,</span> <span class="n">ActionConfigT</span><span class="p">[</span><span class="n">T</span><span class="p">]):</span>
     <span class="n">INPUT</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">OUTPUT</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
 
@@ -210,7 +210,7 @@
         <span class="k">return</span> <span class="bp">cls</span></div>
 
 
-<div class="viewcode-block" id="ActionData"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData">[docs]</a><span class="k">class</span> <span class="nc">ActionData</span><span class="p">(</span><span class="n">ImmutableEvolvableModel</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">):</span>
+<div class="viewcode-block" id="ActionData"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData">[docs]</a><span class="k">class</span> <span class="nc">ActionData</span><span class="p">(</span><span class="n">ImmutableEvolvableModel</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Fundamental data structure which is both input and output of actions.</span>
 
@@ -226,7 +226,7 @@
     <span class="n">NOT_FOUND</span><span class="p">:</span> <span class="n">ClassVar</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span>
     <span class="n">DEFAULT_OBSERVERS_CLASSES</span><span class="p">:</span> <span class="n">ClassVar</span> <span class="o">=</span> <span class="p">(</span><span class="n">ExecutionTimeObserver</span><span class="p">,</span> <span class="n">ActionsLog</span><span class="p">)</span>
 
-    <span class="n">data</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
     <span class="n">futures</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
     <span class="n">observers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">ObserverT</span><span class="p">]</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="n">partial</span><span class="p">(</span><span class="n">initialize</span><span class="p">,</span> <span class="n">DEFAULT_OBSERVERS_CLASSES</span><span class="p">))</span>
 
@@ -236,20 +236,20 @@
     <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_signature</span><span class="p">(</span><span class="n">searched_signature</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ActionData.get"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.get"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get item by ``key``</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_by_key</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
 
     <span class="c1"># Getters</span>
-<div class="viewcode-block" id="ActionData.get_by_signature"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get_by_signature">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.get_by_signature"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get_by_signature">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get data with the given signature -- all non-default fields of the signature will be used for matching</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_with_signature</span><span class="p">(</span><span class="n">searched_signature</span><span class="o">=</span><span class="n">searched_signature</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
 
-<div class="viewcode-block" id="ActionData.get_with_signature"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get_with_signature">[docs]</a>    <span class="k">def</span> <span class="nf">get_with_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]:</span>
+<div class="viewcode-block" id="ActionData.get_with_signature"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get_with_signature">[docs]</a>    <span class="k">def</span> <span class="nf">get_with_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get data + signature with the given signature -- all non-default fields of the signature will be used</span>
 <span class="sd">        for matching</span>
@@ -263,7 +263,7 @@
                 <span class="s2">"Failed to find </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Present signatures: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">searched_signature</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">)</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div>
 
-<div class="viewcode-block" id="ActionData.get_or_default"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get_or_default">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.get_or_default"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get_or_default">[docs]</a>    <span class="k">def</span> <span class="nf">get_or_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get data by key or return a default value</span>
 <span class="sd">        """</span>
@@ -272,7 +272,7 @@
         <span class="k">except</span> <span class="n">NothingFound</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">default</span></div>
 
-<div class="viewcode-block" id="ActionData.find_or_default"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.find_or_default">[docs]</a>    <span class="k">def</span> <span class="nf">find_or_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.find_or_default"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.find_or_default">[docs]</a>    <span class="k">def</span> <span class="nf">find_or_default</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Find a single value with matching or default</span>
 <span class="sd">        """</span>
@@ -281,7 +281,7 @@
         <span class="k">except</span> <span class="n">NothingFound</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">default</span></div>
 
-<div class="viewcode-block" id="ActionData.get_by_key"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get_by_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">NOT_FOUND</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.get_by_key"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get_by_key">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_key</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="n">NOT_FOUND</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get item by ``key``</span>
 <span class="sd">        """</span>
@@ -302,7 +302,7 @@
                 <span class="k">return</span> <span class="n">default</span>
             <span class="k">raise</span></div>
 
-<div class="viewcode-block" id="ActionData.get_by_type"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get_by_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.get_by_type"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get_by_type">[docs]</a>    <span class="k">def</span> <span class="nf">get_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Get a value by matching type.</span>
 
@@ -313,13 +313,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_one</span><span class="p">(</span><span class="n">Signature</span><span class="p">(</span><span class="n">type_</span><span class="o">=</span><span class="n">type_</span><span class="p">))</span></div>
 
     <span class="c1"># Searching</span>
-<div class="viewcode-block" id="ActionData.find"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
+<div class="viewcode-block" id="ActionData.find"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.find">[docs]</a>    <span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">T</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Find values which match the signature</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">signature_value</span><span class="p">:</span> <span class="n">signature_value</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_with_signature</span><span class="p">(</span><span class="n">searched_signature</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="ActionData.find_one"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.find_one">[docs]</a>    <span class="k">def</span> <span class="nf">find_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.find_one"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.find_one">[docs]</a>    <span class="k">def</span> <span class="nf">find_one</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Find single value which match the signature</span>
 
@@ -334,14 +334,14 @@
                 <span class="s2">"Failed to find </span><span class="si">{}</span><span class="se">\n</span><span class="s2">Present signatures: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">searched_signature</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">signatures</span><span class="p">)</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div>
 
-<div class="viewcode-block" id="ActionData.find_with_signature"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.find_with_signature">[docs]</a>    <span class="k">def</span> <span class="nf">find_with_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]]:</span>
+<div class="viewcode-block" id="ActionData.find_with_signature"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.find_with_signature">[docs]</a>    <span class="k">def</span> <span class="nf">find_with_signature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Find values with signatures which match the signature</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[(</span><span class="n">signature</span><span class="p">,</span> <span class="n">entity</span><span class="p">)</span> <span class="k">for</span> <span class="n">signature</span><span class="p">,</span> <span class="n">entity</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="n">signature</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">searched_signature</span><span class="p">)]</span></div>
 
     <span class="c1"># --- Evolution</span>
-<div class="viewcode-block" id="ActionData.evolve"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.evolve">[docs]</a>    <span class="k">def</span> <span class="nf">evolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.evolve"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.evolve">[docs]</a>    <span class="k">def</span> <span class="nf">evolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Add values to the data with signatures created from keys (parameter names)</span>
 
@@ -361,7 +361,7 @@
             <span class="p">[(</span><span class="n">existing</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">))),</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ActionData.register"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">entity</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">check_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.register"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.register">[docs]</a>    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">entity</span><span class="p">:</span> <span class="n">T</span><span class="p">,</span> <span class="n">check_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Add new value with the given signature</span>
 <span class="sd">        :param signature: Signature of the entity</span>
@@ -383,10 +383,9 @@
             <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span>
                 <span class="n">searched_signature</span><span class="o">=</span><span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">signature</span><span class="o">.</span><span class="n">key</span><span class="p">),</span> <span class="n">ignore_non_existent</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exact_match</span><span class="o">=</span><span class="kc">False</span>
             <span class="p">)</span>
+        <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="p">((</span><span class="n">signature</span><span class="p">,</span> <span class="n">entity</span><span class="p">),))</span></div>
 
-        <span class="k">return</span> <span class="n">instance</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">instance</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="p">[(</span><span class="n">signature</span><span class="p">,</span> <span class="n">entity</span><span class="p">)])</span></div>
-
-<div class="viewcode-block" id="ActionData.register_many"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.register_many">[docs]</a>    <span class="k">def</span> <span class="nf">register_many</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]],</span> <span class="n">check_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.register_many"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.register_many">[docs]</a>    <span class="k">def</span> <span class="nf">register_many</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">T</span><span class="p">]],</span> <span class="n">check_if_exists</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Add new values with the given signatures</span>
 <span class="sd">        :param data: Items with signatures to be added</span>
@@ -400,7 +399,7 @@
             <span class="n">instance</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">signature</span><span class="o">=</span><span class="n">signature</span><span class="p">,</span> <span class="n">entity</span><span class="o">=</span><span class="n">entity</span><span class="p">,</span> <span class="n">check_if_exists</span><span class="o">=</span><span class="n">check_if_exists</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="ActionData.remove"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span>
+<div class="viewcode-block" id="ActionData.remove"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">ignore_non_existent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">exact_match</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
@@ -421,9 +420,9 @@
                 <span class="k">raise</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">signature_value</span><span class="p">:</span> <span class="n">signature_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">to_remove</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">signature_value</span><span class="p">:</span> <span class="n">signature_value</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="n">to_remove</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="ActionData.remove_many"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.remove_many">[docs]</a>    <span class="k">def</span> <span class="nf">remove_many</span><span class="p">(</span>
+<div class="viewcode-block" id="ActionData.remove_many"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.remove_many">[docs]</a>    <span class="k">def</span> <span class="nf">remove_many</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">searched_signatures</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
         <span class="n">ignore_non_existent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -445,13 +444,21 @@
             <span class="p">)</span>
         <span class="k">return</span> <span class="n">instance</span></div>
 
-<div class="viewcode-block" id="ActionData.with_future"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.with_future">[docs]</a>    <span class="k">def</span> <span class="nf">with_future</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.with_new_execution_meta"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.with_new_execution_meta">[docs]</a>    <span class="k">def</span> <span class="nf">with_new_execution_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+        <span class="sd">"""</span>
+<span class="sd">        Clean all metadata from the previous execution. Note that observers will be created from the default classes</span>
+
+<span class="sd">        :return: Copy of self with only :attrs:`ActionData.data` preserved</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="n">ActionData</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ActionData.with_future"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.with_future">[docs]</a>    <span class="k">def</span> <span class="nf">with_future</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">future</span><span class="p">:</span> <span class="n">Awaitable</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Log futures references</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">futures</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">futures</span> <span class="o">+</span> <span class="p">[</span><span class="n">future</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="ActionData.record_start"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.record_start">[docs]</a>    <span class="k">def</span> <span class="nf">record_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.record_start"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.record_start">[docs]</a>    <span class="k">def</span> <span class="nf">record_start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        :param action: Action which is recorded</span>
 <span class="sd">        :return: New copy with recorded start of the action</span>
@@ -461,7 +468,7 @@
                 <span class="n">observer</span><span class="o">.</span><span class="n">record_start</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ActionData.record_end"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.record_end">[docs]</a>    <span class="k">def</span> <span class="nf">record_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.record_end"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.record_end">[docs]</a>    <span class="k">def</span> <span class="nf">record_end</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        :param action: Action which is recorded</span>
 <span class="sd">        :return: New copy with recorded end of the action</span>
@@ -471,7 +478,7 @@
                 <span class="n">observer</span><span class="o">.</span><span class="n">record_end</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ActionData.create"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.create">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="ActionData.create"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.create">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Convenient way how to create the :class:`ActionData` with only key signatures</span>
@@ -482,13 +489,13 @@
         <span class="k">return</span> <span class="n">ActionData</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="bp">cls</span><span class="o">.</span><span class="n">_keyed_dict_as_values_with_signatures</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></div>
 
     <span class="c1"># Export</span>
-<div class="viewcode-block" id="ActionData.as_keyed_dict"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.as_keyed_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_keyed_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="ActionData.as_keyed_dict"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.as_keyed_dict">[docs]</a>    <span class="k">def</span> <span class="nf">as_keyed_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">"""</span>
 <span class="sd">        Export self into a dictionary for keys-values for signatures which have keys set</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="p">{</span><span class="n">signature</span><span class="o">.</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">signature</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="k">if</span> <span class="n">signature</span><span class="o">.</span><span class="n">key</span><span class="p">}</span></div>
 
-<div class="viewcode-block" id="ActionData.with_new_data"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.with_new_data">[docs]</a>    <span class="k">def</span> <span class="nf">with_new_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.with_new_data"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.with_new_data">[docs]</a>    <span class="k">def</span> <span class="nf">with_new_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="s2">"ActionData"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        :param data: New data to be appended</span>
 <span class="sd">        :return: Copy with new data</span>
@@ -502,7 +509,7 @@
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">reg</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">reg</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">]</span>
 
-<div class="viewcode-block" id="ActionData.is_in"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.is_in">[docs]</a>    <span class="k">def</span> <span class="nf">is_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.is_in"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.is_in">[docs]</a>    <span class="k">def</span> <span class="nf">is_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Find if the key is in the data</span>
 <span class="sd">        """</span>
@@ -512,7 +519,7 @@
         <span class="k">except</span> <span class="n">NothingFound</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="ActionData.signature_is_in"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.signature_is_in">[docs]</a>    <span class="k">def</span> <span class="nf">signature_is_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.signature_is_in"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.signature_is_in">[docs]</a>    <span class="k">def</span> <span class="nf">signature_is_in</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searched_signature</span><span class="p">:</span> <span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Find if the signature is in the data</span>
 <span class="sd">        """</span>
@@ -522,7 +529,7 @@
         <span class="k">except</span> <span class="n">NothingFound</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">False</span></div>
 
-<div class="viewcode-block" id="ActionData.get_observer"><a class="viewcode-back" href="../../reference/entities.html#lena.entities.ActionData.get_observer">[docs]</a>    <span class="k">def</span> <span class="nf">get_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer_cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ObserverVar</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ObserverVar</span><span class="p">:</span>
+<div class="viewcode-block" id="ActionData.get_observer"><a class="viewcode-back" href="../../reference/entities.html#orinoco.entities.ActionData.get_observer">[docs]</a>    <span class="k">def</span> <span class="nf">get_observer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer_cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ObserverVar</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ObserverVar</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        :param observer_cls: Class of the observer to find</span>
 <span class="sd">        :return: Observer from the observers attached to this container</span>
@@ -556,8 +563,8 @@
         <span class="k">return</span> <span class="n">first_value</span>
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_keyed_dict_as_values_with_signatures</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]:</span>
-        <span class="k">return</span> <span class="p">[(</span><span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span></div>
+    <span class="k">def</span> <span class="nf">_keyed_dict_as_values_with_signatures</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="n">SignatureT</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Any</span><span class="p">],</span> <span class="o">...</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nb">tuple</span><span class="p">((</span><span class="n">Signature</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)),</span> <span class="n">value</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">())</span></div>
 </pre></div>
       </article>
       <footer>

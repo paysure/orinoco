@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>lena.action - lena 1.0.0 documentation</title>
+        <title>orinoco.action - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,7 +137,7 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <h1>Source code for lena.action</h1><div class="highlight"><pre>
+        <h1>Source code for orinoco.action</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
@@ -157,12 +157,12 @@
     <span class="n">Coroutine</span><span class="p">,</span>
 <span class="p">)</span>
 
-<span class="kn">from</span> <span class="nn">lena</span> <span class="kn">import</span> <span class="n">settings</span>
-<span class="kn">from</span> <span class="nn">lena.entities</span> <span class="kn">import</span> <span class="n">ActionData</span>
-<span class="kn">from</span> <span class="nn">lena.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">,</span> <span class="n">BaseActionException</span>
-<span class="kn">from</span> <span class="nn">lena.observers</span> <span class="kn">import</span> <span class="n">ActionsLog</span>
-<span class="kn">from</span> <span class="nn">lena.tags</span> <span class="kn">import</span> <span class="n">SystemActionTag</span>
-<span class="kn">from</span> <span class="nn">lena.types</span> <span class="kn">import</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">,</span> <span class="n">NamespacedActionT</span><span class="p">,</span> <span class="n">ActionVar</span>
+<span class="kn">from</span> <span class="nn">orinoco</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="kn">from</span> <span class="nn">orinoco.entities</span> <span class="kn">import</span> <span class="n">ActionData</span>
+<span class="kn">from</span> <span class="nn">orinoco.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotProperlyConfigured</span><span class="p">,</span> <span class="n">BaseActionException</span>
+<span class="kn">from</span> <span class="nn">orinoco.observers</span> <span class="kn">import</span> <span class="n">ActionsLog</span>
+<span class="kn">from</span> <span class="nn">orinoco.tags</span> <span class="kn">import</span> <span class="n">SystemActionTag</span>
+<span class="kn">from</span> <span class="nn">orinoco.types</span> <span class="kn">import</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">,</span> <span class="n">NamespacedActionT</span><span class="p">,</span> <span class="n">ActionVar</span>
 
 
 <span class="k">class</span> <span class="nc">_NamespacedAction</span><span class="p">(</span><span class="n">NamespacedActionT</span><span class="p">):</span>
@@ -173,12 +173,13 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">class_to_return</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">ActionT</span><span class="p">]):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">class_to_return</span> <span class="o">=</span> <span class="n">class_to_return</span>
 
-    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ActionT</span><span class="p">]:</span>
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Type</span><span class="p">[</span><span class="n">ActionT</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">class_to_return</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">attribute</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_to_return</span>
 
 
-<div class="viewcode-block" id="SyncActionMixin"><a class="viewcode-back" href="../../reference/action.html#lena.action.SyncActionMixin">[docs]</a><span class="k">class</span> <span class="nc">SyncActionMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<div class="viewcode-block" id="SyncActionMixin.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.SyncActionMixin.run">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="SyncActionMixin"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.SyncActionMixin">[docs]</a><span class="k">class</span> <span class="nc">SyncActionMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="SyncActionMixin.run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.SyncActionMixin.run">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Method which is executed when running the action pipeline</span>
@@ -196,22 +197,22 @@
 <span class="sd">                ...</span>
 
 <span class="sd">        :param action_data: Data container passed by actions</span>
-<span class="sd">        :return: Last version of :class:`:class:~lena.entities.ActionData` after execution</span>
+<span class="sd">        :return: Last version of :class:`:class:~orinoco.entities.ActionData` after execution</span>
 <span class="sd">        """</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="SyncActionMixin.run_with_data"><a class="viewcode-back" href="../../reference/action.html#lena.action.SyncActionMixin.run_with_data">[docs]</a>    <span class="k">def</span> <span class="nf">run_with_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="SyncActionMixin.run_with_data"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.SyncActionMixin.run_with_data">[docs]</a>    <span class="k">def</span> <span class="nf">run_with_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Shortcut for running actions without creating :class:`~lena.entities.ActionData` object directly</span>
+<span class="sd">        Shortcut for running actions without creating :class:`~orinoco.entities.ActionData` object directly</span>
 
-<span class="sd">        :param params: Parameters which are propagated into :class:`~lena.entities.ActionData`</span>
+<span class="sd">        :param params: Parameters which are propagated into :class:`~orinoco.entities.ActionData`</span>
 <span class="sd">        :return: Processed data with results</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">ActionData</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">))</span></div></div>
 
 
-<div class="viewcode-block" id="AsyncActionMixin"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncActionMixin">[docs]</a><span class="k">class</span> <span class="nc">AsyncActionMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-<div class="viewcode-block" id="AsyncActionMixin.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncActionMixin.async_run">[docs]</a>    <span class="nd">@abstractmethod</span>
+<div class="viewcode-block" id="AsyncActionMixin"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AsyncActionMixin">[docs]</a><span class="k">class</span> <span class="nc">AsyncActionMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="AsyncActionMixin.async_run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AsyncActionMixin.async_run">[docs]</a>    <span class="nd">@abstractmethod</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Method which is executed when running the action pipeline</span>
@@ -229,24 +230,24 @@
 <span class="sd">                ...</span>
 
 <span class="sd">        :param action_data: Data container passed by actions</span>
-<span class="sd">        :return: Last version of `~lena.entities.ActionData` after execution</span>
+<span class="sd">        :return: Last version of `~orinoco.entities.ActionData` after execution</span>
 <span class="sd">        """</span>
         <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="AsyncActionMixin.async_run_with_data"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncActionMixin.async_run_with_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run_with_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="AsyncActionMixin.async_run_with_data"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AsyncActionMixin.async_run_with_data">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run_with_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="sd">"""</span>
-<span class="sd">        Shortcut for running actions asynchronously without creating :class:`~lena.entities.ActionData` object directly</span>
+<span class="sd">        Shortcut for running actions asynchronously without creating :class:`~orinoco.entities.ActionData` object directly</span>
 
-<span class="sd">        :param params: Parameters which are propagated into :class:`~lena.entities.ActionData`</span>
+<span class="sd">        :param params: Parameters which are propagated into :class:`~orinoco.entities.ActionData`</span>
 <span class="sd">        :return: Processed data with results</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">async_run</span><span class="p">(</span><span class="n">ActionData</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">))</span></div></div>
 
 
-<div class="viewcode-block" id="Action"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action">[docs]</a><span class="k">class</span> <span class="nc">Action</span><span class="p">(</span><span class="n">SyncActionMixin</span><span class="p">,</span> <span class="n">AsyncActionMixin</span><span class="p">,</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="Action"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Action">[docs]</a><span class="k">class</span> <span class="nc">Action</span><span class="p">(</span><span class="n">SyncActionMixin</span><span class="p">,</span> <span class="n">AsyncActionMixin</span><span class="p">,</span> <span class="n">ActionT</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Fundamental entity which is designed to be chained with other actions so one action process</span>
-<span class="sd">    the :class:`~lena.entities.ActionData` and send it to the next action.</span>
+<span class="sd">    the :class:`~orinoco.entities.ActionData` and send it to the next action.</span>
 <span class="sd">    """</span>
 
     <span class="n">DESCRIPTION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
@@ -261,10 +262,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">DESCRIPTION</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">NAME</span>
 
-<div class="viewcode-block" id="Action.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="Action.async_run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Action.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Action.then"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.then">[docs]</a>    <span class="k">def</span> <span class="nf">then</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">another_action</span><span class="p">:</span> <span class="s2">"ActionT"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionT"</span><span class="p">:</span>
+<div class="viewcode-block" id="Action.then"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Action.then">[docs]</a>    <span class="k">def</span> <span class="nf">then</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">another_action</span><span class="p">:</span> <span class="s2">"ActionT"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"ActionT"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        One of the chaining functions. More convenient way for chaining is to use `&gt;&gt;` operator like</span>
 <span class="sd">        this:</span>
@@ -282,11 +283,11 @@
         <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Action</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">then</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Action.on_subfield"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.on_subfield">[docs]</a>    <span class="k">def</span> <span class="nf">on_subfield</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"OnActionDataSubField"</span><span class="p">:</span>
+<div class="viewcode-block" id="Action.on_subfield"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Action.on_subfield">[docs]</a>    <span class="k">def</span> <span class="nf">on_subfield</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">"OnActionDataSubField"</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Run action on a subfield. See :class:`OnActionDataSubField` class for more information.</span>
 
-<span class="sd">        :param field_key: Key to the item in :class:`~lena.entities.ActionData` on which the action will be executed</span>
+<span class="sd">        :param field_key: Key to the item in :class:`~orinoco.entities.ActionData` on which the action will be executed</span>
 <span class="sd">        :return: Wrapped action which will be executed on the subfield</span>
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="n">OnActionDataSubField</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">field_key</span><span class="p">)</span></div>
@@ -298,7 +299,7 @@
 <span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 
-<div class="viewcode-block" id="Action.namespaced"><a class="viewcode-back" href="../../reference/action.html#lena.action.Action.namespaced">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Action.namespaced"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Action.namespaced">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">namespaced</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NamespacedActionT</span><span class="p">:</span>
         <span class="sd">"""</span>
 <span class="sd">        Return 'named' instance of itself. It has no effect, just make a 'title' for the action/s by wrapping them</span>
@@ -321,12 +322,12 @@
         <span class="k">return</span> <span class="n">Return</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="record_action"><a class="viewcode-back" href="../../reference/action.html#lena.action.record_action">[docs]</a><span class="k">def</span> <span class="nf">record_action</span><span class="p">(</span>
+<div class="viewcode-block" id="record_action"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.record_action">[docs]</a><span class="k">def</span> <span class="nf">record_action</span><span class="p">(</span>
     <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Decorator for :func:`~SyncActionMixin.run` which records decorated action signature to</span>
-<span class="sd">    the :class:`~lena.entities.ActionData`</span>
+<span class="sd">    the :class:`~orinoco.entities.ActionData`</span>
 
 <span class="sd">    :param fu: :func:`~SyncActionMixin.run` method (or any with the same signature)</span>
 <span class="sd">    :return: Decorated function</span>
@@ -353,12 +354,12 @@
     <span class="k">return</span> <span class="n">wrapper</span></div>
 
 
-<div class="viewcode-block" id="async_record_action"><a class="viewcode-back" href="../../reference/action.html#lena.action.async_record_action">[docs]</a><span class="k">def</span> <span class="nf">async_record_action</span><span class="p">(</span>
+<div class="viewcode-block" id="async_record_action"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.async_record_action">[docs]</a><span class="k">def</span> <span class="nf">async_record_action</span><span class="p">(</span>
     <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]:</span>
     <span class="sd">"""</span>
 <span class="sd">    Decorator for :func:`~AsyncActionMixin.async_run` which records decorated action signature to</span>
-<span class="sd">    the :class:`~lena.entities.ActionData`</span>
+<span class="sd">    the :class:`~orinoco.entities.ActionData`</span>
 
 <span class="sd">    :param fu: :func:`~AsyncActionMixin.async_run` method (or any with the same signature)</span>
 <span class="sd">    :return: Decorated function</span>
@@ -385,7 +386,7 @@
     <span class="k">return</span> <span class="n">wrapper</span></div>
 
 
-<div class="viewcode-block" id="verbose_action_exception"><a class="viewcode-back" href="../../reference/action.html#lena.action.verbose_action_exception">[docs]</a><span class="k">def</span> <span class="nf">verbose_action_exception</span><span class="p">(</span>
+<div class="viewcode-block" id="verbose_action_exception"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.verbose_action_exception">[docs]</a><span class="k">def</span> <span class="nf">verbose_action_exception</span><span class="p">(</span>
     <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">ActionDataT</span><span class="p">]:</span>
     <span class="sd">"""</span>
@@ -405,7 +406,7 @@
     <span class="k">return</span> <span class="n">wrapper</span></div>
 
 
-<div class="viewcode-block" id="async_verbose_action_exception"><a class="viewcode-back" href="../../reference/action.html#lena.action.async_verbose_action_exception">[docs]</a><span class="k">def</span> <span class="nf">async_verbose_action_exception</span><span class="p">(</span>
+<div class="viewcode-block" id="async_verbose_action_exception"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.async_verbose_action_exception">[docs]</a><span class="k">def</span> <span class="nf">async_verbose_action_exception</span><span class="p">(</span>
     <span class="n">fu</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ActionVar</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">],</span> <span class="n">Coroutine</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ActionDataT</span><span class="p">]]:</span>
     <span class="sd">"""</span>
@@ -447,7 +448,7 @@
         <span class="k">raise</span>
 
 
-<div class="viewcode-block" id="ActionSet"><a class="viewcode-back" href="../../reference/action.html#lena.action.ActionSet">[docs]</a><span class="k">class</span> <span class="nc">ActionSet</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+<div class="viewcode-block" id="ActionSet"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.ActionSet">[docs]</a><span class="k">class</span> <span class="nc">ActionSet</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Set of actions which are executed consequently</span>
 <span class="sd">    """</span>
@@ -456,7 +457,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">actions</span> <span class="o">=</span> <span class="n">actions</span>
 
-<div class="viewcode-block" id="ActionSet.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.ActionSet.run">[docs]</a>    <span class="nd">@record_action</span>
+<div class="viewcode-block" id="ActionSet.run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.ActionSet.run">[docs]</a>    <span class="nd">@record_action</span>
     <span class="nd">@verbose_action_exception</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
@@ -466,7 +467,7 @@
             <span class="n">action_data</span> <span class="o">=</span> <span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">action_data</span></div>
 
-<div class="viewcode-block" id="ActionSet.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.ActionSet.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
+<div class="viewcode-block" id="ActionSet.async_run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.ActionSet.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
     <span class="nd">@async_verbose_action_exception</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">action</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">actions</span><span class="p">:</span>
@@ -477,7 +478,7 @@
         <span class="k">return</span> <span class="n">action_data</span></div></div>
 
 
-<div class="viewcode-block" id="AtomicActionSet"><a class="viewcode-back" href="../../reference/action.html#lena.action.AtomicActionSet">[docs]</a><span class="k">class</span> <span class="nc">AtomicActionSet</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+<div class="viewcode-block" id="AtomicActionSet"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AtomicActionSet">[docs]</a><span class="k">class</span> <span class="nc">AtomicActionSet</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Set of actions which are executed in a context manager</span>
 <span class="sd">    """</span>
@@ -492,7 +493,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="o">=</span><span class="n">actions</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span> <span class="o">=</span> <span class="n">atomic_context_manager</span>
 
-<div class="viewcode-block" id="AtomicActionSet.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.AtomicActionSet.run">[docs]</a>    <span class="nd">@record_action</span>
+<div class="viewcode-block" id="AtomicActionSet.run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AtomicActionSet.run">[docs]</a>    <span class="nd">@record_action</span>
     <span class="nd">@verbose_action_exception</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span><span class="p">():</span>
@@ -504,7 +505,7 @@
             <span class="k">return</span> <span class="n">action_data</span></div></div>
 
 
-<div class="viewcode-block" id="AsyncAtomicActionSet"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncAtomicActionSet">[docs]</a><span class="k">class</span> <span class="nc">AsyncAtomicActionSet</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+<div class="viewcode-block" id="AsyncAtomicActionSet"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AsyncAtomicActionSet">[docs]</a><span class="k">class</span> <span class="nc">AsyncAtomicActionSet</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Async version of :class:`AtomicActionSet`.</span>
 <span class="sd">    """</span>
@@ -519,7 +520,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="o">=</span><span class="n">actions</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span> <span class="o">=</span> <span class="n">atomic_context_manager</span>
 
-<div class="viewcode-block" id="AsyncAtomicActionSet.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.AsyncAtomicActionSet.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
+<div class="viewcode-block" id="AsyncAtomicActionSet.async_run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.AsyncAtomicActionSet.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
     <span class="nd">@async_verbose_action_exception</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">async</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">atomic_context_manager</span><span class="p">():</span>
@@ -531,16 +532,16 @@
             <span class="k">return</span> <span class="n">action_data</span></div></div>
 
 
-<div class="viewcode-block" id="Then"><a class="viewcode-back" href="../../reference/action.html#lena.action.Then">[docs]</a><span class="k">class</span> <span class="nc">Then</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+<div class="viewcode-block" id="Then"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Then">[docs]</a><span class="k">class</span> <span class="nc">Then</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Syntactics sugar for :class:`ActionSet`. See :class:`~lena.condition.Switch` docs for usage</span>
+<span class="sd">    Syntactics sugar for :class:`ActionSet`. See :class:`~orinoco.condition.Switch` docs for usage</span>
 <span class="sd">    """</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">actions</span><span class="p">:</span> <span class="n">ActionT</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">actions</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="HandledExceptions"><a class="viewcode-back" href="../../reference/action.html#lena.action.HandledExceptions">[docs]</a><span class="k">class</span> <span class="nc">HandledExceptions</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+<div class="viewcode-block" id="HandledExceptions"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.HandledExceptions">[docs]</a><span class="k">class</span> <span class="nc">HandledExceptions</span><span class="p">(</span><span class="n">ActionSet</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Try-except wrapper for actions</span>
 <span class="sd">    """</span>
@@ -566,7 +567,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">handle_method</span> <span class="o">=</span> <span class="n">handle_method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fail_on_error</span> <span class="o">=</span> <span class="n">fail_on_error</span>
 
-<div class="viewcode-block" id="HandledExceptions.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.HandledExceptions.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="HandledExceptions.run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.HandledExceptions.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">action_data</span>
         <span class="k">try</span><span class="p">:</span>
@@ -579,7 +580,7 @@
                 <span class="k">raise</span> <span class="n">new_err</span>
             <span class="k">raise</span> <span class="n">err</span></div>
 
-<div class="viewcode-block" id="HandledExceptions.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.HandledExceptions.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="HandledExceptions.async_run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.HandledExceptions.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">action_data</span>
 
@@ -595,7 +596,7 @@
             <span class="k">raise</span> <span class="n">err</span></div></div>
 
 
-<div class="viewcode-block" id="OnActionDataSubField"><a class="viewcode-back" href="../../reference/action.html#lena.action.OnActionDataSubField">[docs]</a><span class="k">class</span> <span class="nc">OnActionDataSubField</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
+<div class="viewcode-block" id="OnActionDataSubField"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.OnActionDataSubField">[docs]</a><span class="k">class</span> <span class="nc">OnActionDataSubField</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">SystemActionTag</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Utility action to execute an action on values of a nested item.</span>
 
@@ -617,7 +618,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">field_key</span> <span class="o">=</span> <span class="n">field_key</span>
 
-<div class="viewcode-block" id="OnActionDataSubField.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.OnActionDataSubField.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="OnActionDataSubField.run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.OnActionDataSubField.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">action_data</span>
 
@@ -625,7 +626,7 @@
             <span class="n">action_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">with_new_data</span><span class="p">(</span><span class="n">action_data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">field_key</span><span class="p">)))</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="OnActionDataSubField.async_run"><a class="viewcode-back" href="../../reference/action.html#lena.action.OnActionDataSubField.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="OnActionDataSubField.async_run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.OnActionDataSubField.async_run">[docs]</a>    <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">action_data</span>
 
@@ -645,7 +646,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="p">}</span></div>
 
 
-<div class="viewcode-block" id="Return"><a class="viewcode-back" href="../../reference/action.html#lena.action.Return">[docs]</a><span class="k">class</span> <span class="nc">Return</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
+<div class="viewcode-block" id="Return"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Return">[docs]</a><span class="k">class</span> <span class="nc">Return</span><span class="p">(</span><span class="n">Action</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Mark action data as "should not be processed", imitating return statement in functions</span>
 <span class="sd">    """</span>
@@ -654,7 +655,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="o">=</span> <span class="n">action</span>
 
-<div class="viewcode-block" id="Return.run"><a class="viewcode-back" href="../../reference/action.html#lena.action.Return.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
+<div class="viewcode-block" id="Return.run"><a class="viewcode-back" href="../../reference/action.html#orinoco.action.Return.run">[docs]</a>    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">action_data</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">action</span> <span class="k">else</span> <span class="n">action_data</span><span class="p">)</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">skip_processing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div></div>
 </pre></div>
       </article>

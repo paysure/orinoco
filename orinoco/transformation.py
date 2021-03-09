@@ -1,16 +1,16 @@
 from abc import ABC
 from typing import Callable, Optional
 
-from lena.action import (
+from orinoco.action import (
     Action,
     record_action,
     verbose_action_exception,
     async_record_action,
     async_verbose_action_exception,
 )
-from lena.entities import ActionData, Signature
-from lena.exceptions import ActionNotReturnedActionData, ActionNotProperlyInherited
-from lena.types import ActionDataT
+from orinoco.entities import ActionData, Signature
+from orinoco.exceptions import ActionNotReturnedActionData, ActionNotProperlyInherited
+from orinoco.types import ActionDataT
 
 
 class Transformation(Action, ABC):
@@ -53,7 +53,7 @@ class Transformation(Action, ABC):
 
 class GenericTransformation(Transformation):
     """
-    Utility action which allows modification of `~lena.entities.ActionData` "on the fly"
+    Utility action which allows modification of `~orinoco.entities.ActionData` "on the fly"
     (usually by lambda functions)
     """
 

@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Loop" href="loop.html" /><link rel="prev" title="Events" href="event.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>Transformations - lena 1.0.0 documentation</title>
+        <title>Transformations - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,26 +137,26 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <div class="section" id="module-lena.transformation">
-<span id="transformations"></span><h1>Transformations<a class="headerlink" href="#module-lena.transformation" title="Permalink to this headline">¶</a></h1>
+        <div class="section" id="module-orinoco.transformation">
+<span id="transformations"></span><h1>Transformations<a class="headerlink" href="#module-orinoco.transformation" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
-<dt id="lena.transformation.GenericTransformation">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.transformation.</span></code><code class="sig-name descname"><span class="pre">GenericTransformation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">lena.types.ActionDataT</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/transformation.html#GenericTransformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.transformation.GenericTransformation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Utility action which allows modification of <cite>~lena.entities.ActionData</cite> “on the fly”
+<dt id="orinoco.transformation.GenericTransformation">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.transformation.</span></code><code class="sig-name descname"><span class="pre">GenericTransformation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">orinoco.types.ActionDataT</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">orinoco.types.ActionDataT</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/transformation.html#GenericTransformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.transformation.GenericTransformation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility action which allows modification of <cite>~orinoco.entities.ActionData</cite> “on the fly”
 (usually by lambda functions)</p>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.transformation.RenameActionField">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.transformation.</span></code><code class="sig-name descname"><span class="pre">RenameActionField</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/transformation.html#RenameActionField"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.transformation.RenameActionField" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.transformation.RenameActionField">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.transformation.</span></code><code class="sig-name descname"><span class="pre">RenameActionField</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/transformation.html#RenameActionField"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.transformation.RenameActionField" title="Permalink to this definition">¶</a></dt>
 <dd><p>Change name of the registered entity</p>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.transformation.Transformation">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.transformation.</span></code><code class="sig-name descname"><span class="pre">Transformation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/transformation.html#Transformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.transformation.Transformation" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.transformation.Transformation">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.transformation.</span></code><code class="sig-name descname"><span class="pre">Transformation</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">description</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/transformation.html#Transformation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.transformation.Transformation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Base class for actions which modify data</p>
 <dl class="py method">
-<dt id="lena.transformation.Transformation.async_run">
-<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">lena.types.ActionDataT</span><a class="reference internal" href="../_modules/lena/transformation.html#Transformation.async_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.transformation.Transformation.async_run" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.transformation.Transformation.async_run">
+<em class="property"><span class="pre">async</span> </em><code class="sig-name descname"><span class="pre">async_run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">orinoco.types.ActionDataT</span><a class="reference internal" href="../_modules/orinoco/transformation.html#Transformation.async_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.transformation.Transformation.async_run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method which is executed when running the action pipeline</p>
 <p>Note that each override of this function have to implement “skipping logic” to support <code class="xref py py-class docutils literal notranslate"><span class="pre">Return</span></code>
 functionality.</p>
@@ -173,13 +173,13 @@ functionality.</p>
 <dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Last version of <cite>~lena.entities.ActionData</cite> after execution</p>
+<dd class="field-even"><p>Last version of <cite>~orinoco.entities.ActionData</cite> after execution</p>
 </dd>
 </dl>
 </dd></dl>
 <dl class="py method">
-<dt id="lena.transformation.Transformation.run">
-<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">lena.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">lena.types.ActionDataT</span><a class="reference internal" href="../_modules/lena/transformation.html#Transformation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.transformation.Transformation.run" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.transformation.Transformation.run">
+<code class="sig-name descname"><span class="pre">run</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">orinoco.types.ActionDataT</span></span></em><span class="sig-paren">)</span> → <span class="pre">orinoco.types.ActionDataT</span><a class="reference internal" href="../_modules/orinoco/transformation.html#Transformation.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.transformation.Transformation.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Method which is executed when running the action pipeline</p>
 <p>Note that each override of this function have to implement “skipping logic” to support <code class="xref py py-class docutils literal notranslate"><span class="pre">Return</span></code>
 functionality.</p>
@@ -196,14 +196,14 @@ functionality.</p>
 <dd class="field-odd"><p><strong>action_data</strong> – Data container passed by actions</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Last version of <code class="xref py py-class docutils literal notranslate"><span class="pre">:class:~lena.entities.ActionData</span></code> after execution</p>
+<dd class="field-even"><p>Last version of <code class="xref py py-class docutils literal notranslate"><span class="pre">:class:~orinoco.entities.ActionData</span></code> after execution</p>
 </dd>
 </dl>
 </dd></dl>
 </dd></dl>
 <dl class="py class">
-<dt id="lena.transformation.WithoutFields">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">lena.transformation.</span></code><code class="sig-name descname"><span class="pre">WithoutFields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lena/transformation.html#WithoutFields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lena.transformation.WithoutFields" title="Permalink to this definition">¶</a></dt>
+<dt id="orinoco.transformation.WithoutFields">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">orinoco.transformation.</span></code><code class="sig-name descname"><span class="pre">WithoutFields</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">fields</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/orinoco/transformation.html#WithoutFields"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#orinoco.transformation.WithoutFields" title="Permalink to this definition">¶</a></dt>
 <dd><p>Remove signatures for the given keys</p>
 </dd></dl>
 </div>

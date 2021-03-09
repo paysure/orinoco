@@ -3,7 +3,7 @@ import json
 from abc import abstractmethod, ABC
 from typing import Tuple, Callable, Any, Iterable, List, Generator, Union, Optional, Type, NoReturn, TypeVar, Generic
 
-from lena.action import (
+from orinoco.action import (
     Action,
     record_action,
     verbose_action_exception,
@@ -11,11 +11,11 @@ from lena.action import (
     async_record_action,
     async_verbose_action_exception,
 )
-from lena.entities import ActionData, Signature
-from lena.exceptions import NoneOfActionsCanBeExecuted, ConditionNotMet
-from lena.helpers import raise_not_provided_field
-from lena.tags import SystemActionTag
-from lena.types import T, ActionDataT, ActionT
+from orinoco.entities import ActionData, Signature
+from orinoco.exceptions import NoneOfActionsCanBeExecuted, ConditionNotMet
+from orinoco.helpers import raise_not_provided_field
+from orinoco.tags import SystemActionTag
+from orinoco.types import T, ActionDataT, ActionT
 
 ConditionT = TypeVar("ConditionT", bound="Condition")
 
@@ -59,10 +59,10 @@ class Condition(Action, ABC):
 
     def and_(self, condition: "Condition") -> ActionT:
         """
-        Syntactic sugar for :func:`~lena.action.Action.then` - make more sense for conditions
+        Syntactic sugar for :func:`~orinoco.action.Action.then` - make more sense for conditions
 
         :param condition: Another condition which is evaluated after
-        :return: :class:`~lena.action.ActionSet` of this condition and ``condition``
+        :return: :class:`~orinoco.action.ActionSet` of this condition and ``condition``
         """
         return self.then(condition)
 
@@ -93,7 +93,7 @@ class Condition(Action, ABC):
 
     def validate_with(self, **params: Any) -> bool:
         """
-        Shortcut for running validation without creating :class:`~lena.entities.ActionData` object directly
+        Shortcut for running validation without creating :class:`~orinoco.entities.ActionData` object directly
 
         :param params: Parameters which are propagated into action data
         :return: Whether condition is met
@@ -384,7 +384,7 @@ class NonNoneDataValues(Condition):
 
     def __init__(self, *fields: str):
         """
-        :param fields: Fields of :class:`~lena.entities.ActionData` which will be checked if are present and not none
+        :param fields: Fields of :class:`~orinoco.entities.ActionData` which will be checked if are present and not none
         """
         super().__init__(
             fail_message="Data has to contain following non-none fields: {}".format(fields),

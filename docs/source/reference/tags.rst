@@ -1,4 +1,4 @@
 Tags
 =====================
-.. automodule:: lena.tags
+.. automodule:: orinoco.tags
    :members:

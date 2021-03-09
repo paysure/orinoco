@@ -1,4 +1,4 @@
-# lena
+# orinoco
 
 Functional composable pipelines allowing clean separation of the business logic and its implementation.
 
@@ -25,7 +25,7 @@ Even without knowing how the implementation looks like or even what this library
 happen when the pipeline is executed. Main idea of this library is to operate with simple composable blocks 
 ("actions") to build more complex pipelines.
 
-`lena` provides many action bases to simply define new actions. An example implementation of the first action from 
+`orinoco` provides many action bases to simply define new actions. An example implementation of the first action from 
 the above example could look like this:
 
 ```
@@ -84,7 +84,7 @@ As you can imagine, this could be a double-edged sword. On one hand, it renders 
 larger projects can get messy if the team is not well-disciplined. Moreover, if the problem domain is complex enough,
 even seasoned developers can struggle with producing maintainable and easily readable code.
 
-`lena` aims to help developers to express complex business rules in a more readable, understandable
+`orinoco` aims to help developers to express complex business rules in a more readable, understandable
 and maintainable fashion. Usual approach of implementing routines as a sequence of commands (e.g. querying a database,
 communicating with an external API) is replaced with pipelines composed from individual actions.
 
@@ -141,7 +141,7 @@ In this example we abstracted all we could into services and simple methods, we 
 explicit dependency injection), but it still feels there is a lot going on in this method. In order to 
 understand the ins and outs of the method, it's rather necessary to go through the code line by line.
 
-Let's look at an alternative version implemented using `lena`:
+Let's look at an alternative version implemented using `orinoco`:
 
 ```
 class Api:
@@ -177,7 +177,7 @@ Actions are main building blocks carrying the business logic and can be chained 
 actions that can be used to build more complex pipelines such as actions for boolean logic and loops.
 
 Actions can be created directly by inheriting from specialized bases (see subsections below). If there is no
-suitable base for your use case, you can inherit from `lena.action.Action` too, but it's generally discouraged. In
+suitable base for your use case, you can inherit from `orinoco.action.Action` too, but it's generally discouraged. In
 the latter can you would proceed by overriding `run(action_data: ActionData) -> ActionData` method.
 
 Pipelines can be then executed by providing `ActionData` container directly to `run` method or 
@@ -655,7 +655,7 @@ assert action_data.get_observer(ExecutionTimeObserver).measurements == [
 
 ##### Custom observers
 
-New observers can be implemented by inheriting `lena.observers.Observer`. Simple logger for condition actions can look 
+New observers can be implemented by inheriting `orinoco.observers.Observer`. Simple logger for condition actions can look 
 like this:
 
 ```
@@ -705,7 +705,7 @@ All actions implement `then` method for chaining. You can also use `rshift` oper
 ParsePayload() >> ExtractUserEmail() >> SendEmail() 
 ```
 
-The other way to build pipelines is to use `lena.action.ActionSet`:
+The other way to build pipelines is to use `orinoco.action.ActionSet`:
 
 ```
 ActionSet([ParsePayload(), ExtractUserEmail(), SendEmail()])

@@ -1,7 +1,7 @@
 import pytest
 
-from lena.entities import ActionConfig, Signature, ActionData
-from lena.exceptions import AlreadyRegistered
+from orinoco.entities import ActionConfig, Signature, ActionData
+from orinoco.exceptions import AlreadyRegistered
 
 
 def test_action_config() -> None:

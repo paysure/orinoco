@@ -1,4 +1,4 @@
 Exceptions
 =====================
-.. automodule:: lena.exceptions
+.. automodule:: orinoco.exceptions
    :members:

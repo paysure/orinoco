@@ -1,10 +1,10 @@
 from abc import ABC, abstractmethod
 from typing import Iterable, Any, Callable, Optional, TypeVar
 
-from lena.action import Action, ActionSet, record_action, verbose_action_exception
+from orinoco.action import Action, ActionSet, record_action, verbose_action_exception
 
-from lena.exceptions import ActionNotProperlyConfigured
-from lena.types import ActionDataT
+from orinoco.exceptions import ActionNotProperlyConfigured
+from orinoco.types import ActionDataT
 
 LoopT = TypeVar("LoopT", bound="LoopEvents")
 
@@ -17,7 +17,7 @@ class LoopEvents(Action, ABC):
 
     def __init__(self, iterating_key: str, action: Optional[Action] = None):
         """
-        :param iterating_key: Key which will be propagated into the :class:`~lena.entities.ActionData` with the
+        :param iterating_key: Key which will be propagated into the :class:`~orinoco.entities.ActionData` with the
         new value
         """
         super().__init__(description="Loop over '{}'".format(iterating_key))
@@ -42,7 +42,7 @@ class LoopEvents(Action, ABC):
     def do(self: LoopT, *actions: Action) -> LoopT:
         """
         :param actions: Actions which are executed in the each iteration with updated
-         values in the  :class:`~lena.entities.ActionData`
+         values in the  :class:`~orinoco.entities.ActionData`
         :return:
         """
         self.action = ActionSet(actions)
@@ -56,7 +56,7 @@ class LoopEvents(Action, ABC):
     def _get_generator(self, action_data: ActionDataT) -> Iterable[Any]:
         """
         :param action_data: Data container passed by actions
-        :return: Iterable which provides the value which is set to the :class:`~lena.entities.ActionData`
+        :return: Iterable which provides the value which is set to the :class:`~orinoco.entities.ActionData`
         in each of the iterations
         """
         pass

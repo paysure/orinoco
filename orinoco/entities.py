@@ -4,10 +4,10 @@ from typing import Dict, Any, Optional, Set, Type, List, Tuple, Sequence, ClassV
 
 from pydantic import Field
 
-from lena.exceptions import SearchError, NothingFound, FoundMoreThanOne, AlreadyRegistered
-from lena.helpers import initialize
-from lena.observers import ExecutionTimeObserver, ActionsLog
-from lena.types import (
+from orinoco.exceptions import SearchError, NothingFound, FoundMoreThanOne, AlreadyRegistered
+from orinoco.helpers import initialize
+from orinoco.observers import ExecutionTimeObserver, ActionsLog
+from orinoco.types import (
     SignatureT,
     BaseModelT,
     T,

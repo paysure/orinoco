@@ -1,5 +1,5 @@
 Actions
 =======
 
-.. automodule:: lena.action
+.. automodule:: orinoco.action
    :members:

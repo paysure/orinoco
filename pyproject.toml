@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "lena"
+name = "orinoco"
 version = "1.0.0"
 description = ""
 authors = ["Martin Vo <mvo@paysure.solutions>"]

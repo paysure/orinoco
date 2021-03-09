@@ -3,12 +3,12 @@ from dataclasses import dataclass
 
 import pytest
 
-from lena.data_source import DataSource
-from lena.entities import ActionData, ActionConfig, Signature
-from lena.exceptions import FoundMoreThanOne, ConditionNotMet
-from lena.transformation import Transformation
-from lena.typed_action import TypedAction, AsyncTypedAction, TypedCondition
-from lena.types import ActionDataT
+from orinoco.data_source import DataSource
+from orinoco.entities import ActionData, ActionConfig, Signature
+from orinoco.exceptions import FoundMoreThanOne, ConditionNotMet
+from orinoco.transformation import Transformation
+from orinoco.typed_action import TypedAction, AsyncTypedAction, TypedCondition
+from orinoco.types import ActionDataT
 
 
 def test_implicit_actions_config() -> None:

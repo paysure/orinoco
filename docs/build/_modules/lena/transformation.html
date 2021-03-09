@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-3.5.1, furo 2021.02.28.beta28"/>
-        <title>lena.transformation - lena 1.0.0 documentation</title>
+        <title>orinoco.transformation - orinoco 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../_static/styles/furo.css?digest=be5985a4059b5c2cd56ed0804790452beca62674">
     <link rel="stylesheet" href="../../_static/pygments.css">
     <link media="(prefers-color-scheme: dark)" rel="stylesheet" href="../../_static/pygments_dark.css">
@@ -85,7 +85,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../../index.html"><div class="brand">lena 1.0.0 documentation</div></a>
+      <a href="../../index.html"><div class="brand">orinoco 1.0.0 documentation</div></a>
     </div>
     <div class="header-right">
       <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
@@ -99,7 +99,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
   
   
-  <span class="sidebar-brand-text">lena 1.0.0 documentation</span>
+  <span class="sidebar-brand-text">orinoco 1.0.0 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html">
   <input class="sidebar-search" placeholder=Search name="q">
@@ -137,28 +137,28 @@
         <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
           <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
         </label>
-        <h1>Source code for lena.transformation</h1><div class="highlight"><pre>
+        <h1>Source code for orinoco.transformation</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span>
 
-<span class="kn">from</span> <span class="nn">lena.action</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">orinoco.action</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">Action</span><span class="p">,</span>
     <span class="n">record_action</span><span class="p">,</span>
     <span class="n">verbose_action_exception</span><span class="p">,</span>
     <span class="n">async_record_action</span><span class="p">,</span>
     <span class="n">async_verbose_action_exception</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">lena.entities</span> <span class="kn">import</span> <span class="n">ActionData</span><span class="p">,</span> <span class="n">Signature</span>
-<span class="kn">from</span> <span class="nn">lena.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotReturnedActionData</span><span class="p">,</span> <span class="n">ActionNotProperlyInherited</span>
-<span class="kn">from</span> <span class="nn">lena.types</span> <span class="kn">import</span> <span class="n">ActionDataT</span>
+<span class="kn">from</span> <span class="nn">orinoco.entities</span> <span class="kn">import</span> <span class="n">ActionData</span><span class="p">,</span> <span class="n">Signature</span>
+<span class="kn">from</span> <span class="nn">orinoco.exceptions</span> <span class="kn">import</span> <span class="n">ActionNotReturnedActionData</span><span class="p">,</span> <span class="n">ActionNotProperlyInherited</span>
+<span class="kn">from</span> <span class="nn">orinoco.types</span> <span class="kn">import</span> <span class="n">ActionDataT</span>
 
 
-<div class="viewcode-block" id="Transformation"><a class="viewcode-back" href="../../reference/transformation.html#lena.transformation.Transformation">[docs]</a><span class="k">class</span> <span class="nc">Transformation</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="Transformation"><a class="viewcode-back" href="../../reference/transformation.html#orinoco.transformation.Transformation">[docs]</a><span class="k">class</span> <span class="nc">Transformation</span><span class="p">(</span><span class="n">Action</span><span class="p">,</span> <span class="n">ABC</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Base class for actions which modify data</span>
 <span class="sd">    """</span>
 
-<div class="viewcode-block" id="Transformation.run"><a class="viewcode-back" href="../../reference/transformation.html#lena.transformation.Transformation.run">[docs]</a>    <span class="nd">@record_action</span>
+<div class="viewcode-block" id="Transformation.run"><a class="viewcode-back" href="../../reference/transformation.html#orinoco.transformation.Transformation.run">[docs]</a>    <span class="nd">@record_action</span>
     <span class="nd">@verbose_action_exception</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
@@ -166,7 +166,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_check_transformation_output</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">action_data</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="Transformation.async_run"><a class="viewcode-back" href="../../reference/transformation.html#lena.transformation.Transformation.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
+<div class="viewcode-block" id="Transformation.async_run"><a class="viewcode-back" href="../../reference/transformation.html#orinoco.transformation.Transformation.async_run">[docs]</a>    <span class="nd">@async_record_action</span>
     <span class="nd">@async_verbose_action_exception</span>
     <span class="k">async</span> <span class="k">def</span> <span class="nf">async_run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">action_data</span><span class="p">:</span> <span class="n">ActionDataT</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ActionDataT</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">action_data</span><span class="o">.</span><span class="n">skip_processing</span><span class="p">:</span>
@@ -191,9 +191,9 @@
         <span class="k">return</span> <span class="n">action_data</span></div>
 
 
-<div class="viewcode-block" id="GenericTransformation"><a class="viewcode-back" href="../../reference/transformation.html#lena.transformation.GenericTransformation">[docs]</a><span class="k">class</span> <span class="nc">GenericTransformation</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericTransformation"><a class="viewcode-back" href="../../reference/transformation.html#orinoco.transformation.GenericTransformation">[docs]</a><span class="k">class</span> <span class="nc">GenericTransformation</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
     <span class="sd">"""</span>
-<span class="sd">    Utility action which allows modification of `~lena.entities.ActionData` "on the fly"</span>
+<span class="sd">    Utility action which allows modification of `~orinoco.entities.ActionData` "on the fly"</span>
 <span class="sd">    (usually by lambda functions)</span>
 <span class="sd">    """</span>
 
@@ -221,7 +221,7 @@
         <span class="k">return</span> <span class="n">action_data_result</span></div>
 
 
-<div class="viewcode-block" id="RenameActionField"><a class="viewcode-back" href="../../reference/transformation.html#lena.transformation.RenameActionField">[docs]</a><span class="k">class</span> <span class="nc">RenameActionField</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
+<div class="viewcode-block" id="RenameActionField"><a class="viewcode-back" href="../../reference/transformation.html#orinoco.transformation.RenameActionField">[docs]</a><span class="k">class</span> <span class="nc">RenameActionField</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Change name of the registered entity</span>
 <span class="sd">    """</span>
@@ -241,7 +241,7 @@
         <span class="k">return</span> <span class="n">action_data</span><span class="o">.</span><span class="n">evolve_self</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">new_data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="WithoutFields"><a class="viewcode-back" href="../../reference/transformation.html#lena.transformation.WithoutFields">[docs]</a><span class="k">class</span> <span class="nc">WithoutFields</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
+<div class="viewcode-block" id="WithoutFields"><a class="viewcode-back" href="../../reference/transformation.html#orinoco.transformation.WithoutFields">[docs]</a><span class="k">class</span> <span class="nc">WithoutFields</span><span class="p">(</span><span class="n">Transformation</span><span class="p">):</span>
     <span class="sd">"""</span>
 <span class="sd">    Remove signatures for the given keys</span>
 <span class="sd">    """</span>

@@ -36,6 +36,6 @@ $(window).resize(function(){
         $("li.nav-item-0 a").text("Top");
     }
     else {
-        $("li.nav-item-0 a").text("lena 0.3.2 documentation");
+        $("li.nav-item-0 a").text("orinoco 0.3.2 documentation");
     }
 });

@@ -1,4 +1,4 @@
 Types
 =====================
-.. automodule:: lena.types
+.. automodule:: orinoco.types
    :members:
