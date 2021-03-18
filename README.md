@@ -122,26 +122,20 @@ class Api:
         if self.fraud_service.is_it_fraud(payment_data):
             return Response(json={"authorization_decision": False, "reason": "Fraud payment"})
         
-        card_data = self.db_service.get_card_data(payment_data["card_identifier"])
+        policy = self.policies_matcher.get_policy_for_payment(card_data)
         
-        if not card_data:
-            return Response(json={"authorization_decision": False, "reason": "Card doesn't exist"})
-        
-        policie = self.db_service.get_user_active_policies(user=card_data["user"])
-        policy_for_this_payment = self.policies_matcher.get_policy_for_payment(card_data, policies)
-        
-        if not policy_for_this_payment:
+        if not policy:
             return Response(json={"authorization_decision": False, "reason": "Not matching policy"})
             
-        funding_account = self.db_service.get_funding_account(card_data["card"])
+        funding_account = self.db_service.get_funding_account(policy["funding_account_id"])
         
         if funding_account.amount < payment_data["amount"]:
             return Response(json={"authorization_decision": False, "reason": "Not enough money"})
             
             
-        self.db_service.update_policy(policy_for_this_payment, payment_data)
+        self.db_service.update_policy(policy, payment_data)
         self.db_service.update_funding_account(funding_account, payment_data)
-        self.db_service.link_policy_to_payment(policy_for_this_payment, payment_data)
+        self.db_service.link_policy_to_payment(policy, payment_data)
         
         return Response(json={"authorization_decision": True})
 ```
@@ -158,16 +152,12 @@ class Api:
         ParseData()
         >> StorePayment()
         >> IsFraud().if_then(GetDeniedFraudResponse().finish())
-        >> GetCardData()
-        >> (~CardExists()).if_then(GetNoCardResponse().finish())
-        >> GetUserPolicies()
-        >> FindPolicyForPayment()
-        >> (~PolicyMatched()).if_then(GetNoMatchedPolicyResponse().finish())
+        >> GetUserPolicy()
         >> GetFundingAccount()
         >> (~EnoughMoney()).if_then(GetNoMoneyResponse().finish())
         >> UpdatePolicy()
         >> UpdateFundingAccount()
-        >> LinkPolicyToPayment()
+        >> UpdatePolicy()
         >> GetAuthorizedResponse()
     )
     def payment_auth_endpoint(self, request):

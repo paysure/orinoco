@@ -313,9 +313,13 @@ class ActionSet(Action, SystemActionTag):
     Set of actions which are executed consequently
     """
 
-    def __init__(self, actions: Iterable[ActionT], description: Optional[str] = None, name: Optional[str] = None):
+    ACTIONS: Optional[Iterable[ActionT]] = None
+
+    def __init__(
+        self, actions: Optional[Iterable[ActionT]] = None, description: Optional[str] = None, name: Optional[str] = None
+    ):
         super().__init__(description=description, name=name)
-        self.actions = actions
+        self.actions = actions or self.ACTIONS or []
 
     @record_action
     @verbose_action_exception
