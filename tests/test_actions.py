@@ -34,9 +34,9 @@ from orinoco.data_source import GenericDataSource, DataSource, AddActionValue, A
 from orinoco.entities import Signature, ActionData
 from orinoco.event import GenericEvent, Event, EventSet
 from orinoco.exceptions import ConditionNotMet, NoneOfActionsCanBeExecuted, ActionNotProperlyInherited
-from orinoco.loop import ForSideEffects
+from orinoco.loop import ForSideEffects, For
 from orinoco.observers import ExecutionTimeObserver, ActionsLog
-from orinoco.transformation import GenericTransformation, RenameActionField, WithoutFields
+from orinoco.transformation import GenericTransformation, RenameActionField, WithoutFields, Transformation
 from orinoco.types import ActionDataT
 
 
@@ -300,16 +300,36 @@ def test_case_block_operators() -> None:
         ).run_with_data(x=-1, counter=0)
 
 
-def test_loop_generic() -> None:
-
+def test_loop_event_generic() -> None:
     log = Mock()
-
     action = ForSideEffects("x", lambda ad: ad.get("values")).do(
         GenericEvent(lambda action_data: log(action_data.get("x")))
     )
     action.run_with_data(values=[10, 40, 60])
 
     log.assert_has_calls([call(10), call(40), call(60)])
+
+
+def test_loop() -> None:
+    class DoubleValue(Transformation):
+        def transform(self, action_data: ActionDataT) -> ActionDataT:
+            return action_data.evolve(doubled=action_data.get("x") * 2)
+
+    assert For(
+        "x", lambda ad: ad.get("values"), aggregated_field="doubled", aggregated_field_new_name="doubled_list"
+    ).do(DoubleValue()).run_with_data(values=[10, 40, 60]).get("doubled_list") == [20, 80, 120]
+
+    assert (
+        For(
+            "x",
+            lambda ad: ad.get("values"),
+            aggregated_field="doubled",
+        )
+        .do(DoubleValue())
+        .run_with_data(values=[10, 40, 60])
+        .get("doubled")
+        == [20, 80, 120]
+    )
 
 
 def test_async() -> None:
@@ -536,12 +556,15 @@ def test_handled_exception() -> None:
             if action_data.get("user") != "admin":
                 raise ValueError()
 
-    not_failing_handled_action = HandledExceptions(
-        FailingForNonAdmin(),
-        catch_exceptions=ValueError,
-        handle_method=lambda error, action_data: exceptions_log.append((error.__class__, action_data.get("user"))),
-        fail_on_error=False,
-    ) >> GenericEvent(lambda ad: ...)
+    not_failing_handled_action = (
+        HandledExceptions(
+            FailingForNonAdmin(),
+            catch_exceptions=ValueError,
+            handle_method=lambda error, action_data: exceptions_log.append((error.__class__, action_data.get("user"))),
+            fail_on_error=False,
+        )
+        >> GenericEvent(lambda ad: ...)
+    )
 
     assert not_failing_handled_action.run_with_data(user="admin").get_observer(ActionsLog).actions_log == [
         "ActionSet_start",

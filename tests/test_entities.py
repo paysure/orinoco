@@ -20,7 +20,7 @@ def test_pattern_matching() -> None:
         )
     )
 
-    assert {"a"} == set(action_data.find(Signature(type_=str, tags=set())))
+    assert {"a", "b"} == set(action_data.find(Signature(type_=str, tags=set())))
     assert {"a", "b"} == set(action_data.find(Signature(type_=str)))
     assert {"c", "b"} == set(action_data.find(Signature(tags={"xx"})))
     assert {"c"} == set(action_data.find(Signature(type_=float)))
@@ -46,3 +46,13 @@ def test_dot_notation_nested_search() -> None:
     assert "chrome" == ActionData.create(request={"payload": {"meta": {"browser": "chrome"}}}).get(
         "request.payload.meta.browser"
     )
+
+
+def test_match_subtype() -> None:
+    class A:
+        pass
+
+    class B(A):
+        pass
+
+    assert Signature(type_=B).match(Signature(type_=A))
