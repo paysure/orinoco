@@ -34,14 +34,18 @@ class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
         """
         Match with another signature. Note that matching with for ``tags`` set is done as "is subset"
         """
+        if (
+            other_signature.type_ is not None
+            and self.type_ is not None
+            and not issubclass(self.type_, other_signature.type_)
+        ):
+            return False
 
-        for sig_key, sig_value in other_signature.dict(skip_defaults=True).items():
-            if isinstance(sig_value, set) and len(sig_value) > 0:
-                if not sig_value.issubset(getattr(self, sig_key)):
-                    return False
-            else:
-                if not getattr(self, sig_key) == sig_value:
-                    return False
+        if len(other_signature.tags) > 0 and not other_signature.tags.issubset(self.tags):
+            return False
+
+        if other_signature.key is not None and other_signature.key != self.key:
+            return False
         return True
 
     def __class_getitem__(cls: T, _: Any) -> T:
@@ -129,7 +133,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         """
         try:
             return self.get_by_signature(Signature(key=key))
-        except NothingFound:
+        except (NothingFound, SearchError):
             return default
 
     def find_or_default(self, key: str, default: Optional[Any] = None) -> Any:
