@@ -120,9 +120,9 @@ class For(BaseLoop):
 
         aggregated_values = []
         for iteration_value in self.method(action_data):
-            action_data = self.action.run(action_data.evolve(**{self.iterating_key: iteration_value}))
+            loop_action_data = self.action.run(action_data.evolve(**{self.iterating_key: iteration_value}))
             if self.aggregated_field:
-                aggregated_values.append(action_data.get(self.aggregated_field))
+                aggregated_values.append(loop_action_data.get(self.aggregated_field))
 
         if self.aggregated_field:
             return action_data.evolve(**{self.aggregated_field_new_name or self.aggregated_field: aggregated_values})
