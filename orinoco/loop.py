@@ -4,7 +4,7 @@ from typing import Iterable, Any, Callable, Optional, TypeVar, Generic
 from orinoco.action import Action, ActionSet, record_action, verbose_action_exception
 
 from orinoco.exceptions import ActionNotProperlyConfigured
-from orinoco.types import ActionDataT
+from orinoco.types import ActionDataT, ActionT
 
 LoopT = TypeVar("LoopT", bound="BaseLoop")
 
@@ -20,7 +20,7 @@ class BaseLoop(Generic[LoopT], Action, ABC):
 
         self.action = action
 
-    def do(self: LoopT, *actions: Action) -> LoopT:
+    def do(self: LoopT, *actions: ActionT) -> LoopT:
         """
         :param actions: Actions which are executed in the each iteration with updated
          values in the  :class:`~orinoco.entities.ActionData`
