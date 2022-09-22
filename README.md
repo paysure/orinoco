@@ -213,7 +213,7 @@ class SumValuesAndRound(TypedAction):
     CONFIG = ActionConfig(
           INPUT=({"x": Signature(key="x"), "y": Signature(key="y")}), OUTPUT=Signature(key="sum_result", type_=int)
         )
-    def __call__(self, x: float, y: float) -> str:
+    def __call__(self, x: float, y: float) -> int:
         return int(x + y)
 result: ActionData = SumValuesAndRound().run_with_data(x=1.2, y=1.8)
 assert 3 == result.get_by_type(int) == result.get("sum_result")
@@ -282,7 +282,7 @@ would be handled.
 
 ```
 class FailingForNonAdmin(Event):
-    def run_side_effect(self, action_data: ActionData) -> type(None):
+    def run_side_effect(self, action_data: ActionData) -> None:
         if action_data.get("user") != "admin":
             raise ValueError()
 
