@@ -82,7 +82,7 @@ def test_generic_condition_pass() -> None:
 def test_generic_condition_fail() -> None:
     with pytest.raises(ConditionNotMet):
         data = ActionData.create(counter=0, user_name="Johan")
-        action = GenericCondition(lambda action_data: action_data.get("user_name") is "Alfred").then(
+        action = GenericCondition(lambda action_data: action_data.get("user_name") == "Alfred").then(
             GenericTransformation(increase_counter)
         )
 
@@ -357,7 +357,7 @@ def test_async() -> None:
             GenericTransformation(lambda ad: ad.evolve(next_week_weather=int(ad.get("next_week_weather") / 10)))
         )
     )
-    result = asyncio.get_event_loop().run_until_complete(pipeline.async_run_with_data(today=3))
+    result = asyncio.run(pipeline.async_run_with_data(today=3))
     assert result.get("next_week_weather") == 2
 
     assert len(result.futures) == 1
@@ -387,7 +387,7 @@ def test_measurements() -> None:
 
 def test_measurements_async() -> None:
 
-    async_result = asyncio.get_event_loop().run_until_complete(
+    async_result = asyncio.run(
         (
             GenericEvent(method=lambda ad: time.sleep(0.3), async_blocking=True)
             >> GenericEvent(method=lambda ad: time.sleep(0.5), async_blocking=False)
@@ -633,7 +633,7 @@ def test_async_atomic_context() -> None:
         yield
         _log.append("cm_end")
 
-    asyncio.get_event_loop().run_until_complete(
+    asyncio.run(
         AsyncAtomicActionSet(
             actions=[
                 GenericEvent(lambda ad: _log.append("action1_executed"))

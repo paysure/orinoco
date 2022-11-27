@@ -170,8 +170,12 @@ def test_async_action() -> None:
         async def __call__(self, x: float, y: float) -> int:
             return int(x + y)
 
-    action_data_async = asyncio.get_event_loop().run_until_complete(AsyncIntSum().async_run_with_data(x=1.0, y=3.0))
-    action_data_sync = asyncio.get_event_loop().run_until_complete(SyncIntSum().async_run_with_data(x=1.0, y=3.0))
+    async def run_pipelines():
+        return await asyncio.gather(
+            AsyncIntSum().async_run_with_data(x=1.0, y=3.0), SyncIntSum().async_run_with_data(x=1.0, y=3.0)
+        )
+
+    action_data_async, action_data_sync = asyncio.run(run_pipelines())
 
     action_data_async_sync_version = AsyncIntSum().run_with_data(x=1.0, y=3.0)
 
