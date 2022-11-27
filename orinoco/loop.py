@@ -10,7 +10,7 @@ from orinoco.action import (
     async_verbose_action_exception,
 )
 
-from orinoco.exceptions import ActionNotProperlyConfigured
+from orinoco.exceptions import ActionNotProperlyConfigured, RunnableOnlyInAsyncContext
 from orinoco.types import ActionDataT
 
 LoopT = TypeVar("LoopT", bound="BaseLoop")
@@ -198,6 +198,9 @@ class AsyncForSideEffects(AsyncLoopEvents):
 
 
 class AsyncFor(BaseLoop):
+    def run(self, action_data: ActionDataT) -> ActionDataT:
+        raise RunnableOnlyInAsyncContext()
+
     def __init__(
         self,
         iterating_key: str,
