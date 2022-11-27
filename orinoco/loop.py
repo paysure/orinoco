@@ -197,10 +197,26 @@ class AsyncForSideEffects(AsyncLoopEvents):
         return self.method(action_data)
 
 
-class AsyncFor(For):
+class AsyncFor(BaseLoop):
+    def __init__(
+        self,
+        iterating_key: str,
+        method: Callable[[ActionDataT], AsyncIterable[Any]],
+        aggregated_field: Optional[str] = None,
+        aggregated_field_new_name: Optional[str] = None,
+    ):
+        """
+        :param iterating_key: Key which will be propagated into the `ActionData` with the new value
+        :param method: Method which returns the iterable to iterate over
+        """
+        super().__init__(iterating_key=iterating_key)
+        self.method = method
+        self.aggregated_field = aggregated_field
+        self.aggregated_field_new_name = aggregated_field_new_name
+
     @async_record_action
     @async_verbose_action_exception
-    def async_run(self, action_data: ActionDataT) -> ActionDataT:
+    async def async_run(self, action_data: ActionDataT) -> ActionDataT:
         if action_data.skip_processing:
             return action_data
 
@@ -210,8 +226,8 @@ class AsyncFor(For):
             )
 
         aggregated_values = []
-        for iteration_value in self.method(action_data):
-            loop_action_data = self.action.run(action_data.evolve(**{self.iterating_key: iteration_value}))
+        async for iteration_value in self.method(action_data):
+            loop_action_data = await self.action.async_run(action_data.evolve(**{self.iterating_key: iteration_value}))
             if self.aggregated_field:
                 aggregated_values.append(loop_action_data.get(self.aggregated_field))
 
