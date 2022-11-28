@@ -2,10 +2,12 @@ import asyncio
 from dataclasses import dataclass
 
 import pytest
+from typing_extensions import Annotated
 
+from orinoco import settings
 from orinoco.data_source import DataSource
 from orinoco.entities import ActionData, ActionConfig, Signature
-from orinoco.exceptions import FoundMoreThanOne, ConditionNotMet
+from orinoco.exceptions import FoundMoreThanOne, ConditionNotMet, ActionNotProperlyConfigured
 from orinoco.transformation import Transformation
 from orinoco.typed_action import TypedAction, AsyncTypedAction, TypedCondition
 from orinoco.types import ActionDataT
@@ -19,6 +21,25 @@ def test_implicit_actions_config() -> None:
     action_data = MyAction().run_with_data(length=1.2, is_metric=False, x=1)
 
     assert "ok: 1.2 inch" == action_data.get_by_type(str)
+
+
+def test_implicit_actions_config_with_annotated() -> None:
+    class MyAction(TypedAction[str]):
+        def __call__(self, length: float, is_metric: bool) -> Annotated[str, "my_value"]:
+            return "ok: {} {}".format(length, "cm" if is_metric else "inch")
+
+    action_data = MyAction().run_with_data(length=1.2, is_metric=False, x=1)
+
+    assert "ok: 1.2 inch" == action_data.get("my_value")
+
+
+def test_implicit_actions_config_should_fail_in_strict_mode(with_strict_mode) -> None:
+    class MyAction(TypedAction[str]):
+        def __call__(self, length: float, is_metric: bool) -> str:
+            return "ok: {} {}".format(length, "cm" if is_metric else "inch")
+
+    with pytest.raises(ActionNotProperlyConfigured):
+        MyAction().run_with_data(length=1.2, is_metric=False, x=1)
 
 
 def test_explicit_action_many_of_one_type() -> None:

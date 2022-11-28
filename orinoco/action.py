@@ -140,7 +140,6 @@ class Action(SyncActionMixin, AsyncActionMixin, ActionT, ABC):
         return ActionSet([self, another_action])
 
     def __rshift__(self, other: ActionT) -> "ActionT":
-        assert isinstance(other, Action)
         return self.then(other)
 
     def on_subfield(self, field_key: str) -> "OnActionDataSubField":
