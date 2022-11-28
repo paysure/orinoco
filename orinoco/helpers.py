@@ -23,4 +23,5 @@ def _is_annotated(
     value: Union[TypeT, Annotated[TypeT, AnnotationNameT]]
 ) -> TypeGuard[Annotated[TypeT, AnnotationNameT]]:
     # Annotated can't be used in `isinstance` or `issubclass` checks
-    return value is not None and value.__name__ == "Annotated"
+    # value.__name__ didn't work for some reason
+    return "Annotated" in str(value)
