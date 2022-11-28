@@ -59,3 +59,7 @@ class FoundMoreThanOne(SearchError):
 
 class AlreadyRegistered(BaseActionException):
     pass
+
+
+class RunnableOnlyInAsyncContext(BaseActionException):
+    pass

@@ -33,8 +33,12 @@ from orinoco.condition import (
 from orinoco.data_source import GenericDataSource, DataSource, AddActionValue, AddActionValues, AddVirtualKeyShortcut
 from orinoco.entities import Signature, ActionData
 from orinoco.event import GenericEvent, Event, EventSet
-from orinoco.exceptions import ConditionNotMet, NoneOfActionsCanBeExecuted, ActionNotProperlyInherited
-from orinoco.loop import ForSideEffects, For
+from orinoco.exceptions import (
+    ConditionNotMet,
+    NoneOfActionsCanBeExecuted,
+    ActionNotProperlyInherited,
+)
+from orinoco.loop import ForSideEffects, For, AsyncFor, AsyncForSideEffects
 from orinoco.observers import ExecutionTimeObserver, ActionsLog
 from orinoco.transformation import GenericTransformation, RenameActionField, WithoutFields, Transformation
 from orinoco.types import ActionDataT
@@ -82,7 +86,7 @@ def test_generic_condition_pass() -> None:
 def test_generic_condition_fail() -> None:
     with pytest.raises(ConditionNotMet):
         data = ActionData.create(counter=0, user_name="Johan")
-        action = GenericCondition(lambda action_data: action_data.get("user_name") is "Alfred").then(
+        action = GenericCondition(lambda action_data: action_data.get("user_name") == "Alfred").then(
             GenericTransformation(increase_counter)
         )
 
@@ -319,17 +323,9 @@ def test_loop() -> None:
         "x", lambda ad: ad.get("values"), aggregated_field="doubled", aggregated_field_new_name="doubled_list"
     ).do(DoubleValue()).run_with_data(values=[10, 40, 60]).get("doubled_list") == [20, 80, 120]
 
-    assert (
-        For(
-            "x",
-            lambda ad: ad.get("values"),
-            aggregated_field="doubled",
-        )
-        .do(DoubleValue())
-        .run_with_data(values=[10, 40, 60])
-        .get("doubled")
-        == [20, 80, 120]
-    )
+    assert For("x", lambda ad: ad.get("values"), aggregated_field="doubled",).do(DoubleValue()).run_with_data(
+        values=[10, 40, 60]
+    ).get("doubled") == [20, 80, 120]
 
 
 def test_async() -> None:
@@ -357,7 +353,7 @@ def test_async() -> None:
             GenericTransformation(lambda ad: ad.evolve(next_week_weather=int(ad.get("next_week_weather") / 10)))
         )
     )
-    result = asyncio.get_event_loop().run_until_complete(pipeline.async_run_with_data(today=3))
+    result = asyncio.run(pipeline.async_run_with_data(today=3))
     assert result.get("next_week_weather") == 2
 
     assert len(result.futures) == 1
@@ -387,7 +383,7 @@ def test_measurements() -> None:
 
 def test_measurements_async() -> None:
 
-    async_result = asyncio.get_event_loop().run_until_complete(
+    async_result = asyncio.run(
         (
             GenericEvent(method=lambda ad: time.sleep(0.3), async_blocking=True)
             >> GenericEvent(method=lambda ad: time.sleep(0.5), async_blocking=False)
@@ -556,15 +552,12 @@ def test_handled_exception() -> None:
             if action_data.get("user") != "admin":
                 raise ValueError()
 
-    not_failing_handled_action = (
-        HandledExceptions(
-            FailingForNonAdmin(),
-            catch_exceptions=ValueError,
-            handle_method=lambda error, action_data: exceptions_log.append((error.__class__, action_data.get("user"))),
-            fail_on_error=False,
-        )
-        >> GenericEvent(lambda ad: ...)
-    )
+    not_failing_handled_action = HandledExceptions(
+        FailingForNonAdmin(),
+        catch_exceptions=ValueError,
+        handle_method=lambda error, action_data: exceptions_log.append((error.__class__, action_data.get("user"))),
+        fail_on_error=False,
+    ) >> GenericEvent(lambda ad: ...)
 
     assert not_failing_handled_action.run_with_data(user="admin").get_observer(ActionsLog).actions_log == [
         "ActionSet_start",
@@ -633,7 +626,7 @@ def test_async_atomic_context() -> None:
         yield
         _log.append("cm_end")
 
-    asyncio.get_event_loop().run_until_complete(
+    asyncio.run(
         AsyncAtomicActionSet(
             actions=[
                 GenericEvent(lambda ad: _log.append("action1_executed"))
@@ -695,3 +688,87 @@ def test_return_action():
         .skip_processing
     )
     assert log == ["1"]
+
+
+def test_async_loop_for_side_effects():
+    class AsyncGen:
+        async def __aiter__(self):
+            yield 1
+            await asyncio.sleep(0.01)
+            yield 2
+
+    class AddingEvent(Event):
+        async def async_run_side_effect(self, action_data: ActionDataT) -> None:
+            action_data.get("result")["total"] += action_data.get("number")
+
+    async def run_pipeline():
+        result = (
+            await AsyncForSideEffects("number", lambda ad: AsyncGen())
+            .do(AddingEvent())
+            .async_run_with_data(result={"total": 0})
+        )
+        return result.get("result")
+
+    assert 3 == asyncio.run(run_pipeline())["total"]
+
+
+def test_async_loop_for():
+    class AsyncGen:
+        async def __aiter__(self):
+            yield 1
+            await asyncio.sleep(0.01)
+            yield 2
+
+    class EmptyEvent(Event):
+        async def async_run_side_effect(self, action_data: ActionDataT) -> None:
+            pass
+
+    async def run_pipeline():
+        result = (
+            await AsyncFor("number", lambda ad: AsyncGen(), "number", "results").do(EmptyEvent()).async_run_with_data()
+        )
+        return result.get("results")
+
+    assert [1, 2] == asyncio.run(run_pipeline())
+
+
+def test_for_side_effects_loop_run_as_async():
+    class Gen:
+        def __iter__(self):
+            yield 1
+            yield 2
+
+    class AddingEvent(Event):
+        def run_side_effect(self, action_data: ActionDataT) -> None:
+            action_data.get("result")["total"] += action_data.get("number")
+
+        async def async_run_side_effect(self, action_data: ActionDataT) -> None:
+            pass
+
+    async def run_pipeline():
+        result = (
+            await ForSideEffects("number", lambda ad: Gen()).do(AddingEvent()).async_run_with_data(result={"total": 0})
+        )
+        return result.get("result")
+
+    assert 3 == asyncio.run(run_pipeline())["total"]
+
+
+def test_for_loop_run_as_async():
+    class Gen:
+        def __iter__(self):
+            yield 1
+            yield 2
+
+    class EmptyEvent(Event):
+        def run_side_effect(self, action_data: ActionDataT) -> None:
+            pass
+
+        async def async_run_side_effect(self, action_data: ActionDataT) -> None:
+            pass
+
+    async def run_pipeline():
+        result = await For("number", lambda ad: Gen(), "number", "results").do(EmptyEvent()).async_run_with_data()
+        return result.get("results")
+
+    assert [1, 2] == asyncio.run(run_pipeline())
