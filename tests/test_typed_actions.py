@@ -4,7 +4,6 @@ from dataclasses import dataclass
 import pytest
 from typing_extensions import Annotated
 
-from orinoco import settings
 from orinoco.data_source import DataSource
 from orinoco.entities import ActionData, ActionConfig, Signature
 from orinoco.exceptions import FoundMoreThanOne, ConditionNotMet, ActionNotProperlyConfigured

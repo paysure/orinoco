@@ -1,11 +1,11 @@
 import pytest
 
-from orinoco import settings
+from orinoco import config
 
 
 @pytest.fixture
 def with_strict_mode():
-    current_mode = settings.IMPLICIT_TYPE_STRICT_MODE_ENABLED
-    settings.IMPLICIT_TYPE_STRICT_MODE_ENABLED = True
+    current_mode = config.IMPLICIT_TYPE_STRICT_MODE_ENABLED
+    config.IMPLICIT_TYPE_STRICT_MODE_ENABLED = True
     yield
-    settings.IMPLICIT_TYPE_STRICT_MODE_ENABLED = current_mode
+    config.IMPLICIT_TYPE_STRICT_MODE_ENABLED = current_mode

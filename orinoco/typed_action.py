@@ -1,7 +1,7 @@
 from abc import ABC
 from typing import Optional, Dict, Any, Type, Callable, Generic, Awaitable
 
-from orinoco import settings
+from orinoco import config
 from orinoco.action import (
     Action,
     record_action,
@@ -36,7 +36,7 @@ class TypedBase(Generic[T], Action, ABC):
         annotations = cls.__call__.__annotations__
         return_type, return_name = _extract_type(annotations["return"])
 
-        if settings.IMPLICIT_TYPE_STRICT_MODE_ENABLED and return_name is None:
+        if config.IMPLICIT_TYPE_STRICT_MODE_ENABLED and return_name is None:
             raise ActionNotProperlyConfigured(
                 "Action {} has to be configured explicitly or return type has to be annotated via "
                 "`Annotated[<type>, <name>]`. The erro was raised, because `IMPLICIT_TYPE_STRICT_MODE_ENABLED` "

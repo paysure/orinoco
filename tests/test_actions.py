@@ -9,7 +9,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from orinoco import settings
+from orinoco import config
 from orinoco.action import (
     ActionSet,
     Then,
@@ -673,7 +673,7 @@ def test_async_atomic_context() -> None:
 
 
 def test_verbose_exception() -> None:
-    settings.DEBUG = True
+    config.VERBOSE_ERRORS = True
 
     class TestError(Exception):
         pass

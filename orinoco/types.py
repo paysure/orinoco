@@ -236,5 +236,5 @@ class ActionT(ABC):
 ActionVar = TypeVar("ActionVar", bound=ActionT)
 ObserverVar = TypeVar("ObserverVar", bound=ObserverT)
 
-TypeT = TypeVar("TypeT", bound=type)
+TypeT = TypeVar("TypeT")
 AnnotationNameT = TypeVar("AnnotationNameT", bound=str)

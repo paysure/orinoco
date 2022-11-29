@@ -1,3 +1,4 @@
+import typing
 from typing import Iterable, Type, List, Any, NoReturn, Union, Optional, Tuple
 
 from typing_extensions import Annotated, TypeGuard
@@ -14,14 +15,7 @@ def raise_not_provided_field(field_name: str) -> NoReturn:
 
 
 def _extract_type(value: Union[TypeT, Annotated[TypeT, AnnotationNameT]]) -> Tuple[TypeT, Optional[AnnotationNameT]]:
-    if _is_annotated(value):
-        return value.__origin__, value.__metadata__[0]
+    if hasattr(value, "__origin__"):
+        args = value.__metadata__
+        return value.__origin__, args[0] if args else None
     return value, None
-
-
-def _is_annotated(
-    value: Union[TypeT, Annotated[TypeT, AnnotationNameT]]
-) -> TypeGuard[Annotated[TypeT, AnnotationNameT]]:
-    # Annotated can't be used in `isinstance` or `issubclass` checks
-    # value.__name__ didn't work for some reason
-    return "Annotated" in str(value)
