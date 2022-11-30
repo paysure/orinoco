@@ -102,6 +102,10 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
+    def get_by_tags(self, *tags: str) -> Any:
+        pass
+
+    @abstractmethod
     def find(self, searched_signature: SignatureT[T]) -> List[T]:
         pass
 

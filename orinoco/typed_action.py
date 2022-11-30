@@ -34,7 +34,7 @@ class TypedBase(Generic[T], Action, ABC):
     @classmethod
     def _get_implicit_config(cls) -> ActionConfig[T]:
         annotations = cls.__call__.__annotations__
-        return_type, return_name = _extract_type(annotations["return"])
+        return_type, return_name, tags = _extract_type(annotations["return"])
 
         if config.IMPLICIT_TYPE_STRICT_MODE_ENABLED and return_name is None:
             raise ActionNotProperlyConfigured(
@@ -44,7 +44,7 @@ class TypedBase(Generic[T], Action, ABC):
             )
 
         return ActionConfig(
-            OUTPUT=Signature(type_=return_type, key=return_name) if return_type else None,
+            OUTPUT=Signature(type_=return_type, key=return_name, tags=tags) if return_type else None,
             INPUT={key: Signature(key=key) for key, type_ in annotations.items() if key != "return"},
         )
 

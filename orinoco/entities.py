@@ -176,6 +176,16 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         """
         return self.find_one(Signature(type_=type_))
 
+    def get_by_tags(self, *tags: str) -> Any:
+        """
+        Get a value by matching tags.
+
+        :raises
+         - `NothingFound`: When no data match the signature
+         - `FoundMoreThanOne`: When multiple data match the signature
+        """
+        return self.find_one(Signature(tags=set(tags)))
+
     # Searching
     def find(self, searched_signature: SignatureT[T]) -> List[T]:
         """
