@@ -105,10 +105,10 @@ class For(BaseLoop):
 
     .. code-block:: python
 
-        For("event", lambda action_data: action_data.get_or_default("event_log", [])).do(GetNotification())
-
-    Then `GetNotification` has access to `event` via action data in each of the iterations
-    which comes from the iterable "event_log"
+        For("x", lambda ad: ad.get("values"), aggregated_field="doubled", aggregated_field_new_name="doubled_list")
+        .do(DoubleValue())
+        .run_with_data(values=[10, 40, 60])
+        .get("doubled_list")
     """
 
     def __init__(
