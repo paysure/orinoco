@@ -1,7 +1,6 @@
-import typing
-from typing import Iterable, Type, List, Any, NoReturn, Union, Optional, Tuple, get_origin, get_args
+from typing import Iterable, Type, List, Any, NoReturn, Union, Optional, Tuple
 
-from typing_extensions import Annotated, TypeGuard
+from typing_extensions import Annotated, get_origin, get_args
 
 from orinoco.types import TypeT, AnnotationNameT
 
