@@ -12,7 +12,7 @@ from orinoco.action import (
 from orinoco.condition import Condition
 from orinoco.entities import ActionConfig, Signature
 from orinoco.exceptions import ActionNotProperlyConfigured
-from orinoco.helpers import _extract_type
+from orinoco.helpers import extract_type
 from orinoco.types import T, ActionDataT
 
 
@@ -34,7 +34,7 @@ class TypedBase(Generic[T], Action, ABC):
     @classmethod
     def _get_implicit_config(cls) -> ActionConfig[T]:
         annotations = cls.__call__.__annotations__
-        return_type, return_name, tags = _extract_type(annotations["return"])
+        return_type, return_name, tags = extract_type(annotations["return"])
 
         if config.IMPLICIT_TYPE_STRICT_MODE_ENABLED and return_name is None:
             raise ActionNotProperlyConfigured(

@@ -100,11 +100,11 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
     def __getitem__(self, searched_signature: SignatureT[T]) -> T:
         return self.get_by_signature(searched_signature)
 
-    def get(self, key: str) -> Any:
+    def get(self, key: str, default: Any = NOT_FOUND) -> Any:
         """
         Get item by ``key``
         """
-        return self.get_by_key(key)
+        return self.get_by_key(key, default=default)
 
     # Getters
     def get_by_signature(self, searched_signature: SignatureT[T]) -> T:

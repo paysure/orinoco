@@ -93,6 +93,26 @@ def test_generic_condition_fail() -> None:
         action.run(data)
 
 
+def test_fail_with_formatted_message() -> None:
+    action = GenericCondition(
+        lambda action_data: action_data.get("user_name") == "Alfred",
+        fail_message="Failed for {user_name} after {counter} attempts",
+    )
+    with pytest.raises(ConditionNotMet) as exc_info:
+        action.run_with_data(counter=3, user_name="Johan")
+    assert exc_info.value.args[0] == "GenericCondition failed: Failed for Johan after 3 attempts"
+
+
+def test_fail_with_formatted_message_missing_data() -> None:
+    action = GenericCondition(
+        lambda action_data: action_data.get("user_name") == "Alfred",
+        fail_message="Failed for {user_name} after {counter} attempts",
+    )
+    with pytest.raises(ConditionNotMet) as exc_info:
+        action.run_with_data(user_name="Johan")
+    assert exc_info.value.args[0] == "GenericCondition failed: Failed for Johan after <NOT-PROVIDED> attempts"
+
+
 def test_crossroad_action() -> None:
     class Claim:
         status = "PENDING"

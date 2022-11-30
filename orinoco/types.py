@@ -74,7 +74,7 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def get(self, name: str) -> Any:
+    def get(self, name: str, default: Any = NOT_FOUND) -> Any:
         pass
 
     @abstractmethod

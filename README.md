@@ -57,7 +57,7 @@ Switch()
         If(ClaimInValidState("PAID")),
         Then(
             ~ClaimHasPaymentAuthorizationAssigned(
-                fail_message="You cannot reset a claim that has payment authorizations assigned!"
+                fail_message="You cannot reset a claim {claim} that has payment authorizations assigned!"
             ),
             StateToAuthorize(),
             ResetEligibleAmount(),
@@ -214,7 +214,7 @@ assert 3 == SumValuesAndRoundAnnotated().run_with_data(x=1.2, y=1.8).get_by_tag(
 assert 3 == SumValuesAndRoundAnnotated().run_with_data(x=1.2, y=1.8).get_by_tag("optional_tag1", "optional_tag1")
 ```
 
-This is more explicit:
+Explicit approach:
 
 ```
 class SumValuesAndRound(TypedAction):
@@ -228,8 +228,8 @@ assert 3 == result.get_by_type(int) == result.get("sum_result")
 ```
 
 Notice there are more possibilities how to retrieve the values from the `ActionData` since it's explicitly 
-annotated. See the next section for more information about `ActionData` container. Also note the action can be 
-executed directly without `ActionData`.
+annotated. See the next section for more information about `ActionData` container. In this "mode" the type annotations 
+are optional.
 
 ```
 assert 5 == SumValuesAndRound()(x=1.9, y=3.1)
@@ -435,14 +435,29 @@ This is how we would check an `x` in the `ActionData` container is non-negative:
 ```
 class IsPositive(Condition):
     ERROR_CLS = ValueError
-    def _is_valid(self, action_data: ActionData) -> bool:
-        return action_data.get("x") >= 0
+    
+    def _is_valid(self, x: float) -> bool:
+        return x >= 0
 ```
 
 If the condition holds, nothing happens. If the condition is not fulfilled, an exception `ValueError` is raised.
 
 As mentioned above, `Condition` can be used for branching logic too - 
 see conditional actions such `Switch`, `If` or `ConditionalAction` below.
+
+### Custom fail message
+Fail messages can be customized  or by setting the `fail_message` attribute, specifying `FAIL_MESSAGE` class attribute 
+or by overriding the `fail` method.
+
+Fail messages support formatted keyword strings where the values are injected from the `ActionData` container.
+
+```
+class IsPositive(Condition):
+    FAIL_MESSAGE = "{x} is not positive"
+    
+    def _is_valid(self, x: float) -> bool:
+        return x >= 0
+```
 
 
 #### Operators

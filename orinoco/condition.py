@@ -13,7 +13,7 @@ from orinoco.action import (
 )
 from orinoco.entities import ActionData, Signature
 from orinoco.exceptions import NoneOfActionsCanBeExecuted, ConditionNotMet
-from orinoco.helpers import raise_not_provided_field
+from orinoco.helpers import raise_not_provided_field, is_format_string, get_format_string_args
 from orinoco.tags import SystemActionTag
 from orinoco.types import T, ActionDataT, ActionT
 
@@ -23,12 +23,13 @@ ConditionT = TypeVar("ConditionT", bound="Condition")
 class Condition(Action, ABC):
     """
     Base class for condition base actions. In the action set they are treated as checks which raise an exception
-    when the condition is not met. However can be used just for evaluation - see `Switch`.
+    when the condition is not met. However, can be used just for evaluation - see `Switch`.
     """
 
     FAIL_MESSAGE: str = ""
     ERROR_CLS: Type[Exception] = ConditionNotMet
     INVERTED_COND_PREFIX: str = "Inverted condition: "
+    DEFAULT_FORMAT_VALUE = "<NOT-PROVIDED>"
 
     def __init__(
         self,
@@ -55,7 +56,7 @@ class Condition(Action, ABC):
 
         if self.validate(action_data):
             return action_data
-        self.fail()
+        self.fail(action_data)
 
     def and_(self, condition: "Condition") -> ActionT:
         """
@@ -66,17 +67,23 @@ class Condition(Action, ABC):
         """
         return self.then(condition)
 
-    def fail(self, **kwargs: Any) -> NoReturn:
+    def fail(self, action_data: ActionDataT) -> NoReturn:
         """
         Method which is called when the condition is not met (and called by `Condition.run`)
 
-        :param kwargs: Context parameters which are propagated into error message
+        :param action_data: Action data for extracting custom information for the exception
         :return:
         """
+        fail_message = self.fail_message
+        fail_message_format_args = get_format_string_args(fail_message)
+        if fail_message_format_args:
+            format_dict = {
+                k: action_data.get_by_key(k, default=self.DEFAULT_FORMAT_VALUE) for k in fail_message_format_args
+            }
+            print(format_dict)
+            fail_message = fail_message.format(**format_dict)
         raise self.error_cls(
-            "{}{} didn't pass: {}\n\nContext: {}".format(
-                "not " if self.is_inverted else "", self.__class__.__name__, self.fail_message, kwargs
-            )
+            "{}{} failed: {}".format("not " if self.is_inverted else "", self.__class__.__name__, fail_message)
         )
 
     def validate(self, action_data: ActionDataT) -> bool:
