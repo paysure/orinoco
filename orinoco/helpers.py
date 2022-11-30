@@ -1,5 +1,5 @@
 import typing
-from typing import Iterable, Type, List, Any, NoReturn, Union, Optional, Tuple
+from typing import Iterable, Type, List, Any, NoReturn, Union, Optional, Tuple, get_origin, get_args
 
 from typing_extensions import Annotated, TypeGuard
 
@@ -15,7 +15,7 @@ def raise_not_provided_field(field_name: str) -> NoReturn:
 
 
 def _extract_type(value: Union[TypeT, Annotated[TypeT, AnnotationNameT]]) -> Tuple[TypeT, Optional[AnnotationNameT]]:
-    if hasattr(value, "__origin__"):
-        args = value.__metadata__
-        return value.__origin__, args[0] if args else None
+    generic = get_origin(value)
+    if generic is Annotated:
+        return get_args(value)[:2]  # first two parameters - (type, annotation)
     return value, None

@@ -39,7 +39,7 @@ class TypedBase(Generic[T], Action, ABC):
         if config.IMPLICIT_TYPE_STRICT_MODE_ENABLED and return_name is None:
             raise ActionNotProperlyConfigured(
                 "Action {} has to be configured explicitly or return type has to be annotated via "
-                "`Annotated[<type>, <name>]`. The erro was raised, because `IMPLICIT_TYPE_STRICT_MODE_ENABLED` "
+                "`Annotated[<type>, <name>]`. The error was raised, because `IMPLICIT_TYPE_STRICT_MODE_ENABLED` "
                 "is enabled.".format(cls)
             )
 
