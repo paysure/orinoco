@@ -155,6 +155,13 @@ class Condition(Action, ABC):
         """
         return ConditionalAction(self, action)
 
+    @property
+    def name_with_inverted(self) -> str:
+        """
+        :return: Name of the condition with inverted prefix if needed
+        """
+        return f'{"~" if self.is_inverted else ""}{self.name}'
+
 
 class AlwaysTrue(Condition):
     """
@@ -255,7 +262,9 @@ class ConditionSet(Condition, SystemActionTag):
 
     @property
     def action_name(self) -> str:
-        return "{}[{}]".format(self.name, "AND ".join(cond.action_name for cond in self.conditions))
+        return "{}[{}]".format(
+            self.name_with_inverted, "AND ".join(cond.name_with_inverted for cond in self.conditions)
+        )
 
     def _is_valid(self, action_data: ActionDataT) -> bool:
         return all(cond.validate(action_data) for cond in self.conditions)
