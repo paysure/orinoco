@@ -17,5 +17,6 @@ def raise_not_provided_field(field_name: str) -> NoReturn:
 def _extract_type(value: Union[TypeT, Annotated[TypeT, AnnotationNameT]]) -> Tuple[TypeT, Optional[AnnotationNameT]]:
     generic = get_origin(value)
     if generic is Annotated:
-        return get_args(value)[:2]  # first two parameters - (type, annotation)
+        dtype, annotation, *_ = get_args(value)  # first two parameters - (type, annotation)
+        return dtype, annotation
     return value, None
