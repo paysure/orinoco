@@ -57,7 +57,7 @@ Switch()
         If(ClaimInValidState("PAID")),
         Then(
             ~ClaimHasPaymentAuthorizationAssigned(
-                fail_message="You cannot reset a claim that has payment authorizations assigned!"
+                fail_message="You cannot reset a claim {claim} that has payment authorizations assigned!"
             ),
             StateToAuthorize(),
             ResetEligibleAmount(),
@@ -194,19 +194,27 @@ based on the `ActionConfig` which can be either passed directly to the initializ
 (see `CONFIG`) or it could be implicitly derived from annotations of the `__call__` method.
 
 The result of the method is propagated to the `ActionData` with a matching signature. Note that implicit
-config uses only annotated return type for the signature. For more control, please define the `ActionConfig` manually.
+config will use only annotated return type for the signature, unless it's annotated by `typing.Annotated`, where 
+the arguments are: type, key, *tags. For more control, please define the `ActionConfig` manually.
 
-This is the implicit approach:
+The implicit approach:
 
 ```
 class SumValuesAndRound(TypedAction):
     def __call__(self, x: float, y: float) -> str:
         return int(x + y)
 
+class SumValuesAndRoundAnnotated(TypedAction):
+    def __call__(self, x: float, y: float) -> Annotated[str, "my_sum", "optional_tag1", "optional_tag2"]:
+        return int(x + y)
+        
 assert 3 == SumValuesAndRound().run_with_data(x=1.2, y=1.8).get_by_type(int)
+assert 3 == SumValuesAndRoundAnnotated().run_with_data(x=1.2, y=1.8).get("my_sum")
+assert 3 == SumValuesAndRoundAnnotated().run_with_data(x=1.2, y=1.8).get_by_tag("optional_tag1")
+assert 3 == SumValuesAndRoundAnnotated().run_with_data(x=1.2, y=1.8).get_by_tag("optional_tag1", "optional_tag1")
 ```
 
-This is more explicit:
+Explicit approach:
 
 ```
 class SumValuesAndRound(TypedAction):
@@ -220,8 +228,8 @@ assert 3 == result.get_by_type(int) == result.get("sum_result")
 ```
 
 Notice there are more possibilities how to retrieve the values from the `ActionData` since it's explicitly 
-annotated. See the next section for more information about `ActionData` container. Also note the action can be 
-executed directly without `ActionData`.
+annotated. See the next section for more information about `ActionData` container. In this "mode" the type annotations 
+are optional.
 
 ```
 assert 5 == SumValuesAndRound()(x=1.9, y=3.1)
@@ -427,14 +435,29 @@ This is how we would check an `x` in the `ActionData` container is non-negative:
 ```
 class IsPositive(Condition):
     ERROR_CLS = ValueError
-    def _is_valid(self, action_data: ActionData) -> bool:
-        return action_data.get("x") >= 0
+    
+    def _is_valid(self, x: float) -> bool:
+        return x >= 0
 ```
 
 If the condition holds, nothing happens. If the condition is not fulfilled, an exception `ValueError` is raised.
 
 As mentioned above, `Condition` can be used for branching logic too - 
 see conditional actions such `Switch`, `If` or `ConditionalAction` below.
+
+### Custom fail message
+Fail messages can be customized  or by setting the `fail_message` attribute, specifying `FAIL_MESSAGE` class attribute 
+or by overriding the `fail` method.
+
+Fail messages support formatted keyword strings where the values are injected from the `ActionData` container.
+
+```
+class IsPositive(Condition):
+    FAIL_MESSAGE = "{x} is not positive"
+    
+    def _is_valid(self, x: float) -> bool:
+        return x >= 0
+```
 
 
 #### Operators
@@ -712,22 +735,29 @@ ActionSet([ParsePayload(), ExtractUserEmail(), SendEmail()])
 
 ### Loops
 
-#### ForSideEffects
+#### For
 
 If you need to loop over any `Iterable` within `ActionData` and you want to apply any `Actions` to every single element
-of such iterable, use `ForSideEffects` class.
+of such iterable, use `For` class.
 
-Please be aware of the fact that Actions we loop over should return nothing.
 
 ```
-class GetNotification(TypedAction):
-    def __call__(self, event: dict) -> None:
-        ...
+class DoubleValue(ActionType):
+    def __call__(self, x: int) -> Annotated[int, "doubled"]:
+        return x * 2
 
-For("event", lambda action_data: action_data.get_or_default("event_log", [])).do(GetNotification())
+assert For(
+    "x", lambda ad: ad.get("values"), aggregated_field="doubled", aggregated_field_new_name="doubled_list"
+).do(DoubleValue()).run_with_data(values=[10, 40, 60]).get("doubled_list") == [20, 80, 120]
 ```
 
-Note items of `event_log` will be propagated into `GetNotification` as a value with a key `event`.
+`For` parameters :
+- iterating_key: Key which will be propagated into the `ActionData` with the new value
+- method: Method which returns the iterable to iterate over
+- aggregated_field: Name of the field which will be extracted from the `ActionData` and aggregated
+        (appended to the list)
+- aggregated_field_new_name: Name of the field which will be used for the aggregated field
+- skip_none_for_aggregated_field: If `True` then `None` values won't be added to the aggregated field
 
 #### LoopCondition
 

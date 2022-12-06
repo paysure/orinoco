@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import Callable, Optional
 
+from orinoco import config
 from orinoco.action import (
     Action,
     record_action,
@@ -44,7 +45,7 @@ class Transformation(Action, ABC):
 
     @classmethod
     def _check_transformation_output(cls, action_data: ActionDataT) -> ActionDataT:
-        if not isinstance(action_data, ActionData):
+        if config.CHAINING_TYPE_CHECK_STRICT_MODE_ENABLED and not isinstance(action_data, ActionData):
             raise ActionNotReturnedActionData(
                 "Action {} not returned ActionData, but {}".format(action_data, cls.__name__)
             )
@@ -73,7 +74,7 @@ class GenericTransformation(Transformation):
     def transform(self, action_data: ActionDataT) -> ActionDataT:
         action_data_result = self.method(action_data)
 
-        if not isinstance(action_data_result, ActionData):
+        if config.CHAINING_TYPE_CHECK_STRICT_MODE_ENABLED and not isinstance(action_data_result, ActionData):
             raise ActionNotReturnedActionData(
                 "Action {} not returned ActionData, but {}".format(action_data_result, self.__class__.__name__)
             )

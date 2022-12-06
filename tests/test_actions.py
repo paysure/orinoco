@@ -9,7 +9,7 @@ from unittest.mock import Mock, call
 
 import pytest
 
-from orinoco import settings
+from orinoco import config
 from orinoco.action import (
     ActionSet,
     Then,
@@ -91,6 +91,26 @@ def test_generic_condition_fail() -> None:
         )
 
         action.run(data)
+
+
+def test_fail_with_formatted_message() -> None:
+    action = GenericCondition(
+        lambda action_data: action_data.get("user_name") == "Alfred",
+        fail_message="Failed for {user_name} after {counter} attempts",
+    )
+    with pytest.raises(ConditionNotMet) as exc_info:
+        action.run_with_data(counter=3, user_name="Johan")
+    assert exc_info.value.args[0] == "GenericCondition failed: Failed for Johan after 3 attempts"
+
+
+def test_fail_with_formatted_message_missing_data() -> None:
+    action = GenericCondition(
+        lambda action_data: action_data.get("user_name") == "Alfred",
+        fail_message="Failed for {user_name} after {counter} attempts",
+    )
+    with pytest.raises(ConditionNotMet) as exc_info:
+        action.run_with_data(user_name="Johan")
+    assert exc_info.value.args[0] == "GenericCondition failed: Failed for Johan after <NOT-PROVIDED> attempts"
 
 
 def test_crossroad_action() -> None:
@@ -323,9 +343,39 @@ def test_loop() -> None:
         "x", lambda ad: ad.get("values"), aggregated_field="doubled", aggregated_field_new_name="doubled_list"
     ).do(DoubleValue()).run_with_data(values=[10, 40, 60]).get("doubled_list") == [20, 80, 120]
 
-    assert For("x", lambda ad: ad.get("values"), aggregated_field="doubled",).do(DoubleValue()).run_with_data(
-        values=[10, 40, 60]
-    ).get("doubled") == [20, 80, 120]
+    assert (
+        For(
+            "x",
+            lambda ad: ad.get("values"),
+            aggregated_field="doubled",
+        )
+        .do(DoubleValue())
+        .run_with_data(values=[10, 40, 60])
+        .get("doubled")
+        == [20, 80, 120]
+    )
+
+
+def test_loop_with_none_skip() -> None:
+    class DoubleOddValue(Transformation):
+        def transform(self, action_data: ActionDataT) -> ActionDataT:
+            if action_data.get("x") % 2 == 0:
+                return action_data.evolve(doubled=action_data.get("x") * 2)
+            return action_data.evolve(doubled=None)
+
+    assert (
+        For(
+            "x",
+            lambda ad: ad.get("values"),
+            aggregated_field="doubled",
+            aggregated_field_new_name="doubled_list",
+            skip_none_for_aggregated_field=True,
+        )
+        .do(DoubleOddValue())
+        .run_with_data(values=[1, 2, 3, 4])
+        .get("doubled_list")
+        == [4, 8]
+    )
 
 
 def test_async() -> None:
@@ -552,12 +602,15 @@ def test_handled_exception() -> None:
             if action_data.get("user") != "admin":
                 raise ValueError()
 
-    not_failing_handled_action = HandledExceptions(
-        FailingForNonAdmin(),
-        catch_exceptions=ValueError,
-        handle_method=lambda error, action_data: exceptions_log.append((error.__class__, action_data.get("user"))),
-        fail_on_error=False,
-    ) >> GenericEvent(lambda ad: ...)
+    not_failing_handled_action = (
+        HandledExceptions(
+            FailingForNonAdmin(),
+            catch_exceptions=ValueError,
+            handle_method=lambda error, action_data: exceptions_log.append((error.__class__, action_data.get("user"))),
+            fail_on_error=False,
+        )
+        >> GenericEvent(lambda ad: ...)
+    )
 
     assert not_failing_handled_action.run_with_data(user="admin").get_observer(ActionsLog).actions_log == [
         "ActionSet_start",
@@ -640,7 +693,7 @@ def test_async_atomic_context() -> None:
 
 
 def test_verbose_exception() -> None:
-    settings.DEBUG = True
+    config.VERBOSE_ERRORS = True
 
     class TestError(Exception):
         pass

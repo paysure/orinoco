@@ -74,7 +74,7 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def get(self, name: str) -> Any:
+    def get(self, name: str, default: Any = NOT_FOUND) -> Any:
         pass
 
     @abstractmethod
@@ -99,6 +99,10 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
 
     @abstractmethod
     def get_by_type(self, type_: Type[T]) -> T:
+        pass
+
+    @abstractmethod
+    def get_by_tags(self, *tags: str) -> Any:
         pass
 
     @abstractmethod
@@ -235,3 +239,6 @@ class ActionT(ABC):
 
 ActionVar = TypeVar("ActionVar", bound=ActionT)
 ObserverVar = TypeVar("ObserverVar", bound=ObserverT)
+
+TypeT = TypeVar("TypeT")
+AnnotationNameT = TypeVar("AnnotationNameT", bound=str)

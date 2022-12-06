@@ -1,6 +1,7 @@
 from abc import ABC
 from typing import Optional, Dict, Any, Type, Callable, Generic, Awaitable
 
+from orinoco import config
 from orinoco.action import (
     Action,
     record_action,
@@ -11,6 +12,7 @@ from orinoco.action import (
 from orinoco.condition import Condition
 from orinoco.entities import ActionConfig, Signature
 from orinoco.exceptions import ActionNotProperlyConfigured
+from orinoco.helpers import extract_type
 from orinoco.types import T, ActionDataT
 
 
@@ -32,8 +34,17 @@ class TypedBase(Generic[T], Action, ABC):
     @classmethod
     def _get_implicit_config(cls) -> ActionConfig[T]:
         annotations = cls.__call__.__annotations__
+        return_type, return_name, tags = extract_type(annotations["return"])
+
+        if config.IMPLICIT_TYPE_STRICT_MODE_ENABLED and return_name is None:
+            raise ActionNotProperlyConfigured(
+                "Action {} has to be configured explicitly or return type has to be annotated via "
+                "`Annotated[<type>, <name>]`. The error was raised, because `IMPLICIT_TYPE_STRICT_MODE_ENABLED` "
+                "is enabled.".format(cls)
+            )
+
         return ActionConfig(
-            OUTPUT=Signature(type_=annotations["return"]) if annotations["return"] else None,
+            OUTPUT=Signature(type_=return_type, key=return_name, tags=tags) if return_type else None,
             INPUT={key: Signature(key=key) for key, type_ in annotations.items() if key != "return"},
         )
 

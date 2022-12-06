@@ -17,7 +17,7 @@ from typing import (
     Coroutine,
 )
 
-from orinoco import settings
+from orinoco import config
 from orinoco.entities import ActionData
 from orinoco.exceptions import ActionNotProperlyConfigured, BaseActionException
 from orinoco.observers import ActionsLog
@@ -140,7 +140,6 @@ class Action(SyncActionMixin, AsyncActionMixin, ActionT, ABC):
         return ActionSet([self, another_action])
 
     def __rshift__(self, other: ActionT) -> "ActionT":
-        assert isinstance(other, Action)
         return self.then(other)
 
     def on_subfield(self, field_key: str) -> "OnActionDataSubField":
@@ -195,7 +194,7 @@ def record_action(
 
     @wraps(fu)
     def wrapper(action: ActionVar, action_data: ActionDataT) -> ActionDataT:
-        if not isinstance(action_data, ActionData):
+        if config.CHAINING_TYPE_CHECK_STRICT_MODE_ENABLED and not isinstance(action_data, ActionData):
             raise ActionNotProperlyConfigured(
                 "Input argument of {} - {} must of type ActionData, but got {}".format(
                     action.action_name, fu, action_data
@@ -204,7 +203,7 @@ def record_action(
 
         result = fu(action, action_data.record_start(action))
 
-        if not isinstance(result, ActionData):
+        if config.CHAINING_TYPE_CHECK_STRICT_MODE_ENABLED and not isinstance(result, ActionData):
             raise ActionNotProperlyConfigured(
                 "Output of {} - {} must of type ActionData, but got {}".format(action.action_name, fu, result)
             )
@@ -227,7 +226,7 @@ def async_record_action(
 
     @wraps(fu)
     async def wrapper(action: ActionVar, action_data: ActionDataT) -> ActionDataT:
-        if not isinstance(action_data, ActionData):
+        if config.CHAINING_TYPE_CHECK_STRICT_MODE_ENABLED and not isinstance(action_data, ActionData):
             raise ActionNotProperlyConfigured(
                 "Input argument of {} - {} must of type ActionData, but got {}".format(
                     action.action_name, fu, action_data
@@ -236,7 +235,7 @@ def async_record_action(
 
         result = await fu(action, action_data.record_start(action))
 
-        if not isinstance(result, ActionData):
+        if config.CHAINING_TYPE_CHECK_STRICT_MODE_ENABLED and not isinstance(result, ActionData):
             raise ActionNotProperlyConfigured(
                 "Output of {} - {} must of type ActionData, but got {}".format(action.action_name, fu, result)
             )
@@ -287,7 +286,7 @@ def async_verbose_action_exception(
 
 
 def _raise_new_error(action: ActionT, err: Exception, action_data: ActionDataT) -> NoReturn:
-    if settings.DEBUG and (len(err.args) == 0 or "Action context" not in err.args[0]):
+    if config.VERBOSE_ERRORS and (len(err.args) == 0 or (err.args and "Action context" not in err.args[0])):
         fields = [
             ("Actions history", json.dumps(action_data.get_observer(ActionsLog).actions_log, indent=4)),
             ("Actions data", json.dumps({str(k): str(v) for k, v in action_data.data}, indent=4)),
@@ -416,7 +415,7 @@ class HandledExceptions(ActionSet, SystemActionTag):
         catch_exceptions: Union[Tuple[Type[BaseException], ...], Type[BaseException]],
         handle_method: Callable[[BaseException, ActionDataT], Optional[Union[Type[BaseException], BaseException]]],
         fail_on_error: bool = True,
-        name: Optional[str] = None
+        name: Optional[str] = None,
     ):
         """
         :param actions: Actions to execute

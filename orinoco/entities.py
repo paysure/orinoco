@@ -100,11 +100,11 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
     def __getitem__(self, searched_signature: SignatureT[T]) -> T:
         return self.get_by_signature(searched_signature)
 
-    def get(self, key: str) -> Any:
+    def get(self, key: str, default: Any = NOT_FOUND) -> Any:
         """
         Get item by ``key``
         """
-        return self.get_by_key(key)
+        return self.get_by_key(key, default=default)
 
     # Getters
     def get_by_signature(self, searched_signature: SignatureT[T]) -> T:
@@ -175,6 +175,16 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
          - `FoundMoreThanOne`: When multiple data match the signature
         """
         return self.find_one(Signature(type_=type_))
+
+    def get_by_tags(self, *tags: str) -> Any:
+        """
+        Get a value by matching tags.
+
+        :raises
+         - `NothingFound`: When no data match the signature
+         - `FoundMoreThanOne`: When multiple data match the signature
+        """
+        return self.find_one(Signature(tags=set(tags)))
 
     # Searching
     def find(self, searched_signature: SignatureT[T]) -> List[T]:

@@ -39,7 +39,7 @@ class BaseLoop(Generic[LoopT], Action, ABC):
 
 class LoopEvents(BaseLoop):
     """
-    Loop implementation for actions which runs just side-effects/conditions. Values obtained in the loop are
+    Loop implementation for actions which runs just side-effects. Values obtained in the loop are
     not propagated further in the actions chain
     """
 
@@ -79,7 +79,7 @@ class ForSideEffects(LoopEvents):
 
     .. code-block:: python
 
-        For("event", lambda action_data: action_data.get_or_default("event_log", [])).do(GetNotification())
+        ForSideEffects("event", lambda action_data: action_data.get_or_default("event_log", [])).do(GetNotification())
 
     Then `GetNotification` has access to `event` via action data in each of the iterations
     which comes from the iterable "event_log"
@@ -98,21 +98,40 @@ class ForSideEffects(LoopEvents):
 
 
 class For(BaseLoop):
+    """
+    Implementation of `Loop` which uses a method for generating loop iterable
+
+    Example:
+
+    .. code-block:: python
+
+        For("x", lambda ad: ad.get("values"), aggregated_field="doubled", aggregated_field_new_name="doubled_list")
+        .do(DoubleValue())
+        .run_with_data(values=[10, 40, 60])
+        .get("doubled_list")
+    """
+
     def __init__(
         self,
         iterating_key: str,
         method: Callable[[ActionDataT], Iterable[Any]],
         aggregated_field: Optional[str] = None,
         aggregated_field_new_name: Optional[str] = None,
+        skip_none_for_aggregated_field: bool = False,
     ):
         """
         :param iterating_key: Key which will be propagated into the `ActionData` with the new value
         :param method: Method which returns the iterable to iterate over
+        :param aggregated_field: Name of the field which will be extracted from the `ActionData` and aggregated
+        (appended to the list)
+        :param aggregated_field_new_name: Name of the field which will be used for the aggregated field
+        :param skip_none_for_aggregated_field: If `True` then `None` values won't be added to the aggregated field
         """
         super().__init__(iterating_key=iterating_key)
         self.method = method
         self.aggregated_field = aggregated_field
         self.aggregated_field_new_name = aggregated_field_new_name
+        self.skip_none_for_aggregated_field = skip_none_for_aggregated_field
 
     @record_action
     @verbose_action_exception
@@ -129,7 +148,9 @@ class For(BaseLoop):
         for iteration_value in self.method(action_data):
             action_data = self.action.run(action_data.evolve(**{self.iterating_key: iteration_value}))
             if self.aggregated_field:
-                aggregated_values.append(action_data.get(self.aggregated_field))
+                value_to_aggregate = action_data.get(self.aggregated_field)
+                if value_to_aggregate is not None or (not self.skip_none_for_aggregated_field):
+                    aggregated_values.append(value_to_aggregate)
 
         if self.aggregated_field:
             return action_data.evolve(**{self.aggregated_field_new_name or self.aggregated_field: aggregated_values})
@@ -207,15 +228,21 @@ class AsyncFor(BaseLoop):
         method: Callable[[ActionDataT], AsyncIterable[Any]],
         aggregated_field: Optional[str] = None,
         aggregated_field_new_name: Optional[str] = None,
+        skip_none_for_aggregated_field: bool = False,
     ):
         """
         :param iterating_key: Key which will be propagated into the `ActionData` with the new value
         :param method: Method which returns the iterable to iterate over
+        :param aggregated_field: Name of the field which will be extracted from the `ActionData` and aggregated
+        (appended to the list)
+        :param aggregated_field_new_name: Name of the field which will be used for the aggregated field
+        :param skip_none_for_aggregated_field: If `True` then `None` values won't be added to the aggregated field
         """
         super().__init__(iterating_key=iterating_key)
         self.method = method
         self.aggregated_field = aggregated_field
         self.aggregated_field_new_name = aggregated_field_new_name
+        self.skip_none_for_aggregated_field = skip_none_for_aggregated_field
 
     @async_record_action
     @async_verbose_action_exception
@@ -230,9 +257,12 @@ class AsyncFor(BaseLoop):
 
         aggregated_values = []
         async for iteration_value in self.method(action_data):
-            loop_action_data = await self.action.async_run(action_data.evolve(**{self.iterating_key: iteration_value}))
+            action_data = await self.action.async_run(action_data.evolve(**{self.iterating_key: iteration_value}))
             if self.aggregated_field:
-                aggregated_values.append(loop_action_data.get(self.aggregated_field))
+
+                value_to_aggregate = action_data.get(self.aggregated_field)
+                if value_to_aggregate is not None or (not self.skip_none_for_aggregated_field):
+                    aggregated_values.append(value_to_aggregate)
 
         if self.aggregated_field:
             return action_data.evolve(**{self.aggregated_field_new_name or self.aggregated_field: aggregated_values})
