@@ -63,3 +63,7 @@ class AlreadyRegistered(BaseActionException):
 
 class RunnableOnlyInAsyncContext(BaseActionException):
     pass
+
+
+class RetryError(BaseActionException):
+    pass

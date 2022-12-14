@@ -13,11 +13,14 @@ from orinoco.condition import Condition
 from orinoco.entities import ActionConfig, Signature
 from orinoco.exceptions import ActionNotProperlyConfigured
 from orinoco.helpers import extract_type
-from orinoco.types import T, ActionDataT
+from orinoco.retry import WaitUntilTrue, WaitUntilEqualsTo, WaitUntilContains
+from orinoco.types import T, ActionDataT, ConfigurableActionT
+from orinoco.validators import check_output_key_configured
 
 
-class TypedBase(Generic[T], Action, ABC):
+class TypedBase(Generic[T], Action, ConfigurableActionT, ABC):
     CONFIG: Optional[ActionConfig[T]] = None
+    config: ActionConfig[T]
 
     __call__: Callable[..., Any]
 
@@ -49,7 +52,22 @@ class TypedBase(Generic[T], Action, ABC):
         )
 
 
-class TypedAction(Generic[T], TypedBase[T], ABC):
+class TypedActionBase(Generic[T], TypedBase[T], ABC):
+    @check_output_key_configured
+    def retry_until_equals(self, value: Any, max_retries: int = 10, retry_delay: int = 10) -> WaitUntilEqualsTo:
+        return WaitUntilEqualsTo(
+            self, key=self.config.OUTPUT.key, value=value, max_retries=max_retries, retry_delay=retry_delay
+        )
+
+    @check_output_key_configured
+    def retry_until_contains(self, value: Any, max_retries: int = 10, retry_delay: int = 10) -> WaitUntilContains:
+
+        return WaitUntilContains(
+            self, key=self.config.OUTPUT.key, value=value, max_retries=max_retries, retry_delay=retry_delay
+        )
+
+
+class TypedAction(Generic[T], TypedActionBase[T], ABC):
     """
     Enhanced `Action` which use `ActionConfig` as configuration of the input and the output.
 
@@ -77,7 +95,7 @@ class TypedAction(Generic[T], TypedBase[T], ABC):
         return action_data
 
 
-class AsyncTypedAction(Generic[T], TypedBase[T], ABC):
+class AsyncTypedAction(Generic[T], TypedActionBase[T], ABC):
     """
     Async version of :class:`TypedAction`
     """
@@ -139,6 +157,12 @@ class TypedCondition(Condition, TypedBase[bool], ABC):
     ):
         TypedBase.__init__(self, config=config)
         Condition.__init__(self, fail_message=fail_message, is_inverted=is_inverted, error_cls=error_cls, name=name)
+
+    def retry_until(self, max_retries: int = 10, retry_delay: int = 10) -> WaitUntilTrue:
+        if self.config.OUTPUT is None or self.config.OUTPUT.key is None:
+            raise ActionNotProperlyConfigured("Retry until condition has to be annotated with the name of the output")
+
+        return WaitUntilTrue(self, key=self.config.OUTPUT.key, max_retries=max_retries, retry_delay=retry_delay)
 
     def _is_valid(self, action_data: ActionDataT) -> bool:
         return self(**self.get_input_params(action_data))

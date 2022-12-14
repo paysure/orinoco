@@ -237,6 +237,10 @@ class ActionT(ABC):
         pass
 
 
+class ConfigurableActionT(ActionT, ABC):
+    config: ActionConfigT
+
+
 ActionVar = TypeVar("ActionVar", bound=ActionT)
 ObserverVar = TypeVar("ObserverVar", bound=ObserverT)
 
