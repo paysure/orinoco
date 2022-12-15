@@ -24,10 +24,6 @@ class NoneOfActionsCanBeExecuted(BaseActionException):
     pass
 
 
-class NotAuthorizedCaller(BaseActionException):
-    pass
-
-
 class KeyNotInActionData(BaseActionException):
     pass
 

@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from abc import ABC
-from typing import Optional, Dict, Any, Type, Callable, Generic, Awaitable
+from typing import Optional, Dict, Any, Type, Callable, Generic, Awaitable, TypeVar
 
 from orinoco import config
 from orinoco.action import (
@@ -13,12 +15,13 @@ from orinoco.condition import Condition
 from orinoco.entities import ActionConfig, Signature
 from orinoco.exceptions import ActionNotProperlyConfigured
 from orinoco.helpers import extract_type
-from orinoco.retry import WaitUntilTrue, WaitUntilEqualsTo, WaitUntilContains
-from orinoco.types import T, ActionDataT, ConfigurableActionT
-from orinoco.validators import check_output_key_configured
+from orinoco.retry import WaitUntilTrue, WaitUntilEqualsTo, WaitUntilContains, WaitUntilNotFail
+from orinoco.types import T, ActionDataT
+
+TypedBaseT = TypeVar("TypedBaseT", bound="TypedBase")
 
 
-class TypedBase(Generic[T], Action, ConfigurableActionT, ABC):
+class TypedBase(Generic[T], Action, ABC):
     CONFIG: Optional[ActionConfig[T]] = None
     config: ActionConfig[T]
 
@@ -33,6 +36,13 @@ class TypedBase(Generic[T], Action, ConfigurableActionT, ABC):
 
     def get_input_params(self, action_data: ActionDataT) -> Dict[str, Any]:
         return {key: action_data.find_one(signature) for key, signature in (self.config.INPUT or {}).items()}
+
+    def output_as(self: TypedBaseT, key: str, type_: Type | None = None) -> TypedBaseT:
+        """
+        Mutable change of the output signature of the action.
+        """
+        self.config = self.config.evolve_self(OUTPUT=Signature(key=key, type_=type_))
+        return self
 
     @classmethod
     def _get_implicit_config(cls) -> ActionConfig[T]:
@@ -51,17 +61,26 @@ class TypedBase(Generic[T], Action, ConfigurableActionT, ABC):
             INPUT={key: Signature(key=key) for key, type_ in annotations.items() if key != "return"},
         )
 
+    def retry_until_not_fails(
+        self, exception_cls_to_catch=BaseException, max_retries: int = 10, retry_delay: float = 10
+    ) -> WaitUntilNotFail:
+        return WaitUntilNotFail(
+            action=self, exception_cls_to_catch=exception_cls_to_catch, max_retries=max_retries, retry_delay=retry_delay
+        )
+
 
 class TypedActionBase(Generic[T], TypedBase[T], ABC):
-    @check_output_key_configured
-    def retry_until_equals(self, value: Any, max_retries: int = 10, retry_delay: int = 10) -> WaitUntilEqualsTo:
+    def retry_until_equals(self, value: Any, max_retries: int = 10, retry_delay: float = 10) -> WaitUntilEqualsTo:
+        if self.config.OUTPUT is None or self.config.OUTPUT.key is None:
+            raise ActionNotProperlyConfigured("Retry until condition has to be annotated with the name of the output")
+
         return WaitUntilEqualsTo(
             self, key=self.config.OUTPUT.key, value=value, max_retries=max_retries, retry_delay=retry_delay
         )
 
-    @check_output_key_configured
-    def retry_until_contains(self, value: Any, max_retries: int = 10, retry_delay: int = 10) -> WaitUntilContains:
-
+    def retry_until_contains(self, value: Any, max_retries: int = 10, retry_delay: float = 10) -> WaitUntilContains:
+        if self.config.OUTPUT is None or self.config.OUTPUT.key is None:
+            raise ActionNotProperlyConfigured("Retry until condition has to be annotated with the name of the output")
         return WaitUntilContains(
             self, key=self.config.OUTPUT.key, value=value, max_retries=max_retries, retry_delay=retry_delay
         )
@@ -158,11 +177,8 @@ class TypedCondition(Condition, TypedBase[bool], ABC):
         TypedBase.__init__(self, config=config)
         Condition.__init__(self, fail_message=fail_message, is_inverted=is_inverted, error_cls=error_cls, name=name)
 
-    def retry_until(self, max_retries: int = 10, retry_delay: int = 10) -> WaitUntilTrue:
-        if self.config.OUTPUT is None or self.config.OUTPUT.key is None:
-            raise ActionNotProperlyConfigured("Retry until condition has to be annotated with the name of the output")
-
-        return WaitUntilTrue(self, key=self.config.OUTPUT.key, max_retries=max_retries, retry_delay=retry_delay)
+    def retry_until(self, max_retries: int = 10, retry_delay: float = 10) -> WaitUntilTrue:
+        return WaitUntilTrue(self, max_retries=max_retries, retry_delay=retry_delay)
 
     def _is_valid(self, action_data: ActionDataT) -> bool:
         return self(**self.get_input_params(action_data))

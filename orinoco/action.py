@@ -120,7 +120,7 @@ class Action(SyncActionMixin, AsyncActionMixin, ActionT, ABC):
         not provided to constructor
         """
         self.description = description or self.DESCRIPTION
-        self.name = name or self.NAME
+        self.name = name or self.NAME or self.__class__.__name__
 
     async def async_run(self, action_data: ActionDataT) -> ActionDataT:
         return self.run(action_data)
