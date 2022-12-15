@@ -66,7 +66,7 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
     skip_processing: bool
 
     @abstractmethod
-    @property
+    # @property
     def signatures(self) -> List[SignatureT[Any]]:
         pass
 
@@ -195,7 +195,7 @@ class ActionT(ABC):
     description: str
     name: str
 
-    @abstractmethod
+    # @abstractmethod
     @property
     def action_name(self) -> str:
         pass
