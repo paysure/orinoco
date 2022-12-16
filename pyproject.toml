@@ -9,6 +9,7 @@ documentation = "https://orinoco.rtfd.io"
 python = "^3.7"
 pydantic = "^1.7.3"
 returns = "^0.19.0"
+mypy = "^0.991"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"

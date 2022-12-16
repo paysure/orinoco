@@ -4,11 +4,9 @@ import abc
 import time
 from datetime import datetime
 from enum import Enum, auto
-from typing import Any, Callable, Type, Generic, TypeVar, Optional, cast
+from typing import Any, Callable, Type, Generic, Optional, cast
 
 from pydantic import BaseModel, Field
-from returns.io import IOResult
-from returns.maybe import Maybe, Nothing, Some
 from returns import pipeline
 
 from returns.result import Failure, Result, Success
@@ -31,7 +29,7 @@ class RetryInfo(BaseModel):
     status: RetryStatus = RetryStatus.STARTED
 
     started: datetime = Field(default_factory=datetime.now)
-    finished: datetime | None = None
+    finished: Optional[datetime] = None
 
     class Config:
         arbitrary_types_allowed = False
