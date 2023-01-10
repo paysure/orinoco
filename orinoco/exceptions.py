@@ -24,10 +24,6 @@ class NoneOfActionsCanBeExecuted(BaseActionException):
     pass
 
 
-class NotAuthorizedCaller(BaseActionException):
-    pass
-
-
 class KeyNotInActionData(BaseActionException):
     pass
 
@@ -62,4 +58,8 @@ class AlreadyRegistered(BaseActionException):
 
 
 class RunnableOnlyInAsyncContext(BaseActionException):
+    pass
+
+
+class RetryError(BaseActionException):
     pass

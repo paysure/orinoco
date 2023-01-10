@@ -248,6 +248,16 @@ def test_explicit_condition() -> None:
     _test_condition(IsPositive())
 
 
+def test_as_output(double_typed_action: TypedAction) -> None:
+    class MyNumber(int):
+        pass
+
+    result = double_typed_action.output_as(key="x_doubled", type_=MyNumber).run_with_data(x=3)
+
+    assert {"x", "x_doubled"} == {k.key for k, v in result.data}
+    assert result.get("x_doubled") == result.get_by_type(MyNumber) == 6
+
+
 def _test_condition(is_positive: TypedCondition) -> None:
 
     assert is_positive.validate(ActionData.create(value=1.1))

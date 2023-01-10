@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Any, TypeVar, Optional, Type, List, Tuple, Sequence, ClassVar, Set, Generic, Union
+from typing import Dict, Any, TypeVar, Optional, Type, List, Tuple, Sequence, ClassVar, Set, Generic
 
 from pydantic import BaseModel
 
@@ -66,6 +66,7 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
     skip_processing: bool
 
     @abstractmethod
+    # @property
     def signatures(self) -> List[SignatureT[Any]]:
         pass
 
@@ -242,3 +243,6 @@ ObserverVar = TypeVar("ObserverVar", bound=ObserverT)
 
 TypeT = TypeVar("TypeT")
 AnnotationNameT = TypeVar("AnnotationNameT", bound=str)
+
+
+ErrorT = TypeVar("ErrorT", bound=BaseException)

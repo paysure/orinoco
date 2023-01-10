@@ -235,6 +235,28 @@ are optional.
 assert 5 == SumValuesAndRound()(x=1.9, y=3.1)
 ```
 
+##### Retry
+`TypedAction` and `TypedCondition` can be configured to retry the execution of the action if they fail.
+
+```
+my_typed_condition.retry_until_not_fails(max_retries=3, retry_delay=0.5) >> other_actions
+my_typed_condition.retry_until_not_fails(exception_cls_to_catch=ValueError, max_retries=3, retry_delay=0.5) >> other_actions
+my_typed_condition.retry_until(retry_delay=0.001, max_retries=20) >> other_actions
+
+my_typed_action.retry_until_equals(5, retry_delay=0.001, max_retries=5)
+my_typed_action.retry_until_contains("some_sub_string", retry_delay=0.001, max_retries=10)
+my_typed_action.retry_until_contains("some_item_in_list", retry_delay=0.001, max_retries=10)
+```
+
+##### Changing output signature
+Sometimes it's necessary to change the output signature of the actions "on the fly". This can be done by using 
+`output_as` method implemented on `TypedAction` and `TypedCondition`.
+
+```
+my_typed_action.output_as(key="x_doubled", type_=MyNumber)
+my_typed_action.output_as(key="different_key")
+```
+
 #### OnActionDataSubField
 Utility action that executes an action on values of a nested item. Consider this example -- we got his nested data:
 

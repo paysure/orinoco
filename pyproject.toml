@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orinoco"
-version = "1.0.3"
+version = "1.0.7"
 description = "Functional composable pipelines allowing clean separation of the business logic and its implementation"
 authors = ["Martin Vo <mvo@paysure.solutions>"]
 documentation = "https://orinoco.rtfd.io"
@@ -8,6 +8,8 @@ documentation = "https://orinoco.rtfd.io"
 [tool.poetry.dependencies]
 python = "^3.7"
 pydantic = "^1.7.3"
+returns = "^0.19.0"
+mypy = "^0.991"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
