@@ -146,14 +146,16 @@ class For(BaseLoop):
 
         aggregated_values = []
         for iteration_value in self.method(action_data):
-            action_data = self.action.run(action_data.evolve(**{self.iterating_key: iteration_value}))
+            loop_action_data = self.action.run(action_data.evolve(**{self.iterating_key: iteration_value}))
             if self.aggregated_field:
                 value_to_aggregate = action_data.get(self.aggregated_field)
                 if value_to_aggregate is not None or (not self.skip_none_for_aggregated_field):
                     aggregated_values.append(value_to_aggregate)
 
         if self.aggregated_field:
-            return action_data.evolve(**{self.aggregated_field_new_name or self.aggregated_field: aggregated_values})
+            return loop_action_data.evolve(
+                **{self.aggregated_field_new_name or self.aggregated_field: aggregated_values}
+            )
         return action_data
 
 
