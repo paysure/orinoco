@@ -93,13 +93,7 @@ class RenameActionField(Transformation):
         self.new_key = new_key
 
     def transform(self, action_data: ActionDataT) -> ActionDataT:
-        new_data = []
-        for signature, value in action_data.data:
-            if signature.key == self.key:
-                new_data.append((signature.evolve_self(key=self.new_key), value))
-            else:
-                new_data.append((signature, value))
-        return action_data.evolve_self(data=new_data)
+        return action_data.rename(key=self.key, new_key=self.new_key)
 
 
 class WithoutFields(Transformation):

@@ -30,3 +30,12 @@ def extract_type(
         dtype, annotation, *tags = get_args(value)  # first two parameters - (type, annotation)
         return dtype, annotation, set(tags)
     return value, None, set()
+
+
+def compose(*functions):
+    def inner(arg):
+        for f in functions:
+            arg = f(arg)
+        return arg
+
+    return inner

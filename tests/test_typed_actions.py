@@ -268,3 +268,12 @@ def _test_condition(is_positive: TypedCondition) -> None:
 
     with pytest.raises(ConditionNotMet):
         is_positive.run_with_data(value=-10)
+
+
+def test_as_input(double_typed_action: TypedAction) -> None:
+    class MyNumber(int):
+        pass
+
+    result = double_typed_action.input_as(x="different_input").run_with_data(different_input=MyNumber(3))
+
+    assert result.get("double") == 6

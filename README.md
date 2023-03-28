@@ -969,3 +969,11 @@ method. These decorators are important for recording the executed actions to obs
 
 Lastly, `verbose_action_exception` (for `run`) or `async_verbose_action_exception` (for `async_run`) should be added 
 as well to prettify errors.
+
+# TODO
+- [x] as output for typed actions/condtions
+- [x] as guarded for action set
+- [x] guarded with `as_input` and `as_output`
+- [ ] optional type as input
+- [ ] optional as output
+- [ ] return generator as output type

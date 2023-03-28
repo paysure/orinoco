@@ -825,3 +825,25 @@ def test_for_loop_run_as_async():
         return result.get("results")
 
     assert [1, 2] == asyncio.run(run_pipeline())
+
+
+def test_guarded_action_set(double_typed_action_cls, check_action_data_fields_action_cls):
+
+    action = (
+        ActionSet(
+            [
+                check_action_data_fields_action_cls("x", "ignored_other_x", "other_x"),
+                double_typed_action_cls(),
+                double_typed_action_cls().input_as(x="other_x").output_as("other_double"),
+                double_typed_action_cls().input_as(x="ignored_other_x").output_as("ignored_other_double"),
+            ]
+        )
+        .as_guarded()
+        .with_inputs("x", "ignored_other_x", other_x="different_other_x")
+        .with_outputs("other_double", renamed_double="double")
+    )
+
+    assert action.run_with_data(x=1, different_other_x=3, ignored_other_x=7, ignored_other2_x=9).as_keyed_dict() == {
+        "renamed_double": 2,
+        "other_double": 6,
+    }

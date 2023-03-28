@@ -1,7 +1,7 @@
 import json
 import sys
 from abc import ABC, abstractmethod
-from functools import wraps
+from functools import wraps, partial
 from typing import (
     Iterable,
     Callable,
@@ -15,11 +15,13 @@ from typing import (
     Tuple,
     NoReturn,
     Coroutine,
+    List,
 )
 
 from orinoco import config
-from orinoco.entities import ActionData
+from orinoco.entities import ActionData, Signature
 from orinoco.exceptions import ActionNotProperlyConfigured, BaseActionException
+from orinoco.helpers import compose
 from orinoco.observers import ActionsLog
 from orinoco.tags import SystemActionTag
 from orinoco.types import ActionT, ActionDataT, NamespacedActionT, ActionVar
@@ -307,6 +309,70 @@ def _raise_new_error(action: ActionT, err: Exception, action_data: ActionDataT) 
         raise
 
 
+class GuardedActionSet(Action):
+    def __init__(
+        self,
+        action_set: "ActionSet",
+        inputs: Optional[List[str]] = None,
+        renamed_inputs: Optional[Dict[str, str]] = None,
+        outputs: Optional[List[str]] = None,
+        renamed_outputs: Optional[Dict[str, str]] = None,
+    ):
+        self.action_set = action_set
+        self.inputs = inputs or []
+        self.renamed_inputs = renamed_inputs or {}
+        self.outputs = outputs or []
+        self.renamed_outputs = renamed_outputs or {}
+        super().__init__(name="GuardedActionSet[{}]".format(action_set.name), description=action_set.description)
+
+    def run(self, action_data: ActionDataT) -> ActionDataT:
+        return compose(
+            partial(self._remove_keys, desired_keys=self._input_keys),
+            partial(self._rename_keys, keys=self.renamed_inputs),
+            self.action_set.run,
+            partial(self._remove_keys, desired_keys=self._output_keys),
+            partial(self._rename_keys, keys=self.renamed_outputs),
+        )(action_data)
+
+    def with_inputs(self, *keys: str, **renamed_keys: str) -> "GuardedActionSet":
+        self.inputs = list(keys)
+        self.renamed_inputs = renamed_keys
+        return self
+
+    def with_outputs(self, *keys: str, **renamed_keys: str) -> "GuardedActionSet":
+        self.outputs = list(keys)
+        self.renamed_outputs = renamed_keys
+        return self
+
+    @classmethod
+    def _remove_keys(cls, action_data: ActionDataT, desired_keys: List[str]) -> ActionDataT:
+        if not desired_keys:
+            return action_data.evolve_self(data=tuple())
+
+        return action_data.remove_many(
+            searched_signatures=cls._get_additive_signatures(action_data, desired_keys),
+            exact_match=False,
+            ignore_non_existent=False,
+        )
+
+    def _rename_keys(self, action_data: ActionDataT, keys: Dict[str, str]) -> ActionDataT:
+        for new_key, key in keys.items():
+            action_data = action_data.rename(key, new_key)
+        return action_data
+
+    @staticmethod
+    def _get_additive_signatures(action_data: ActionDataT, keys: List[str]) -> List[Signature]:
+        return [signature for signature in action_data.signatures if signature.key not in keys]
+
+    @property
+    def _input_keys(self) -> List[str]:
+        return self.inputs + list(self.renamed_inputs.values())
+
+    @property
+    def _output_keys(self) -> List[str]:
+        return self.outputs + list(self.renamed_outputs.values())
+
+
 class ActionSet(Action, SystemActionTag):
     """
     Set of actions which are executed consequently
@@ -340,6 +406,9 @@ class ActionSet(Action, SystemActionTag):
             action_data = await action.async_run(action_data)
         return action_data
 
+    def as_guarded(self) -> GuardedActionSet:
+        return GuardedActionSet(action_set=self)
+
 
 class AtomicActionSet(ActionSet, SystemActionTag):
     """
@@ -348,8 +417,8 @@ class AtomicActionSet(ActionSet, SystemActionTag):
 
     def __init__(
         self,
-        actions: Iterable[ActionT],
         atomic_context_manager: Callable[[], ContextManager[None]],
+        actions: Optional[Iterable[ActionT]] = None,
         description: Optional[str] = None,
         name: Optional[str] = None,
     ):

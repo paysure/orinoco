@@ -186,6 +186,10 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
     def with_new_execution_meta(self) -> "ActionDataT":
         pass
 
+    @abstractmethod
+    def rename(self, key: str, new_key: str) -> "ActionDataT":
+        pass
+
 
 class ActionT(ABC):
 

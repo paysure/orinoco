@@ -247,7 +247,11 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         if check_if_exists:
             try:
                 self.get_by_signature(searched_signature=signature)
-                raise AlreadyRegistered("Entity with signature {} is already registered".format(signature))
+                raise AlreadyRegistered(
+                    "Entity with signature {} is already registered. Signatures: {}".format(
+                        signature, [signature.key for signature in self.signatures]
+                    )
+                )
             except SearchError:
                 pass
 
@@ -409,6 +413,15 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         :return: Observer from the observers attached to this container
         """
         return self._ensure_one([observer for observer in self.observers if isinstance(observer, observer_cls)])
+
+    def rename(self, key: str, new_key: str) -> "ActionData":
+        new_data = []
+        for signature, value in self.data:
+            if signature.key == key:
+                new_data.append((signature.evolve_self(key=new_key), value))
+            else:
+                new_data.append((signature, value))
+        return self.evolve_self(data=tuple(new_data))
 
     @classmethod
     def _get_from_nested(cls, key: str, data: Dict[str, Any], default: Optional[Any] = None) -> Any:

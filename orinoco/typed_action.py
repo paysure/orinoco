@@ -44,6 +44,22 @@ class TypedBase(Generic[T], Action, ABC):
         self.config = self.config.evolve_self(OUTPUT=Signature(key=key, type_=type_))
         return self
 
+    def input_as(self: TypedBaseT, **keys: str) -> TypedBaseT:
+        """
+        Mutable change of the input signature of the action.
+
+        Format:
+          new_key_name=old_key_name
+        """
+
+        self.config = self.config.evolve_self(
+            INPUT={
+                old_key: signature.evolve_self(key=keys.get(old_key, old_key))
+                for old_key, signature in self.config.INPUT.items()
+            }
+        )
+        return self
+
     @classmethod
     def _get_implicit_config(cls) -> ActionConfig[T]:
         annotations = cls.__call__.__annotations__
