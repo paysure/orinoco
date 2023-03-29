@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orinoco"
-version = "1.0.8"
+version = "1.0.9"
 description = "Functional composable pipelines allowing clean separation of the business logic and its implementation"
 authors = ["Martin Vo <mvo@paysure.solutions>"]
 documentation = "https://orinoco.rtfd.io"
