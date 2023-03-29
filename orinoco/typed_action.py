@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 from abc import ABC
 from typing import Optional, Dict, Any, Type, Callable, Generic, Awaitable, TypeVar
 
@@ -12,11 +13,11 @@ from orinoco.action import (
     async_verbose_action_exception,
 )
 from orinoco.condition import Condition
-from orinoco.entities import ActionConfig, Signature
-from orinoco.exceptions import ActionNotProperlyConfigured
+from orinoco.entities import ActionConfig, Signature, SignatureWithDefaultValue
+from orinoco.exceptions import ActionNotProperlyConfigured, NothingFound
 from orinoco.helpers import extract_type
 from orinoco.retry import WaitUntilTrue, WaitUntilEqualsTo, WaitUntilContains, WaitUntilNotFail
-from orinoco.types import T, ActionDataT
+from orinoco.types import T, ActionDataT, SignatureT
 
 TypedBaseT = TypeVar("TypedBaseT", bound="TypedBase")
 
@@ -35,7 +36,9 @@ class TypedBase(Generic[T], Action, ABC):
         self.config = config or self.CONFIG or self._get_implicit_config()
 
     def get_input_params(self, action_data: ActionDataT) -> Dict[str, Any]:
-        return {key: action_data.find_one(signature) for key, signature in (self.config.INPUT or {}).items()}
+        return {
+            key: self._find_or_default(action_data, signature) for key, signature in (self.config.INPUT or {}).items()
+        }
 
     def output_as(self: TypedBaseT, key: str, type_: Type | None = None) -> TypedBaseT:
         """
@@ -60,6 +63,22 @@ class TypedBase(Generic[T], Action, ABC):
         )
         return self
 
+    def retry_until_not_fails(
+        self, exception_cls_to_catch=BaseException, max_retries: int = 10, retry_delay: float = 10
+    ) -> WaitUntilNotFail:
+        return WaitUntilNotFail(
+            action=self, exception_cls_to_catch=exception_cls_to_catch, max_retries=max_retries, retry_delay=retry_delay
+        )
+
+    @staticmethod
+    def _find_or_default(action_data: ActionDataT, signature: SignatureT) -> Any:
+        try:
+            return action_data.find_one(signature)
+        except NothingFound:
+            if isinstance(signature, SignatureWithDefaultValue):
+                return signature.default_value
+            raise
+
     @classmethod
     def _get_implicit_config(cls) -> ActionConfig[T]:
         annotations = cls.__call__.__annotations__
@@ -72,17 +91,31 @@ class TypedBase(Generic[T], Action, ABC):
                 "is enabled.".format(cls)
             )
 
+        # TODO: Annotation can be retrieved from the inspect as well
+        default_output_values = {
+            k: v.default
+            for k, v in inspect.signature(cls.__call__).parameters.items()
+            if v.default is not inspect.Parameter.empty
+        }
         return ActionConfig(
-            OUTPUT=Signature(type_=return_type, key=return_name, tags=tags) if return_type else None,
-            INPUT={key: Signature(key=key) for key, type_ in annotations.items() if key != "return"},
+            OUTPUT=Signature(type_=cls._extract_type(return_type), key=return_name, tags=tags) if return_type else None,
+            INPUT={
+                key: SignatureWithDefaultValue(key=key, default_value=default_output_values[key])
+                if key in default_output_values
+                else Signature(key=key)
+                for key, type_ in annotations.items()
+                if key != "return"
+            },
         )
 
-    def retry_until_not_fails(
-        self, exception_cls_to_catch=BaseException, max_retries: int = 10, retry_delay: float = 10
-    ) -> WaitUntilNotFail:
-        return WaitUntilNotFail(
-            action=self, exception_cls_to_catch=exception_cls_to_catch, max_retries=max_retries, retry_delay=retry_delay
-        )
+    @staticmethod
+    def _extract_type(type_: Type) -> Type:
+        if hasattr(type_, "__args__"):
+            # This would somehow work, but the type won't be precise, so we rather omit the type altogether
+            #     return type_.__args__[0]
+            return Any
+
+        return type_
 
 
 class TypedActionBase(Generic[T], TypedBase[T], ABC):

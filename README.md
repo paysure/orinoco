@@ -235,6 +235,16 @@ are optional.
 assert 5 == SumValuesAndRound()(x=1.9, y=3.1)
 ```
 
+##### Default values
+
+```
+class SumValuesAndRound(TypedAction):
+    def __call__(self, x: float, y: float = 1.0) -> str:
+        return int(x + y)
+
+assert 2.2 == SumValuesAndRound().run_with_data(x=1.2)
+```
+
 ##### Retry
 `TypedAction` and `TypedCondition` can be configured to retry the execution of the action if they fail.
 
@@ -255,6 +265,16 @@ Sometimes it's necessary to change the output signature of the actions "on the f
 ```
 my_typed_action.output_as(key="x_doubled", type_=MyNumber)
 my_typed_action.output_as(key="different_key")
+```
+
+##### Changing input signature
+
+```
+class MyAction:
+    def __call__(self, x: int) -> int:
+        ...
+        
+MyAction().input_as(x="different_input").run_with_data(different_input=3)
 ```
 
 #### OnActionDataSubField
@@ -381,6 +401,20 @@ is equal to
 ```
 ActionSet([Action1(), Action2(), Action3()])
 ```
+
+##### GuardedActionSet
+It can be generated from the `ActionSet` by using `as_guarded` method. This is useful when you want to ensure that 
+the action set will use only specified fields and "return" (=propagate further) only desired fields.
+
+```
+ActionSet([Action1(), Action2(), Action3()]).as_guarded()
+    .with_inputs("a", "b", new_c_name="old_c_name"),
+    .with_outputs("c", "d", new_e_name="old_e_name", new_f_name="old_f_name"),
+).run_with_data(a=1, b=2, old_c_name=3, will_be_ignored=4)
+```
+
+Result action data will contain only "c", "d", "new_e_name" and "new_f_name" keys.
+
 
 ##### EventSet
 
@@ -974,6 +1008,6 @@ as well to prettify errors.
 - [x] as output for typed actions/condtions
 - [x] as guarded for action set
 - [x] guarded with `as_input` and `as_output`
-- [ ] optional type as input
-- [ ] optional as output
-- [ ] return generator as output type
+- [x] optional type as input
+- [x] optional as output
+- [x] return generator as output type

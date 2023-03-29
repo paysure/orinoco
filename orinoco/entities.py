@@ -2,7 +2,7 @@ import abc
 from functools import partial
 from typing import Dict, Any, Optional, Set, Type, List, Tuple, Sequence, ClassVar, Generic, Awaitable, Union
 
-from pydantic import Field
+from pydantic import Field, validator
 
 from orinoco.exceptions import SearchError, NothingFound, FoundMoreThanOne, AlreadyRegistered
 from orinoco.helpers import initialize
@@ -26,7 +26,7 @@ class ImmutableEvolvableModel(ImmutableEvolvableModelT, abc.ABC):
 
 
 class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
-    type_: Optional[Type[T]] = None
+    type_: Optional[Any] = None
     tags: Set[str] = Field(default_factory=set)
     key: Optional[str] = None
 
@@ -51,6 +51,10 @@ class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
     def __class_getitem__(cls: T, _: Any) -> T:
         # Fix for pydantic to support generic types (expressions like `SignatureT[bool]`)
         return cls
+
+
+class SignatureWithDefaultValue(Signature[T]):
+    default_value: T
 
 
 class ActionConfig(Generic[T], ImmutableEvolvableModel, ActionConfigT[T]):

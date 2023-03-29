@@ -30,6 +30,7 @@ class SignatureT(Generic[T], ImmutableEvolvableModelT, ABC):
     type_: Optional[Type[T]]
     tags: Set[str]
     key: Optional[str]
+    default_value: Any
 
     @abstractmethod
     def match(self, other_signature: "SignatureT[T]") -> bool:

@@ -828,7 +828,6 @@ def test_for_loop_run_as_async():
 
 
 def test_guarded_action_set(double_typed_action_cls, check_action_data_fields_action_cls):
-
     action = (
         ActionSet(
             [
