@@ -432,7 +432,7 @@ class MyActionSet(ActionSet):
 
 ```
 class MyActionSet(ActionSet):
-    ACTIONS = []
+    ACTIONS = [...]
 
 class Input(BaseModel):
     x: int
@@ -451,6 +451,20 @@ def validate(x, y, **kwargs):
     ...
 
 MyActionSet(input_validation=validate)
+```
+
+Can be pydantic `BaseModel` as well:
+```
+class MyActionSet(ActionSet):
+    ACTIONS = [...]
+
+    class Input(BaseModel):
+        x: int
+        y: str
+        
+        @validator("x")
+        def validate_x(cls, value):
+            ...
 ```
 
 ##### EventSet

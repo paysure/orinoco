@@ -429,6 +429,10 @@ class ActionSet(Action, SystemActionTag):
     def as_guarded(self) -> GuardedActionSet:
         return GuardedActionSet(action_set=self)
 
+    def get_input_validation_cls(self) -> Optional[BaseModel]:
+        if isinstance(self.input_validation, BaseModel):
+            return self.input_validation
+
     def _validate_input(self, action_data: ActionDataT) -> None:
         if self.input_validation:
             try:
@@ -445,6 +449,8 @@ class ActionSet(Action, SystemActionTag):
     @classmethod
     def _construct_inner_input_dataclass(cls) -> Optional[Type[BaseModel]]:
         if hasattr(cls, "Input"):
+            if issubclass(cls.Input, BaseModel):
+                return cls.Input
 
             class Config:
                 extra = Extra.allow

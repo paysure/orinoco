@@ -863,6 +863,16 @@ class TestActionSetInputValidation:
 
         self._check_input_validation(MyActionSet())
 
+    def test_action_set_implicit_with_base_model_input_cls(self):
+        class MyActionSet(ActionSet):
+            ACTIONS = []
+
+            class Input(BaseModel):
+                x: int
+                y: str
+
+        self._check_input_validation(MyActionSet())
+
     def test_action_set_explicit_base_model_input_cls(self):
         class MyActionSet(ActionSet):
             ACTIONS = []
