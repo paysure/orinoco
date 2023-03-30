@@ -445,13 +445,12 @@ class ActionSet(Action, SystemActionTag):
     @classmethod
     def _construct_inner_input_dataclass(cls) -> Optional[Type[BaseModel]]:
         if hasattr(cls, "Input"):
-            input_cls = cls.Input
 
             class Config:
                 extra = Extra.allow
                 arbitrary_types_allowed = True
 
-            return type("Input", (BaseModel,), {"Config": Config, "__annotations__": input_cls.__annotations__})
+            return type("Input", (BaseModel,), {"Config": Config, "__annotations__": cls.Input.__annotations__})
 
 
 class AtomicActionSet(ActionSet, SystemActionTag):
