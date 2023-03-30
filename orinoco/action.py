@@ -450,6 +450,7 @@ class ActionSet(Action, SystemActionTag):
 
             class Config:
                 extra = Extra.allow
+                arbitrary_types_allowed = True
 
             input_cls.Config = Config
             return dataclass(input_cls)
