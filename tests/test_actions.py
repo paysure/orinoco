@@ -8,6 +8,7 @@ from typing import Any
 from unittest.mock import Mock, call
 
 import pytest
+from pydantic import BaseModel
 
 from orinoco import config
 from orinoco.action import (
@@ -37,6 +38,9 @@ from orinoco.exceptions import (
     ConditionNotMet,
     NoneOfActionsCanBeExecuted,
     ActionNotProperlyInherited,
+    ActionSetInputValidationError,
+    ActionSetInputValidationMissingValueError,
+    ActionSetInputTypeValidationError,
 )
 from orinoco.loop import ForSideEffects, For, AsyncFor, AsyncForSideEffects
 from orinoco.observers import ExecutionTimeObserver, ActionsLog
@@ -846,3 +850,52 @@ def test_guarded_action_set(double_typed_action_cls, check_action_data_fields_ac
         "renamed_double": 2,
         "other_double": 6,
     }
+
+
+class TestActionSetInputValidation:
+    def test_action_set_implicit_input_cls(self):
+        class MyActionSet(ActionSet):
+            ACTIONS = []
+
+            class Input:
+                x: int
+                y: str
+
+        self._check_input_validation(MyActionSet())
+
+    def test_action_set_explicit_base_model_input_cls(self):
+        class MyActionSet(ActionSet):
+            ACTIONS = []
+
+        class Input(BaseModel):
+            x: int
+            y: str
+
+        action = MyActionSet(input_validation=Input)
+
+        self._check_input_validation(action)
+
+    def test_action_set_explicit_validation_method_input_cls(self):
+        class MyActionSet(ActionSet):
+            ACTIONS = []
+
+        def validate(x, y, **kwargs):
+            if not isinstance(x, int):
+                raise ActionSetInputTypeValidationError()
+
+            if not isinstance(y, str):
+                raise ActionSetInputTypeValidationError()
+
+        action = MyActionSet(input_validation=validate)
+
+        self._check_input_validation(action)
+
+    @staticmethod
+    def _check_input_validation(action: Action):
+        action.run_with_data(x=1, y="abc", z=3)
+
+        with pytest.raises(ActionSetInputValidationError) as err:
+            action.run_with_data(x=1)
+
+        with pytest.raises(ActionSetInputValidationError) as err:
+            action.run_with_data(x="not int", y="abc")

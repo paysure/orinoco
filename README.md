@@ -267,10 +267,10 @@ my_typed_action.output_as(key="x_doubled", type_=MyNumber)
 my_typed_action.output_as(key="different_key")
 ```
 
-##### Changing input signature
+##### Changing input name
 
 ```
-class MyAction:
+class MyAction(TypedAction):
     def __call__(self, x: int) -> int:
         ...
         
@@ -415,6 +415,43 @@ ActionSet([Action1(), Action2(), Action3()]).as_guarded()
 
 Result action data will contain only "c", "d", "new_e_name" and "new_f_name" keys.
 
+
+##### Input data validation
+
+Action data for `ActionSet` can be validated to ensure that the action set will have all required inputs. This can be 
+done by adding inner `Input` class to the action set or explicitly via `input_validation` argument.
+
+```
+class MyActionSet(ActionSet):
+    ACTIONS = [...]
+
+    class Input:
+        x: int
+        y: str
+```
+
+```
+class MyActionSet(ActionSet):
+    ACTIONS = []
+
+class Input(BaseModel):
+    x: int
+    y: str
+
+action = MyActionSet(input_validation=Input)
+```
+
+
+```
+class MyActionSet(ActionSet):
+    ACTIONS = [...]
+
+def validate(x, y, **kwargs):
+    # Can raise `ActionSetInputTypeValidationError` or `ActionSetInputValidationMissingValueError`
+    ...
+
+MyActionSet(input_validation=validate)
+```
 
 ##### EventSet
 

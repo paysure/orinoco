@@ -63,3 +63,15 @@ class RunnableOnlyInAsyncContext(BaseActionException):
 
 class RetryError(BaseActionException):
     pass
+
+
+class ActionSetInputValidationError(BaseActionException):
+    pass
+
+
+class ActionSetInputValidationMissingValueError(ActionSetInputValidationError):
+    pass
+
+
+class ActionSetInputTypeValidationError(ActionSetInputValidationError):
+    pass
