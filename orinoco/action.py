@@ -18,9 +18,16 @@ from typing import (
     List,
 )
 
+from pydantic import Extra, ValidationError, BaseModel
+
 from orinoco import config
 from orinoco.entities import ActionData, Signature
-from orinoco.exceptions import ActionNotProperlyConfigured, BaseActionException
+from orinoco.exceptions import (
+    ActionNotProperlyConfigured,
+    BaseActionException,
+    ActionSetInputValidationMissingValueError,
+    ActionSetInputTypeValidationError,
+)
 from orinoco.helpers import compose
 from orinoco.observers import ActionsLog
 from orinoco.tags import SystemActionTag
@@ -381,14 +388,25 @@ class ActionSet(Action, SystemActionTag):
     ACTIONS: Optional[Iterable[ActionT]] = None
 
     def __init__(
-        self, actions: Optional[Iterable[ActionT]] = None, description: Optional[str] = None, name: Optional[str] = None
+        self,
+        actions: Optional[Iterable[ActionT]] = None,
+        description: Optional[str] = None,
+        name: Optional[str] = None,
+        input_validation: Optional[Union[Type, Callable[[Any], None]]] = None,
     ):
+        """
+        :input_validation: Dataclass/pydantic base model or callable which validates input data. It will be used for
+        validation of input data before action execution. Note that it needs to be able to handle extra kwargs.
+        """
         super().__init__(description=description, name=name)
         self.actions = actions or self.ACTIONS or []
+        self.input_validation = input_validation or self._construct_inner_input_dataclass()
 
     @record_action
     @verbose_action_exception
     def run(self, action_data: ActionDataT) -> ActionDataT:
+        self._validate_input(action_data)
+
         for action in self.actions:
             if action_data.skip_processing:
                 return action_data
@@ -399,6 +417,8 @@ class ActionSet(Action, SystemActionTag):
     @async_record_action
     @async_verbose_action_exception
     async def async_run(self, action_data: ActionDataT) -> ActionDataT:
+        self._validate_input(action_data)
+
         for action in self.actions:
             if action_data.skip_processing:
                 return action_data
@@ -408,6 +428,35 @@ class ActionSet(Action, SystemActionTag):
 
     def as_guarded(self) -> GuardedActionSet:
         return GuardedActionSet(action_set=self)
+
+    def get_input_validation_cls(self) -> Optional[BaseModel]:
+        if isinstance(self.input_validation, BaseModel):
+            return self.input_validation
+
+    def _validate_input(self, action_data: ActionDataT) -> None:
+        if self.input_validation:
+            try:
+                self.input_validation(**action_data.as_keyed_dict())
+            except TypeError as err:
+                raise ActionSetInputValidationMissingValueError(
+                    f"Missing key in action data for action set {self.name}: {err}"
+                ) from err
+            except ValidationError as err:
+                raise ActionSetInputTypeValidationError(
+                    f"Type validation failed for action set {self.name}: {err}"
+                ) from err
+
+    @classmethod
+    def _construct_inner_input_dataclass(cls) -> Optional[Type[BaseModel]]:
+        if hasattr(cls, "Input"):
+            if issubclass(cls.Input, BaseModel):
+                return cls.Input
+
+            class Config:
+                extra = Extra.allow
+                arbitrary_types_allowed = True
+
+            return type("Input", (BaseModel,), {"Config": Config, "__annotations__": cls.Input.__annotations__})
 
 
 class AtomicActionSet(ActionSet, SystemActionTag):
