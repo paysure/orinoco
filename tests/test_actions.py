@@ -890,6 +890,18 @@ class TestActionSetInputValidation:
 
         self._check_input_validation(action)
 
+    def test_arbitrary_type(self):
+        class MyClass:
+            pass
+
+        class MyActionSet(ActionSet):
+            ACTIONS = []
+
+            class Input:
+                x: MyClass
+
+        MyActionSet().run_with_data(x=MyClass())
+
     @staticmethod
     def _check_input_validation(action: Action):
         action.run_with_data(x=1, y="abc", z=3)

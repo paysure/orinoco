@@ -18,8 +18,7 @@ from typing import (
     List,
 )
 
-from pydantic import Extra, ValidationError
-from pydantic.dataclasses import dataclass
+from pydantic import Extra, ValidationError, BaseModel
 
 from orinoco import config
 from orinoco.entities import ActionData, Signature
@@ -444,7 +443,7 @@ class ActionSet(Action, SystemActionTag):
                 ) from err
 
     @classmethod
-    def _construct_inner_input_dataclass(cls) -> Optional[Type]:
+    def _construct_inner_input_dataclass(cls) -> Optional[Type[BaseModel]]:
         if hasattr(cls, "Input"):
             input_cls = cls.Input
 
@@ -452,8 +451,7 @@ class ActionSet(Action, SystemActionTag):
                 extra = Extra.allow
                 arbitrary_types_allowed = True
 
-            input_cls.Config = Config
-            return dataclass(input_cls)
+            return type("Input", (BaseModel,), {"Config": Config, "__annotations__": input_cls.__annotations__})
 
 
 class AtomicActionSet(ActionSet, SystemActionTag):
