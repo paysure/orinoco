@@ -674,6 +674,25 @@ def test_atomic_context() -> None:
     assert ["cm_start", "action1_executed", "action2_executed", "cm_end"] == _log
 
 
+def test_atomic_from_action_set_context() -> None:
+    _log = []
+
+    @contextmanager
+    def logger() -> None:
+        _log.append("cm_start")
+        yield
+        _log.append("cm_end")
+
+    ActionSet(
+        actions=[
+            GenericEvent(lambda ad: _log.append("action1_executed"))
+            >> GenericEvent(lambda ad: _log.append("action2_executed"))
+        ],
+    ).as_atomic(logger).run_with_data()
+
+    assert ["cm_start", "action1_executed", "action2_executed", "cm_end"] == _log
+
+
 def test_async_atomic_context() -> None:
     _log = []
 

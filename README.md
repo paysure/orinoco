@@ -490,6 +490,17 @@ We could, for instance, wrap `ActionSet` within a DB transaction:
 AtomicActionSet(actions=[GetModelData(), CreateModel()], atomic_context_manager=transaction.atomic)
 ```
 
+Atomic action sets can be created from regular `ActionSet`:
+
+```
+ActionSet(actions=[GetModelData(), CreateModel()]).as_atomic(transaction.atomic)
+```
+
+Or async:
+```
+ActionSet(actions=[GetModelData(), CreateModel()]).as_async_atomic(transaction.atomic)
+```
+
 #### Generic actions
 
 Generic actions are used to dynamically define actions, usually via lambda functions. There 4 types of them:
