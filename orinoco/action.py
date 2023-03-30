@@ -346,7 +346,7 @@ class GuardedActionSet(Action):
 
     @classmethod
     def _remove_keys(cls, action_data: ActionDataT, keys_to_keep: List[str]) -> ActionDataT:
-        if not desired_keys:
+        if not keys_to_keep:
             return action_data.evolve_self(data=tuple())
 
         return action_data.remove_many(
