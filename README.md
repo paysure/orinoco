@@ -270,7 +270,7 @@ my_typed_action.output_as(key="different_key")
 ##### Changing input signature
 
 ```
-class MyAction:
+class MyAction(TypedAction):
     def __call__(self, x: int) -> int:
         ...
         

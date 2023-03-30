@@ -350,7 +350,7 @@ class GuardedActionSet(Action):
             return action_data.evolve_self(data=tuple())
 
         return action_data.remove_many(
-            searched_signatures=cls._get_additive_signatures(action_data, keys_to_keep),
+            searched_signatures=cls._get_remaining_signatures(action_data, keys_to_keep),
             exact_match=False,
             ignore_non_existent=False,
         )
