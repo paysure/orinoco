@@ -433,6 +433,22 @@ class ActionSet(Action, SystemActionTag):
         if isinstance(self.input_validation, BaseModel):
             return self.input_validation
 
+    def as_atomic(self, atomic_context_manager) -> "AtomicActionSet":
+        return AtomicActionSet(
+            actions=self.actions,
+            description=self.description,
+            name=self.name,
+            atomic_context_manager=atomic_context_manager,
+        )
+
+    def as_async_atomic(self, atomic_context_manager) -> "AsyncAtomicActionSet":
+        return AsyncAtomicActionSet(
+            actions=self.actions,
+            description=self.description,
+            name=self.name,
+            atomic_context_manager=atomic_context_manager,
+        )
+
     def _validate_input(self, action_data: ActionDataT) -> None:
         if self.input_validation:
             try:
@@ -478,12 +494,7 @@ class AtomicActionSet(ActionSet, SystemActionTag):
     @verbose_action_exception
     def run(self, action_data: ActionDataT) -> ActionDataT:
         with self.atomic_context_manager():
-            for action in self.actions:
-                if action_data.skip_processing:
-                    return action_data
-
-                action_data = action.run(action_data)
-            return action_data
+            return super().run(action_data)
 
 
 class AsyncAtomicActionSet(ActionSet, SystemActionTag):
@@ -493,8 +504,8 @@ class AsyncAtomicActionSet(ActionSet, SystemActionTag):
 
     def __init__(
         self,
-        actions: Iterable[ActionT],
         atomic_context_manager: Callable[[], AsyncContextManager[None]],
+        actions: Optional[Iterable[ActionT]] = None,
         description: Optional[str] = None,
         name: Optional[str] = None,
     ):
@@ -505,12 +516,7 @@ class AsyncAtomicActionSet(ActionSet, SystemActionTag):
     @async_verbose_action_exception
     async def async_run(self, action_data: ActionDataT) -> ActionDataT:
         async with self.atomic_context_manager():
-            for action in self.actions:
-                if action_data.skip_processing:
-                    return action_data
-
-                action_data = await action.async_run(action_data)
-            return action_data
+            return await super().async_run(action_data)
 
 
 class Then(ActionSet, SystemActionTag):
