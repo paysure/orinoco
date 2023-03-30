@@ -1,5 +1,6 @@
 import asyncio
 from dataclasses import dataclass
+from typing import Optional, Generator
 
 import pytest
 from typing_extensions import Annotated
@@ -268,3 +269,42 @@ def _test_condition(is_positive: TypedCondition) -> None:
 
     with pytest.raises(ConditionNotMet):
         is_positive.run_with_data(value=-10)
+
+
+def test_as_input(double_typed_action: TypedAction) -> None:
+    class MyNumber(int):
+        pass
+
+    result = double_typed_action.input_as(x="different_input").run_with_data(different_input=MyNumber(3))
+
+    assert result.get("double") == 6
+
+
+def test_default_inputs():
+    class WithDefaultAdd(TypedAction):
+        def __call__(self, x: int, y: int = 1) -> Annotated[int, "sum"]:
+            return x + y
+
+    assert WithDefaultAdd().run_with_data(x=1).get_by_key("sum") == 2
+    assert WithDefaultAdd().run_with_data(x=1, y=4).get_by_key("sum") == 5
+
+
+def test_optional_output():
+    class OptionalOutput(TypedAction):
+        def __call__(self, x: int) -> Annotated[Optional[int], "sum"]:
+            return x if x > 0 else None
+
+    assert OptionalOutput().run_with_data(x=1).get_by_key("sum") == 1
+    assert OptionalOutput().run_with_data(x=-1).get_by_key("sum") is None
+
+
+def test_generator_action():
+    class GeneratorAction(TypedAction):
+        def __call__(self, x: int) -> Annotated[Generator[int, None, None], "my_gen"]:
+            yield x
+            yield x + 1
+
+    gen = GeneratorAction().run_with_data(x=1).get("my_gen")
+    assert isinstance(gen, Generator)
+    assert next(gen) == 1
+    assert next(gen) == 2

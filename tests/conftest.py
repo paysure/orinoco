@@ -4,7 +4,9 @@ import pytest
 from typing_extensions import Annotated
 
 from orinoco import config
+from orinoco.condition import Condition
 from orinoco.typed_action import TypedAction, TypedCondition
+from orinoco.types import ActionDataT
 
 
 @pytest.fixture
@@ -40,12 +42,30 @@ def success_after_attempts_typed_action() -> Type[TypedCondition]:
 
 
 @pytest.fixture
-def double_typed_action() -> TypedAction:
+def double_typed_action(double_typed_action_cls) -> TypedAction:
+    return double_typed_action_cls()
+
+
+@pytest.fixture
+def double_typed_action_cls() -> Type[TypedAction]:
     class Double(TypedAction):
         def __call__(self, x: int) -> Annotated[int, "double"]:
             return x * 2
 
-    return Double()
+    return Double
+
+
+@pytest.fixture
+def check_action_data_fields_action_cls() -> Type[Condition]:
+    class CheckFieldsInActionData(Condition):
+        def __init__(self, *fields: str):
+            super().__init__()
+            self.fields = fields
+
+        def _is_valid(self, action_data: ActionDataT) -> bool:
+            return set(self.fields) == {signature.key for signature in action_data.signatures}
+
+    return CheckFieldsInActionData
 
 
 @pytest.fixture

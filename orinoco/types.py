@@ -30,6 +30,7 @@ class SignatureT(Generic[T], ImmutableEvolvableModelT, ABC):
     type_: Optional[Type[T]]
     tags: Set[str]
     key: Optional[str]
+    default_value: Any
 
     @abstractmethod
     def match(self, other_signature: "SignatureT[T]") -> bool:
@@ -184,6 +185,10 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
 
     @abstractmethod
     def with_new_execution_meta(self) -> "ActionDataT":
+        pass
+
+    @abstractmethod
+    def rename(self, key: str, new_key: str) -> "ActionDataT":
         pass
 
 

@@ -80,7 +80,6 @@ class Condition(Action, ABC):
             format_dict = {
                 k: action_data.get_by_key(k, default=self.DEFAULT_FORMAT_VALUE) for k in fail_message_format_args
             }
-            print(format_dict)
             fail_message = fail_message.format(**format_dict)
         raise self.error_cls(
             "{}{} failed: {}".format("not " if self.is_inverted else "", self.__class__.__name__, fail_message)

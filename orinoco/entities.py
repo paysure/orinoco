@@ -2,7 +2,7 @@ import abc
 from functools import partial
 from typing import Dict, Any, Optional, Set, Type, List, Tuple, Sequence, ClassVar, Generic, Awaitable, Union
 
-from pydantic import Field
+from pydantic import Field, validator
 
 from orinoco.exceptions import SearchError, NothingFound, FoundMoreThanOne, AlreadyRegistered
 from orinoco.helpers import initialize
@@ -26,7 +26,7 @@ class ImmutableEvolvableModel(ImmutableEvolvableModelT, abc.ABC):
 
 
 class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
-    type_: Optional[Type[T]] = None
+    type_: Optional[Any] = None
     tags: Set[str] = Field(default_factory=set)
     key: Optional[str] = None
 
@@ -51,6 +51,10 @@ class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
     def __class_getitem__(cls: T, _: Any) -> T:
         # Fix for pydantic to support generic types (expressions like `SignatureT[bool]`)
         return cls
+
+
+class SignatureWithDefaultValue(Signature[T]):
+    default_value: T
 
 
 class ActionConfig(Generic[T], ImmutableEvolvableModel, ActionConfigT[T]):
@@ -247,7 +251,11 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         if check_if_exists:
             try:
                 self.get_by_signature(searched_signature=signature)
-                raise AlreadyRegistered("Entity with signature {} is already registered".format(signature))
+                raise AlreadyRegistered(
+                    "Entity with signature {} is already registered. Signatures: {}".format(
+                        signature, [signature.key for signature in self.signatures]
+                    )
+                )
             except SearchError:
                 pass
 
@@ -409,6 +417,15 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         :return: Observer from the observers attached to this container
         """
         return self._ensure_one([observer for observer in self.observers if isinstance(observer, observer_cls)])
+
+    def rename(self, key: str, new_key: str) -> "ActionData":
+        new_data = []
+        for signature, value in self.data:
+            if signature.key == key:
+                new_data.append((signature.evolve_self(key=new_key), value))
+            else:
+                new_data.append((signature, value))
+        return self.evolve_self(data=tuple(new_data))
 
     @classmethod
     def _get_from_nested(cls, key: str, data: Dict[str, Any], default: Optional[Any] = None) -> Any:
