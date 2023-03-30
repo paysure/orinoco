@@ -361,7 +361,7 @@ class GuardedActionSet(Action):
         return action_data
 
     @staticmethod
-    def _get_additive_signatures(action_data: ActionDataT, keys: List[str]) -> List[Signature]:
+    def _get_remaining_signatures(action_data: ActionDataT, keys: List[str]) -> List[Signature]:
         return [signature for signature in action_data.signatures if signature.key not in keys]
 
     @property
