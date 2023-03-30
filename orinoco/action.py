@@ -330,7 +330,7 @@ class GuardedActionSet(Action):
             partial(self._remove_keys, desired_keys=self._input_keys),
             partial(self._rename_keys, keys=self.renamed_inputs),
             self.action_set.run,
-            partial(self._remove_keys, desired_keys=self._output_keys),
+            partial(self._remove_keys, keys_to_keep=self._output_keys),
             partial(self._rename_keys, keys=self.renamed_outputs),
         )(action_data)
 
