@@ -26,7 +26,7 @@ class ImmutableEvolvableModelT(BaseModel, ABC):
         pass
 
 
-class SignatureT(Generic[T], ImmutableEvolvableModelT, ABC):
+class SignatureT(ImmutableEvolvableModelT, Generic[T], ABC):
     type_: Optional[Type[T]]
     tags: Set[str]
     key: Optional[str]
@@ -37,7 +37,7 @@ class SignatureT(Generic[T], ImmutableEvolvableModelT, ABC):
         pass
 
 
-class ActionConfigT(Generic[T], ImmutableEvolvableModelT, ABC):
+class ActionConfigT(ImmutableEvolvableModelT, Generic[T], ABC):
     INPUT: Optional[Dict[str, SignatureT[Any]]]
     OUTPUT: Optional[SignatureT[T]]
 

@@ -25,7 +25,7 @@ class ImmutableEvolvableModel(ImmutableEvolvableModelT, abc.ABC):
         return self.copy(update=kwargs)
 
 
-class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
+class Signature(ImmutableEvolvableModel, SignatureT[T], Generic[T]):
     type_: Optional[Any] = None
     tags: Set[str] = Field(default_factory=set)
     key: Optional[str] = None
@@ -58,7 +58,7 @@ class SignatureWithDefaultValue(Signature[T]):
     default_value: T
 
 
-class ActionConfig(Generic[T], ImmutableEvolvableModel, ActionConfigT[T]):
+class ActionConfig(ImmutableEvolvableModel, ActionConfigT[T], Generic[T]):
     INPUT: Optional[Dict[str, SignatureT[Any]]] = None
     OUTPUT: Optional[SignatureT[T]] = None
 
