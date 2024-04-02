@@ -29,6 +29,7 @@ class Signature(Generic[T], ImmutableEvolvableModel, SignatureT[T]):
     type_: Optional[Any] = None
     tags: Set[str] = Field(default_factory=set)
     key: Optional[str] = None
+    default_value: Any = None
 
     def match(self, other_signature: "SignatureT[T]") -> bool:
         """
