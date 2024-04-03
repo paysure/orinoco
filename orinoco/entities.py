@@ -22,7 +22,7 @@ from orinoco.types import (
 
 class ImmutableEvolvableModel(ImmutableEvolvableModelT, abc.ABC):
     def evolve_self(self: BaseModelT, **kwargs: Any) -> BaseModelT:
-        return self.copy(update=kwargs)
+        return self.model_copy(update=kwargs)
 
 
 class Signature(ImmutableEvolvableModel, SignatureT[T], Generic[T]):

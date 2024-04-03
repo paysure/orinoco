@@ -63,9 +63,9 @@ class AbstractRetry(Generic[ErrorT], Action, abc.ABC):
 
     def _get_new_retry_info(self, is_successful: bool, retry_counter: int, previous_retry_info: RetryInfo) -> RetryInfo:
         retry_status = self._get_retry_status(is_successful, retry_counter)
-        retry_info = previous_retry_info.copy(update={"status": retry_status, "retry_count": retry_counter})
+        retry_info = previous_retry_info.model_copy(update={"status": retry_status, "retry_count": retry_counter})
         if retry_status is RetryStatus.SUCCESSFUL:
-            return retry_info.copy(update={"finished": datetime.utcnow()})
+            return retry_info.model_copy(update={"finished": datetime.utcnow()})
 
         return retry_info
 
