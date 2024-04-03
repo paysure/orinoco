@@ -38,7 +38,7 @@ class SignatureT(ImmutableEvolvableModelT, Generic[T], ABC):
 
 
 class ActionConfigT(ImmutableEvolvableModelT, Generic[T], ABC):
-    INPUT: Optional[Dict[str, SignatureT[Any]]]
+    INPUT: Optional[Dict[str, SignatureT]]
     OUTPUT: Optional[SignatureT[T]]
 
 
@@ -61,14 +61,14 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
     NOT_FOUND: ClassVar = object()
 
     # data: List[Tuple[SignatureT[Any], Any]]
-    data: Tuple[Tuple[SignatureT[Any], Any], ...]
-    futures: List[Any]
+    data: Tuple[Tuple[SignatureT, Any], ...]
+    futures: List
     observers: List[ObserverT]
     skip_processing: bool
 
     @abstractmethod
     # @property
-    def signatures(self) -> List[SignatureT[Any]]:
+    def signatures(self) -> List[SignatureT]:
         pass
 
     @abstractmethod
@@ -88,11 +88,11 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def get_or_default(self, key: str, default: Optional[Any] = None) -> Any:
+    def get_or_default(self, key: str, default: Optional = None) -> Any:
         pass
 
     @abstractmethod
-    def find_or_default(self, key: str, default: Optional[Any] = None) -> Any:
+    def find_or_default(self, key: str, default: Optional = None) -> Any:
         pass
 
     @abstractmethod
@@ -133,14 +133,14 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
 
     @abstractmethod
     def remove(
-        self, searched_signature: SignatureT[Any], ignore_non_existent: bool = False, exact_match: bool = True
+        self, searched_signature: SignatureT, ignore_non_existent: bool = False, exact_match: bool = True
     ) -> "ActionDataT":
         pass
 
     @abstractmethod
     def remove_many(
         self,
-        searched_signatures: Sequence[SignatureT[Any]],
+        searched_signatures: Sequence[SignatureT],
         ignore_non_existent: bool = False,
         exact_match: bool = True,
     ) -> "ActionDataT":
@@ -176,7 +176,7 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def signature_is_in(self, searched_signature: SignatureT[Any]) -> bool:
+    def signature_is_in(self, searched_signature: SignatureT) -> bool:
         pass
 
     @abstractmethod

@@ -26,7 +26,7 @@ class ImmutableEvolvableModel(ImmutableEvolvableModelT, abc.ABC):
 
 
 class Signature(ImmutableEvolvableModel, SignatureT[T], Generic[T]):
-    type_: Optional[Any] = None
+    type_: Optional = None
     tags: Set[str] = Field(default_factory=set)
     key: Optional[str] = None
     default_value: Any = None
@@ -59,13 +59,13 @@ class SignatureWithDefaultValue(Signature[T]):
 
 
 class ActionConfig(ImmutableEvolvableModel, ActionConfigT[T], Generic[T]):
-    INPUT: Optional[Dict[str, SignatureT[Any]]] = None
+    INPUT: Optional[Dict[str, SignatureT]] = None
     OUTPUT: Optional[SignatureT[T]] = None
 
     @classmethod
     def create_strict(
         cls,
-        input_: Optional[Dict[str, Type[Any]]] = None,
+        input_: Optional[Dict[str, Type]] = None,
         output_type: Optional[Type[T]] = None,
         output_name: Optional[str] = None,
     ) -> "ActionConfig[T]":
@@ -95,8 +95,8 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
     NOT_FOUND: ClassVar = object()
     DEFAULT_OBSERVERS_CLASSES: ClassVar = (ExecutionTimeObserver, ActionsLog)
 
-    data: Tuple[Tuple[SignatureT[Any], Any], ...] = Field(default_factory=tuple)
-    futures: List[Awaitable[Any]] = Field(default_factory=list)
+    data: Tuple[Tuple[SignatureT, Any], ...] = Field(default_factory=tuple)
+    futures: List[Awaitable] = Field(default_factory=list)
     observers: List[ObserverT] = Field(default_factory=partial(initialize, DEFAULT_OBSERVERS_CLASSES))
 
     skip_processing: bool = False
@@ -132,7 +132,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
                 "Failed to find {}\nPresent signatures: {}".format(searched_signature, self.signatures)
             ) from err
 
-    def get_or_default(self, key: str, default: Optional[Any] = None) -> Any:
+    def get_or_default(self, key: str, default: Optional = None) -> Any:
         """
         Get data by key or return a default value
         """
@@ -141,7 +141,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         except (NothingFound, SearchError):
             return default
 
-    def find_or_default(self, key: str, default: Optional[Any] = None) -> Any:
+    def find_or_default(self, key: str, default: Optional = None) -> Any:
         """
         Find a single value with matching or default
         """
@@ -230,7 +230,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         existing = {}
         for key in data.keys():
             try:
-                signature: SignatureT[Any] = self._ensure_one(self.find_with_signature(Signature(key=key)))[0]
+                signature: SignatureT = self._ensure_one(self.find_with_signature(Signature(key=key)))[0]
                 existing[key] = signature
 
             except SearchError:
@@ -283,7 +283,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         return instance
 
     def remove(
-        self, searched_signature: SignatureT[Any], ignore_non_existent: bool = False, exact_match: bool = True
+        self, searched_signature: SignatureT, ignore_non_existent: bool = False, exact_match: bool = True
     ) -> "ActionData":
         """
         Remove a value matching the signature
@@ -307,7 +307,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
 
     def remove_many(
         self,
-        searched_signatures: Sequence[SignatureT[Any]],
+        searched_signatures: Sequence[SignatureT],
         ignore_non_existent: bool = False,
         exact_match: bool = True,
     ) -> "ActionData":
@@ -335,7 +335,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         """
         return ActionData(data=self.data)
 
-    def with_future(self, future: Awaitable[Any]) -> "ActionData":
+    def with_future(self, future: Awaitable) -> "ActionData":
         """
         Log futures references
         """
@@ -386,7 +386,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         return self.evolve_self(data=self._keyed_dict_as_values_with_signatures(data))
 
     @property
-    def signatures(self) -> List[SignatureT[Any]]:
+    def signatures(self) -> List[SignatureT]:
         """
         List registered signatures
         """
@@ -402,7 +402,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         except NothingFound:
             return False
 
-    def signature_is_in(self, searched_signature: SignatureT[Any]) -> bool:
+    def signature_is_in(self, searched_signature: SignatureT) -> bool:
         """
         Find if the signature is in the data
         """
@@ -429,7 +429,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         return self.evolve_self(data=tuple(new_data))
 
     @classmethod
-    def _get_from_nested(cls, key: str, data: Dict[str, Any], default: Optional[Any] = None) -> Any:
+    def _get_from_nested(cls, key: str, data: Dict[str, Any], default: Optional = None) -> Any:
         first_dot_index = key.find(".")
         if first_dot_index > 0:
             if key[:first_dot_index] not in data:
@@ -455,5 +455,5 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         return first_value
 
     @staticmethod
-    def _keyed_dict_as_values_with_signatures(data: Dict[str, Any]) -> Tuple[Tuple[SignatureT[Any], Any], ...]:
+    def _keyed_dict_as_values_with_signatures(data: Dict[str, Any]) -> Tuple[Tuple[SignatureT, Any], ...]:
         return tuple((Signature(key=key, type_=type(value)), value) for key, value in data.items())
