@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any, TypeVar, Optional, Type, List, Tuple, Sequence, ClassVar, Set, Generic
 
-from pydantic import BaseModel
+from pydantic import ConfigDict, BaseModel
 
 
 T = TypeVar("T")
@@ -17,9 +17,7 @@ class NamespacedActionT:
 
 
 class ImmutableEvolvableModelT(BaseModel, ABC):
-    class Config:
-        allow_mutation = False
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(frozen=True, arbitrary_types_allowed=True)
 
     @abstractmethod
     def evolve_self(self: T, **kwargs: Any) -> T:
@@ -27,10 +25,10 @@ class ImmutableEvolvableModelT(BaseModel, ABC):
 
 
 class SignatureT(ImmutableEvolvableModelT, Generic[T], ABC):
-    type_: Optional[Type[T]]
+    type_: Optional[Type[T]] = None
     tags: Set[str]
-    key: Optional[str]
-    default_value: Any
+    key: Optional[str] = None
+    default_value: Any = None
 
     @abstractmethod
     def match(self, other_signature: "SignatureT[T]") -> bool:
@@ -38,8 +36,8 @@ class SignatureT(ImmutableEvolvableModelT, Generic[T], ABC):
 
 
 class ActionConfigT(ImmutableEvolvableModelT, Generic[T], ABC):
-    INPUT: Optional[Dict[str, SignatureT]]
-    OUTPUT: Optional[SignatureT[T]]
+    INPUT: Optional[Dict[str, SignatureT]] = None
+    OUTPUT: Optional[SignatureT[T]] = None
 
 
 class ObserverT(ABC):

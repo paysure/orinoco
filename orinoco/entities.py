@@ -26,10 +26,7 @@ class ImmutableEvolvableModel(ImmutableEvolvableModelT, abc.ABC):
 
 
 class Signature(ImmutableEvolvableModel, SignatureT[T], Generic[T]):
-    type_: Optional = None
     tags: Set[str] = Field(default_factory=set)
-    key: Optional[str] = None
-    default_value: Any = None
 
     def match(self, other_signature: "SignatureT[T]") -> bool:
         """
