@@ -10,11 +10,10 @@ python = "^3.9"
 pydantic = "^2.6"
 pydantic-settings = "^2.2.1"
 returns = "^0.19.0"
-mypy = "^0.991"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
-mypy = "^0.991"
+mypy = "^1.9.0"
 Sphinx = "^7.2.6"
 furo = "2024.1.29"
 m2r2 = "^0.2.7"
