@@ -86,11 +86,11 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def get_or_default(self, key: str, default: Optional = None) -> Any:
+    def get_or_default(self, key: str, default: Any = None) -> Any:
         pass
 
     @abstractmethod
-    def find_or_default(self, key: str, default: Optional = None) -> Any:
+    def find_or_default(self, key: str, default: Any = None) -> Any:
         pass
 
     @abstractmethod

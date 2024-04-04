@@ -121,7 +121,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
                 "Failed to find {}\nPresent signatures: {}".format(searched_signature, self.signatures)
             ) from err
 
-    def get_or_default(self, key: str, default: Optional = None) -> Any:
+    def get_or_default(self, key: str, default: Any = None) -> Any:
         """
         Get data by key or return a default value
         """
@@ -130,7 +130,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         except (NothingFound, SearchError):
             return default
 
-    def find_or_default(self, key: str, default: Optional = None) -> Any:
+    def find_or_default(self, key: str, default: Any = None) -> Any:
         """
         Find a single value with matching or default
         """
@@ -418,7 +418,7 @@ class ActionData(ImmutableEvolvableModel, ActionDataT):
         return self.evolve_self(data=tuple(new_data))
 
     @classmethod
-    def _get_from_nested(cls, key: str, data: Dict[str, Any], default: Optional = None) -> Any:
+    def _get_from_nested(cls, key: str, data: Dict[str, Any], default: Any = None) -> Any:
         first_dot_index = key.find(".")
         if first_dot_index > 0:
             if key[:first_dot_index] not in data:
