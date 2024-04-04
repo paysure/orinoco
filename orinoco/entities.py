@@ -46,10 +46,6 @@ class Signature(ImmutableEvolvableModel, SignatureT[T], Generic[T]):
             return False
         return True
 
-    def __class_getitem__(cls: T, _: Any) -> T:
-        # Fix for pydantic to support generic types (expressions like `SignatureT[bool]`)
-        return cls
-
 
 class SignatureWithDefaultValue(Signature[T]):
     default_value: T
@@ -70,10 +66,6 @@ class ActionConfig(ImmutableEvolvableModel, ActionConfigT[T], Generic[T]):
             INPUT=({name: Signature(type_=type_, key=name) for name, type_ in input_.items()}) if input_ else None,
             OUTPUT=Signature(type_=output_type, key=output_name),
         )
-
-    def __class_getitem__(cls: T, _: Any) -> T:
-        # Fix for pydantic to support generic types (expressions like `SignatureT[bool]`)
-        return cls
 
 
 class ActionData(ImmutableEvolvableModel, ActionDataT):
