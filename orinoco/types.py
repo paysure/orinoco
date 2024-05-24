@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any, TypeVar, Optional, Type, List, Tuple, Sequence, ClassVar, Set, Generic
 
-from pydantic import BaseModel
+from pydantic import ConfigDict, BaseModel
 
 
 T = TypeVar("T")
@@ -17,29 +17,27 @@ class NamespacedActionT:
 
 
 class ImmutableEvolvableModelT(BaseModel, ABC):
-    class Config:
-        allow_mutation = False
-        arbitrary_types_allowed = True
+    model_config = ConfigDict(frozen=True, arbitrary_types_allowed=True)
 
     @abstractmethod
     def evolve_self(self: T, **kwargs: Any) -> T:
         pass
 
 
-class SignatureT(Generic[T], ImmutableEvolvableModelT, ABC):
-    type_: Optional[Type[T]]
+class SignatureT(ImmutableEvolvableModelT, Generic[T], ABC):
+    type_: Optional[Type[T]] = None
     tags: Set[str]
-    key: Optional[str]
-    default_value: Any
+    key: Optional[str] = None
+    default_value: Any = None
 
     @abstractmethod
     def match(self, other_signature: "SignatureT[T]") -> bool:
         pass
 
 
-class ActionConfigT(Generic[T], ImmutableEvolvableModelT, ABC):
-    INPUT: Optional[Dict[str, SignatureT[Any]]]
-    OUTPUT: Optional[SignatureT[T]]
+class ActionConfigT(ImmutableEvolvableModelT, Generic[T], ABC):
+    INPUT: Optional[Dict[str, SignatureT]] = None
+    OUTPUT: Optional[SignatureT[T]] = None
 
 
 class ObserverT(ABC):
@@ -61,14 +59,14 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
     NOT_FOUND: ClassVar = object()
 
     # data: List[Tuple[SignatureT[Any], Any]]
-    data: Tuple[Tuple[SignatureT[Any], Any], ...]
-    futures: List[Any]
+    data: Tuple[Tuple[SignatureT, Any], ...]
+    futures: List
     observers: List[ObserverT]
     skip_processing: bool
 
+    @property
     @abstractmethod
-    # @property
-    def signatures(self) -> List[SignatureT[Any]]:
+    def signatures(self) -> List[SignatureT]:
         pass
 
     @abstractmethod
@@ -88,11 +86,11 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def get_or_default(self, key: str, default: Optional[Any] = None) -> Any:
+    def get_or_default(self, key: str, default: Any = None) -> Any:
         pass
 
     @abstractmethod
-    def find_or_default(self, key: str, default: Optional[Any] = None) -> Any:
+    def find_or_default(self, key: str, default: Any = None) -> Any:
         pass
 
     @abstractmethod
@@ -133,14 +131,14 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
 
     @abstractmethod
     def remove(
-        self, searched_signature: SignatureT[Any], ignore_non_existent: bool = False, exact_match: bool = True
+        self, searched_signature: SignatureT, ignore_non_existent: bool = False, exact_match: bool = True
     ) -> "ActionDataT":
         pass
 
     @abstractmethod
     def remove_many(
         self,
-        searched_signatures: Sequence[SignatureT[Any]],
+        searched_signatures: Sequence[SignatureT],
         ignore_non_existent: bool = False,
         exact_match: bool = True,
     ) -> "ActionDataT":
@@ -176,7 +174,7 @@ class ActionDataT(ImmutableEvolvableModelT, ABC):
         pass
 
     @abstractmethod
-    def signature_is_in(self, searched_signature: SignatureT[Any]) -> bool:
+    def signature_is_in(self, searched_signature: SignatureT) -> bool:
         pass
 
     @abstractmethod
@@ -202,6 +200,7 @@ class ActionT(ABC):
 
     # @abstractmethod
     @property
+    @abstractmethod
     def action_name(self) -> str:
         pass
 

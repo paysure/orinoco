@@ -62,7 +62,7 @@ class LoopEvents(BaseLoop):
             yield action_data.evolve(**{self.iterating_key: value})
 
     @abstractmethod
-    def _get_generator(self, action_data: ActionDataT) -> Iterable[Any]:
+    def _get_generator(self, action_data: ActionDataT) -> Iterable:
         """
         :param action_data: Data container passed by actions
         :return: Iterable which provides the value which is set to the :class:`~orinoco.entities.ActionData`
@@ -85,7 +85,7 @@ class ForSideEffects(LoopEvents):
     which comes from the iterable "event_log"
     """
 
-    def __init__(self, iterating_key: str, method: Callable[[ActionDataT], Iterable[Any]]):
+    def __init__(self, iterating_key: str, method: Callable[[ActionDataT], Iterable]):
         """
         :param iterating_key: Key which will be propagated into the `ActionData` with the new value
         :param method: Method which returns the iterable to iterate over
@@ -114,7 +114,7 @@ class For(BaseLoop):
     def __init__(
         self,
         iterating_key: str,
-        method: Callable[[ActionDataT], Iterable[Any]],
+        method: Callable[[ActionDataT], Iterable],
         aggregated_field: Optional[str] = None,
         aggregated_field_new_name: Optional[str] = None,
         skip_none_for_aggregated_field: bool = False,
@@ -183,7 +183,7 @@ class AsyncLoopEvents(LoopEvents):
             yield action_data.evolve(**{self.iterating_key: value})
 
     @abstractmethod
-    def _get_generator(self, action_data: ActionDataT) -> AsyncIterable[Any]:
+    def _get_generator(self, action_data: ActionDataT) -> AsyncIterable:
         """
         :param action_data: Data container passed by actions
         :return: Iterable which provides the value which is set to the :class:`~orinoco.entities.ActionData`
@@ -206,7 +206,7 @@ class AsyncForSideEffects(AsyncLoopEvents):
     which comes from the async iterable "event_log"
     """
 
-    def __init__(self, iterating_key: str, method: Callable[[ActionDataT], AsyncIterable[Any]]):
+    def __init__(self, iterating_key: str, method: Callable[[ActionDataT], AsyncIterable]):
         """
         :param iterating_key: Key which will be propagated into the `ActionData` with the new value
         :param method: Method which returns the iterable to iterate over
@@ -225,7 +225,7 @@ class AsyncFor(BaseLoop):
     def __init__(
         self,
         iterating_key: str,
-        method: Callable[[ActionDataT], AsyncIterable[Any]],
+        method: Callable[[ActionDataT], AsyncIterable],
         aggregated_field: Optional[str] = None,
         aggregated_field_new_name: Optional[str] = None,
         skip_none_for_aggregated_field: bool = False,

@@ -6,7 +6,7 @@ from datetime import datetime
 from enum import Enum, auto
 from typing import Any, Callable, Type, Generic, Optional, cast
 
-from pydantic import BaseModel, Field
+from pydantic import ConfigDict, BaseModel, Field
 from returns import pipeline
 
 from returns.result import Failure, Result, Success
@@ -30,10 +30,7 @@ class RetryInfo(BaseModel):
 
     started: datetime = Field(default_factory=datetime.now)
     finished: Optional[datetime] = None
-
-    class Config:
-        arbitrary_types_allowed = False
-        allow_mutation = False
+    model_config = ConfigDict(frozen=True, arbitrary_types_allowed=False)
 
 
 class AbstractRetry(Generic[ErrorT], Action, abc.ABC):
@@ -66,9 +63,9 @@ class AbstractRetry(Generic[ErrorT], Action, abc.ABC):
 
     def _get_new_retry_info(self, is_successful: bool, retry_counter: int, previous_retry_info: RetryInfo) -> RetryInfo:
         retry_status = self._get_retry_status(is_successful, retry_counter)
-        retry_info = previous_retry_info.copy(update={"status": retry_status, "retry_count": retry_counter})
+        retry_info = previous_retry_info.model_copy(update={"status": retry_status, "retry_count": retry_counter})
         if retry_status is RetryStatus.SUCCESSFUL:
-            return retry_info.copy(update={"finished": datetime.utcnow()})
+            return retry_info.model_copy(update={"finished": datetime.utcnow()})
 
         return retry_info
 

@@ -6,7 +6,7 @@ from typing_extensions import Annotated, get_origin, get_args
 from orinoco.types import TypeT, AnnotationNameT
 
 
-def initialize(classes: Iterable[Type[Any]]) -> List[Any]:
+def initialize(classes: Iterable[Type]) -> List:
     return [cls_object() for cls_object in classes]
 
 

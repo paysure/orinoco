@@ -207,7 +207,7 @@ class PropertyCondition(Condition):
 
     PROPERTY_OBJECT: Optional[str] = None
     ATTRIBUTE: Optional[str] = None
-    EQUAL_TO: Optional[Any] = True
+    EQUAL_TO: Any = True
 
     SOMETHING: Any = object
 
