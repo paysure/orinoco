@@ -67,7 +67,7 @@ def test_implicit_actions_config_should_fail_in_strict_mode(with_strict_mode) ->
 
 def test_explicit_action_many_of_one_type() -> None:
     class DoubleValue(TypedAction[float]):
-        CONFIG = ActionConfig[float](
+        CONFIG = ActionConfig(
             INPUT=({"value": Signature(type_=float)}), OUTPUT=Signature(key="doubled_value", type_=float)
         )
 
@@ -89,7 +89,7 @@ def test_explicit_action_many_of_one_type() -> None:
 
 def test_explicit_action_with_already_existing_name() -> None:
     class DoubleValue(TypedAction[float]):
-        CONFIG = ActionConfig[float](
+        CONFIG = ActionConfig(
             INPUT=({"value": Signature(type_=float)}), OUTPUT=Signature(key="doubled_value", type_=float)
         )
 
@@ -106,7 +106,7 @@ def test_explicit_actions_with_tags() -> None:
         amount: float
 
     class MergeFirstTwoPayments(TypedAction[Payment]):
-        CONFIG = ActionConfig[Payment](
+        CONFIG = ActionConfig(
             INPUT={
                 "first": Signature(type_=Payment, tags={"first_payment"}),
                 "second": Signature(type_=Payment, tags={"second_payment"}),
@@ -158,7 +158,7 @@ def test_chaining_with_other_actions() -> None:
             self.sent_emails_to.append(user)
 
     class IsSuperUser(TypedAction[bool]):
-        CONFIG = ActionConfig[bool](
+        CONFIG = ActionConfig(
             INPUT={"user": Signature(type_=User)}, OUTPUT=Signature(key="is_super_user", type_=bool)
         )
 
@@ -241,7 +241,7 @@ def test_implicit_condition() -> None:
 
 def test_explicit_condition() -> None:
     class IsPositive(TypedCondition):
-        CONFIG = ActionConfig[bool](INPUT={"value": Signature(key="value")})
+        CONFIG = ActionConfig(INPUT={"value": Signature(key="value")})
 
         def __call__(self, value: float) -> bool:
             return value >= 0
