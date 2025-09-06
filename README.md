@@ -832,6 +832,32 @@ any_action.run_with_data(numbers=[-1, -2, 10])
 All `Action` pipelines can be executed synchronously or asynchronously by invoking dedicatted methods. Main async 
 execution methods are `async_run(action_data: ActionData)` and `async_run_with_data(**kwargs: Any)`. 
 
+### Executing pipelines in background or via Redis queue
+
+You can offload execution to different executors without changing your pipelines:
+
+```python
+from orinoco.executors import ProcessExecutor, RedisRQExecutor
+
+# Run as a separate background Python process and wait for result
+result = ProcessExecutor(join_timeout=30).submit("myapp.pipelines.MyPipeline", wait=True, user_id=123)
+assert result.success
+print(result.result.as_keyed_dict())
+
+# Fire-and-forget process; collect later
+executor = ProcessExecutor()
+pending = executor.submit("myapp.pipelines.MyPipeline", wait=False, user_id=123).job
+collected = executor.collect(pending, timeout=30)
+
+# Using Redis RQ (optional dependency: `pip install rq`)
+rq_exec = RedisRQExecutor(queue_name="pipelines")
+enqueued = rq_exec.submit("myapp.pipelines.MyPipeline", wait=False, user_id=123)
+# Later in the code or another service/worker
+final = RedisRQExecutor.collect(enqueued.job, timeout=60)
+```
+
+Both executors expect a dotted path to an action instance or action class. If a class path is provided, the class is instantiated with no arguments.
+
 ```
 class SendEmail(Action)
     sending_service = ...
